@@ -11,6 +11,7 @@ from typing import Iterable, List
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CORPUS_DIRS = [
     ROOT / "assets" / "corpus",
+    ROOT.parent / "kge-perspective" / "assets" / "corpus",
     Path.home() / "Desktop" / "TikTokDownloader-master" / "Volume" / "整理输出_按年份热度" / "程序员K哥",
 ]
 

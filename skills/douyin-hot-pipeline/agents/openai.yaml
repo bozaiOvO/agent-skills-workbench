@@ -1,0 +1,4 @@
+interface:
+  display_name: "抖音热度流水线"
+  short_description: "下载抖音博主、转写文字、按年份输出 topN 热度文本"
+  default_prompt: "使用本机 DouK-Downloader 和语音转文字工具，下载指定抖音博主的全部视频、转成同名 txt，并按评论收藏分享点赞综合分输出按年份排序的 topN 文本。"

@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "prompt": "把这个抖音博主主页全量下载下来，转文字，然后给我按 2024 年热度排个 top 榜。",
+    "expected": "先确认 URL、日期范围、是否保留源视频、是否刷新 cookie，再路由到完整 pipeline 命令。"
+  },
+  {
+    "id": 2,
+    "prompt": "我已经有 stem 了，不要重下，只重新做年度 top 排序。",
+    "expected": "直接选择 ranking only 或 skip-download/skip-transcribe 的命令，不误触发下载和转写。"
+  }
+]

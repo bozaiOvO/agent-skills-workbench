@@ -13,6 +13,7 @@ import argparse
 import glob
 import json
 import os
+import signal
 import shutil
 import subprocess
 import sys
@@ -177,6 +178,7 @@ import time
 
 MODE = "___MODE___"
 WECHAT_PATH = "___WECHAT_PATH___"
+SPAWN_HOME = "___SPAWN_HOME___"
 ATTACH_PID = ___ATTACH_PID___
 DURATION = ___DURATION___
 LOG_FILE = "___LOG_FILE___"
@@ -209,7 +211,14 @@ device = frida.get_local_device()
 
 if MODE == "spawn":
     print("  Spawning signed WeChat copy...")
-    pid = device.spawn([WECHAT_PATH])
+    spawn_env = None
+    if SPAWN_HOME:
+        spawn_env = {
+            "HOME": SPAWN_HOME,
+            "CFFIXED_USER_HOME": SPAWN_HOME,
+        }
+        print("  Using HOME=" + SPAWN_HOME)
+    pid = device.spawn([WECHAT_PATH], env=spawn_env)
     session = device.attach(pid)
 else:
     print("  Attaching to running signed WeChat copy...")
@@ -369,6 +378,7 @@ def run_frida_capture(
     copy_path: Path,
     target_salts: list[str],
     reset_log: bool,
+    spawn_home: str | None,
 ) -> None:
     print("\n[4/5] Capturing PBKDF2 calls with frida...")
     if reset_log and FRIDA_LOG.exists():
@@ -388,6 +398,7 @@ def run_frida_capture(
         FRIDA_HOST
         .replace("___MODE___", mode)
         .replace("___WECHAT_PATH___", str(wechat_binary))
+        .replace("___SPAWN_HOME___", spawn_home or "")
         .replace("___ATTACH_PID___", str(attach_pid))
         .replace("___DURATION___", str(duration))
         .replace("___LOG_FILE___", str(FRIDA_LOG))
@@ -416,6 +427,89 @@ def find_running_process(executable_path: str) -> int:
         if line.isdigit():
             return int(line)
     return 0
+
+
+def find_app_processes(app_path: Path) -> list[int]:
+    app_root = str(app_path.expanduser())
+    result = run_cmd(["ps", "-axo", "pid=,args="], check=False)
+    current_pid = os.getpid()
+    pids = []
+    for line in result.stdout.splitlines():
+        item = line.strip()
+        if not item:
+            continue
+        pid_text, _, args = item.partition(" ")
+        try:
+            pid = int(pid_text)
+        except ValueError:
+            continue
+        if pid == current_pid:
+            continue
+        # Match only actual processes whose executable lives inside this app bundle.
+        # Avoid broad pgrep patterns so the cleanup cannot kill this helper shell.
+        if args.startswith(f"{app_root}/Contents/"):
+            pids.append(pid)
+    return sorted(set(pids))
+
+
+def terminate_app_processes(app_path: Path, *, force: bool = False) -> None:
+    pids = find_app_processes(app_path)
+    if not pids:
+        print(f"  No running process under {app_path}")
+        return
+
+    print(f"  Terminating signed copy processes: {', '.join(map(str, pids))}")
+    for pid in pids:
+        try:
+            os.kill(pid, signal.SIGTERM)
+        except ProcessLookupError:
+            pass
+
+    alive = []
+    for _ in range(20):
+        alive = []
+        for pid in pids:
+            try:
+                os.kill(pid, 0)
+                alive.append(pid)
+            except ProcessLookupError:
+                pass
+        if not alive:
+            break
+        time.sleep(0.25)
+
+    if alive and force:
+        print(f"  Force killing leftover signed copy processes: {', '.join(map(str, alive))}")
+        for pid in alive:
+            try:
+                os.kill(pid, signal.SIGKILL)
+            except ProcessLookupError:
+                pass
+    elif alive:
+        print(f"  [WARN] signed copy processes still alive: {', '.join(map(str, alive))}")
+
+
+def post_capture_cleanup(
+    *,
+    copy_path: Path,
+    keep_signed_copy_running: bool,
+    restart_official: bool,
+    force_cleanup: bool,
+) -> None:
+    print("\n[cleanup] Restoring normal WeChat runtime...")
+    copy_path = copy_path.expanduser()
+    if keep_signed_copy_running:
+        print("  Skipped signed copy cleanup because --keep-signed-copy-running was set.")
+    elif copy_path.resolve() == WECHAT_APP.resolve():
+        print("  Skipped cleanup because the capture target is the official WeChat app.")
+    else:
+        terminate_app_processes(copy_path, force=force_cleanup)
+
+    if restart_official:
+        print(f"  Opening official WeChat: {WECHAT_APP}")
+        run_cmd(["open", str(WECHAT_APP)], check=False)
+    else:
+        print("  Skipped reopening official WeChat because --no-restart-official was set.")
 
 
 def read_captured_pbkdf2() -> list[dict]:
@@ -562,10 +656,30 @@ def main() -> None:
     parser.add_argument("--targets", default="sns,favorite")
     parser.add_argument("--db-base", default=None)
     parser.add_argument("--wechat-copy", default=str(WECHAT_COPY))
+    parser.add_argument(
+        "--spawn-home",
+        default=None,
+        help="Set HOME/CFFIXED_USER_HOME when spawning the signed WeChat copy.",
+    )
     parser.add_argument("--skip-prepare", action="store_true")
     parser.add_argument("--reuse-log", action="store_true", help="Do not delete /tmp/wechat_frida_keys.log before capture.")
     parser.add_argument("--list-dbs", action="store_true", help="Only print detected database salts.")
     parser.add_argument("--match-only", action="store_true", help="Only match keys from the existing frida log.")
+    parser.add_argument(
+        "--keep-signed-copy-running",
+        action="store_true",
+        help="Do not terminate the signed WeChat copy after capture.",
+    )
+    parser.add_argument(
+        "--no-restart-official",
+        action="store_true",
+        help="Do not reopen /Applications/WeChat.app after capture cleanup.",
+    )
+    parser.add_argument(
+        "--force-cleanup",
+        action="store_true",
+        help="Use SIGKILL if signed copy processes do not exit after SIGTERM.",
+    )
     args = parser.parse_args()
 
     print("=" * 64)
@@ -588,13 +702,22 @@ def main() -> None:
     copy_path = Path(args.wechat_copy).expanduser()
     if not args.match_only:
         prepare_wechat(copy_path, args.skip_prepare)
-        run_frida_capture(
-            mode=args.mode,
-            duration=args.duration,
-            copy_path=copy_path,
-            target_salts=target_salts,
-            reset_log=not args.reuse_log,
-        )
+        try:
+            run_frida_capture(
+                mode=args.mode,
+                duration=args.duration,
+                copy_path=copy_path,
+                target_salts=target_salts,
+                reset_log=not args.reuse_log,
+                spawn_home=args.spawn_home,
+            )
+        finally:
+            post_capture_cleanup(
+                copy_path=copy_path,
+                keep_signed_copy_running=args.keep_signed_copy_running,
+                restart_official=not args.no_restart_official,
+                force_cleanup=args.force_cleanup,
+            )
 
     captured = read_captured_pbkdf2()
     existing = load_json(KEYS_FILE)

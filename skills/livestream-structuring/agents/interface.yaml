@@ -1,0 +1,17 @@
+name: livestream-structuring
+display_name: "直播拆解助手"
+short_description: "把直播 raw_transcript 拆成连麦咨询、普通 QA、主播主动讲解，并做跨分段合并与同步前验收"
+default_prompt: "Use $livestream-structuring to rebuild this livestream from segment raw_transcript.txt files into a structured reading document. Merge the same caller across segments, do not hard-code sales chatter as call-ins, and audit before syncing."
+inputs:
+  - segment raw_transcript.txt files
+  - optional previous qa_verbatim.md files
+  - optional existing 02_原文与结构化内容.md
+outputs:
+  - structured reading document with Lxx/Qxx/Txx
+  - segment check section
+  - quality gate result
+exclusions:
+  - downloading
+  - ASR transcription
+  - Feishu sync execution
+  - livestream conversion coaching

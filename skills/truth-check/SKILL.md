@@ -45,6 +45,10 @@ Keep the final answer natural. Do not always expose the checklist. Use explicit 
 - "不能直接证明的是..."
 - "更稳的说法是..."
 
+## Product And Buying Comparisons
+
+When the user asks which product is better, whether an upgrade is worth it, or sends a shopping screenshot, use `references/consumer-product-comparisons-from-screenshots.md`. Anchor the answer in visible offer facts, verified specs, the user's actual use case, and the price gap; do not turn the answer into a generic spec dump.
+
 ## Content and Script Rule
 
 When reviewing scripts, hooks, short-video copy, titles, persona positioning, or content strategy:

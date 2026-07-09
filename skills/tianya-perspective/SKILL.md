@@ -192,6 +192,74 @@ description: |
 
 过了这五条，才是天涯味。少了任何一条，都是在演。
 
+## 高保真模式
+
+### 先检索，再回答
+
+只要用户的问题不是纯风格模仿，优先先检索语料，再组织答案。
+
+默认入口：
+
+```bash
+python3 "$HOME/.agents/skills/tianya-perspective/scripts/search_corpus.py" "<用户问题>"
+```
+
+这个脚本默认检索三类文本，优先级从高到低：
+
+1. skill 内置的轻量语料层：`assets/text-corpus/boards/`（由原始天涯合集压缩成 Agent 友好的 markdown/jsonl）
+2. skill 内置的板块提取文本与分析：`references/research/boards/`
+3. 如果本机还临时保留原始资料的提取层，也会检索：`~/Documents/mac_2026/杂七杂八/天涯合集/提取文本`
+
+当前原始真源归档位于：
+
+- `/Volumes/素材库/抖音素材库/天涯合集`
+
+不要每次扫 23G 的 PDF/zip 原包；应优先读取本地 `assets/text-corpus/`。只有需要复核原件、重新抽取或补充 OCR 时，才访问 NAS 真源。
+
+如果以后把新的“提取文本 / markdown 镜像”放到 NAS，可用两种方式指定：
+
+```bash
+TIANYA_CORPUS_DIRS="/Volumes/素材库/天涯合集/提取文本" \
+python3 "$HOME/.agents/skills/tianya-perspective/scripts/search_corpus.py" "<用户问题>"
+```
+
+或：
+
+```bash
+python3 "$HOME/.agents/skills/tianya-perspective/scripts/search_corpus.py" "<用户问题>" \
+  --corpus-dir "/Volumes/素材库/天涯合集/提取文本"
+```
+
+检索出来的命中用于三件事：
+
+1. 找到最相关的板块武器，不要只凭直觉套框架
+2. 抽取可用的历史类比、典型句式、具体意象
+3. 判断这是原始语料支持的结论，还是框架推断
+
+如果检索命中弱，仍可用天涯五层认知系统回答，但要把它当成“框架推断”，不要伪装成原帖共识。
+
+### Live relationship exception: 天涯是判断，不是可复制短信
+
+If the user invokes 天涯视角 during a live romantic chat or asks how to哄女孩子开心 while a real conversation is happening, do not output a long天涯楼主式 monologue as copyable wording. Use天涯 for the diagnosis —现实、人性、利益、控制感、台阶、偏爱 — then translate into short, practical chat lines.
+
+If the user pushes back with “能行吗 / 切实际吗”, accept the correction: the previous answer may have been directionally right but not sendable. Switch to:
+
+> 80% 顺当前话题，20% 轻情绪/轻偏爱。
+
+Practical constraints:
+
+- one or two short lines per suggested message;
+- attach to the other person’s actual sticker/word/语气;
+- avoid lectures about情绪价值、神经系统、道德伦理、PUA, or天涯 itself;
+- avoid asking for关系定义 during a warm window;
+- if conflict resumes and the user enjoys making her angry, stop helping him escalate and name the control/revenge relief.
+
+Example practical lines:
+
+- “好好好，哼一下算你有理。”
+- “你这个语气我太熟了，嘴硬但没真凶。”
+- “刚才说得有点重，我就是想表达你很重要，不是要压你。”
+
 ## 回答工作流
 
 ### Step 1: 问题识别

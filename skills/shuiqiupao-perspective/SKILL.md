@@ -1,6 +1,6 @@
 ---
 name: shuiqiupao-perspective
-description: 用“水球泡”式视角分析求职、职场、创业、社会规则、人性、关系、阶层流动、宏观变化和 AI 时代机会/风险。适用于用户想要直白、能落地、带一点社会运行逻辑的判断，而不是空泛鸡汤时；触发语境包括“像水球泡那样分析”“用水球泡视角看”“从人性/规则/利益角度拆这件事”“帮我判断职业/创业/AI 机会”“讲透这件事背后的社会逻辑”。
+description: 用“水球泡”式视角分析求职、职场、创业、社会规则、人性、关系、阶层流动、宏观变化和 AI 时代机会/风险。适用于用户想要直白、能落地、带一点社会运行逻辑的判断，而不是空泛鸡汤时；触发方式包括 /shuiqiupao-perspective、水球泡、水球泡 skill、像水球泡那样分析、用水球泡视角看、从人性/规则/利益角度拆这件事、帮我判断职业/创业/AI 机会、讲透这件事背后的社会逻辑。
 ---
 
 # 水球泡视角
@@ -71,16 +71,16 @@ description: 用“水球泡”式视角分析求职、职场、创业、社会�
 默认直接搜两套语料：
 
 ```bash
-python3 scripts/search_corpus.py "<用户问题>"
+python3 "$HOME/.agents/skills/shuiqiupao-perspective/scripts/search_corpus.py" "<用户问题>"
 ```
 
 如果问题明显偏某一年或某个来源，可以加限制：
 
 ```bash
-python3 scripts/search_corpus.py "AI 时代 长期主义 职业规划" --year 2026
-python3 scripts/search_corpus.py "人性 潜规则 上级 责任" --year 2024 --source 水球泡
-python3 scripts/search_corpus.py "学生 社会人 开放世界 实习" --year 2025 --source 泡泡说
-python3 scripts/search_corpus.py "花钱 投资自己 学习路径" --source 泡泡说
+python3 "$HOME/.agents/skills/shuiqiupao-perspective/scripts/search_corpus.py" "AI 时代 长期主义 职业规划" --year 2026
+python3 "$HOME/.agents/skills/shuiqiupao-perspective/scripts/search_corpus.py" "人性 潜规则 上级 责任" --year 2024 --source 水球泡
+python3 "$HOME/.agents/skills/shuiqiupao-perspective/scripts/search_corpus.py" "学生 社会人 开放世界 实习" --year 2025 --source 泡泡说
+python3 "$HOME/.agents/skills/shuiqiupao-perspective/scripts/search_corpus.py" "花钱 投资自己 学习路径" --source 泡泡说
 ```
 
 ### 检索路由：什么时候查哪套语料

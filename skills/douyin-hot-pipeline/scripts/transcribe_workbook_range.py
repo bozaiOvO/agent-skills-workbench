@@ -23,11 +23,14 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description='Transcribe only missing video transcripts for a workbook date range.')
     parser.add_argument('--workbook', type=Path, required=True)
     parser.add_argument('--folder', type=Path, required=True)
-    parser.add_argument('--asr-app-root', type=Path, default=Path('/Users/bo/Documents/语音转文字-mac'))
+    parser.add_argument('--asr-app-root', type=Path, default=Path('/Users/jinbo/AutomationCenter/apps/语音转文字-mac'))
     parser.add_argument('--earliest', default='')
     parser.add_argument('--latest', default='')
     parser.add_argument('--workers', type=int, default=2)
     parser.add_argument('--retries', type=int, default=3)
+    parser.add_argument('--engine-order', default=TRANSCRIBE.DEFAULT_ENGINE_ORDER)
+    parser.add_argument('--engine-timeout-seconds', type=int, default=TRANSCRIBE.ENGINE_TIMEOUT_SECONDS)
+    parser.add_argument('--ffmpeg-timeout-seconds', type=int, default=TRANSCRIBE.FFMPEG_TIMEOUT_SECONDS)
     return parser.parse_args()
 
 
@@ -90,24 +93,36 @@ def main() -> int:
         print('SUMMARY ok=0 fail=0 total=0', flush=True)
         return 0
 
-    TRANSCRIBE.ensure_dependencies(asr_app_root)
-    bcut_class = TRANSCRIBE.load_bcut_class(asr_app_root)
+    venv_python = TRANSCRIBE.ensure_dependencies(asr_app_root)
+    TRANSCRIBE.reexec_with_asr_python(venv_python)
+    engine_order = [engine.strip().lower() for engine in args.engine_order.split(',') if engine.strip()]
     success = 0
     failed = 0
     failures: list[tuple[Path, str]] = []
     total = len(files)
     with ThreadPoolExecutor(max_workers=max(1, args.workers)) as executor:
-        future_map = {executor.submit(TRANSCRIBE.transcribe_one, path, args.retries, bcut_class): path for path in files}
+        future_map = {
+            executor.submit(
+                TRANSCRIBE.transcribe_one,
+                path,
+                args.retries,
+                engine_order,
+                asr_app_root,
+                args.engine_timeout_seconds,
+                args.ffmpeg_timeout_seconds,
+            ): path
+            for path in files
+        }
         for index, future in enumerate(as_completed(future_map), start=1):
-            path, ok, error, text_len = future.result()
+            path, ok, detail, text_len = future.result()
             if ok:
                 success += 1
                 if index % 10 == 0 or index == total:
-                    print(f'[OK {index}/{total}] {path.name} chars={text_len}', flush=True)
+                    print(f'[OK {index}/{total}] {path.name} chars={text_len} engine={detail}', flush=True)
             else:
                 failed += 1
-                failures.append((path, error))
-                print(f'[FAIL {index}/{total}] {path.name} :: {error}', flush=True)
+                failures.append((path, detail))
+                print(f'[FAIL {index}/{total}] {path.name} :: {detail}', flush=True)
     print(f'SUMMARY ok={success} fail={failed} total={total}', flush=True)
     if failures:
         print('FAILED_LIST_START', flush=True)

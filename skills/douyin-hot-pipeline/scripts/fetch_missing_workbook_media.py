@@ -21,7 +21,7 @@ def load_module(name: str, path: Path):
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 ORGANIZE = load_module('organize_script', SCRIPT_DIR / 'organize_transcripts_by_year.py')
-DEFAULT_SETTINGS = Path('/Users/bo/Desktop/TikTokDownloader-master/Volume/settings.json')
+DEFAULT_SETTINGS = Path('/Users/jinbo/AutomationCenter/workspace/TikTokDownloader-master/Volume/settings.json')
 DEFAULT_USER_AGENT = (
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) '
     'AppleWebKit/537.36 (KHTML, like Gecko) '

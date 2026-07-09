@@ -12,7 +12,7 @@ from unicodedata import name as unicode_name
 
 from openpyxl import load_workbook
 
-DEFAULT_VOLUME_ROOT = Path('/Users/bo/Desktop/TikTokDownloader-master/Volume')
+DEFAULT_VOLUME_ROOT = Path('/Users/jinbo/AutomationCenter/workspace/TikTokDownloader-master/Volume')
 DEFAULT_OUTPUT_ROOT = DEFAULT_VOLUME_ROOT / '整理输出_按年份热度'
 TEXT_ENCODINGS = ('utf-8', 'utf-8-sig', 'gb18030')
 TEMP_FILE_PREFIXES = ('._',)
@@ -198,6 +198,56 @@ def row_to_dict(header: list[str], row: tuple) -> dict[str, object]:
     return result
 
 
+def latest_row_key(row_data: dict[str, object]) -> str:
+    work_id = str(row_data.get('作品ID') or '').strip()
+    if work_id:
+        return f'id:{work_id}'
+    return f"stem:{expected_transcript_stem(row_data)}"
+
+
+def is_newer_collection_row(candidate: dict[str, object], current: dict[str, object]) -> bool:
+    candidate_collected = parse_datetime_value(candidate.get('采集时间'))
+    current_collected = parse_datetime_value(current.get('采集时间'))
+    if candidate_collected is not None or current_collected is not None:
+        if current_collected is None:
+            return True
+        if candidate_collected is None:
+            return False
+        if candidate_collected != current_collected:
+            return candidate_collected > current_collected
+    return safe_int(candidate.get('__row_number')) > safe_int(current.get('__row_number'))
+
+
+def latest_workbook_rows(header: list[str], rows: Iterable[tuple]) -> list[dict[str, object]]:
+    latest: dict[str, dict[str, object]] = {}
+    variants: dict[str, list[dict[str, object]]] = {}
+    for row_number, row in enumerate(rows, start=2):
+        row_data = row_to_dict(header, row)
+        row_data['__row_number'] = row_number
+        key = latest_row_key(row_data)
+        variants.setdefault(key, []).append(row_data)
+        current = latest.get(key)
+        if current is None or is_newer_collection_row(row_data, current):
+            latest[key] = row_data
+    for key, row_data in latest.items():
+        row_data['__match_rows'] = variants.get(key, [])
+    return sorted(latest.values(), key=lambda item: safe_int(item.get('__row_number')))
+
+
+def match_row_variants(row_data: dict[str, object]) -> list[dict[str, object]]:
+    raw_variants = row_data.get('__match_rows')
+    variants = raw_variants if isinstance(raw_variants, list) else []
+    ordered: list[dict[str, object]] = []
+    seen: set[int] = set()
+    for candidate in [row_data, *sorted(variants, key=lambda item: safe_int(item.get('__row_number')), reverse=True)]:
+        row_number = safe_int(candidate.get('__row_number'))
+        if row_number in seen:
+            continue
+        seen.add(row_number)
+        ordered.append(candidate)
+    return ordered
+
+
 def expected_transcript_stem(row: dict[str, object]) -> str:
     publish_time = normalize_datetime_text(row.get('发布时间'))
     desc = beautify_string(str(row.get('作品描述') or ''), 64)
@@ -234,8 +284,26 @@ def score_row(row: dict[str, object]) -> int:
 def infer_blogger_name(folder_name: str) -> str:
     match = re.match(r'^[A-Z]+\d+_(.+?)_(发布作品|喜欢作品|收藏作品|收藏夹作品|合集作品)$', folder_name)
     if match:
-        return match.group(1)
+        name, kind = match.groups()
+        if kind == '收藏夹作品':
+            return f'收藏夹/{name}'
+        if kind == '喜欢作品':
+            return f'点赞/{name}'
+        if kind == '收藏作品':
+            return f'收藏/{name}'
+        return name
     return folder_name
+
+
+def should_use_account_nickname(folder_name: str) -> bool:
+    return folder_name.startswith('UID') and folder_name.endswith('_发布作品')
+
+
+def output_dir_for_name(output_root: Path, name: str) -> Path:
+    parts = [filter_name(part, part) for part in str(name).split('/') if part.strip()]
+    if not parts:
+        parts = [filter_name(name, name)]
+    return output_root.joinpath(*parts)
 
 
 BODY_DELIMITER = '=======下为正文============'
@@ -287,34 +355,36 @@ def collect_items(
     latest: datetime | None = None,
 ) -> tuple[str, dict[str, list[dict[str, object]]], dict[str, int]]:
     header, rows = workbook_rows(workbook_path)
+    row_datas = latest_workbook_rows(header, rows)
     txt_files = transcript_map(blogger_folder)
     grouped: dict[str, list[dict[str, object]]] = defaultdict(list)
     stats = {'matched': 0, 'unmatched': 0}
-    seen_keys: set[str] = set()
     blogger_name = infer_blogger_name(blogger_folder.name)
-    for row in rows:
-        row_data = row_to_dict(header, row)
-        blogger_name = str(row_data.get('账号昵称') or blogger_name).strip() or blogger_name
+    use_account_nickname = should_use_account_nickname(blogger_folder.name)
+    for row_data in row_datas:
+        if use_account_nickname:
+            blogger_name = str(row_data.get('账号昵称') or blogger_name).strip() or blogger_name
         publish_dt = parse_datetime_value(row_data.get('发布时间'))
         if earliest is not None and (publish_dt is None or publish_dt < earliest):
             continue
         if latest is not None and (publish_dt is None or publish_dt > latest):
             continue
         stem = expected_transcript_stem(row_data)
-        transcript = txt_files.get(stem)
-        if transcript is None:
-            prefix = transcript_prefix(row_data)
+        transcript = None
+        for match_row in match_row_variants(row_data):
+            match_stem = expected_transcript_stem(match_row)
+            transcript = txt_files.get(match_stem)
+            if transcript is not None:
+                break
+            prefix = transcript_prefix(match_row)
             candidates = [path for key, path in txt_files.items() if prefix and key.startswith(prefix)]
             if len(candidates) == 1:
                 transcript = candidates[0]
+                break
         if transcript is None:
             stats['unmatched'] += 1
             continue
         work_id = str(row_data.get('作品ID') or '').strip()
-        unique_key = work_id or stem
-        if unique_key in seen_keys:
-            continue
-        seen_keys.add(unique_key)
         publish_time = normalize_datetime_text(row_data.get('发布时间'))
         grouped[extract_year(publish_time)].append(
             {
@@ -339,7 +409,7 @@ def collect_items(
 
 def write_output(output_root: Path, blogger_name: str, grouped_items: dict[str, list[dict[str, object]]], rank_width: int) -> int:
     written = 0
-    blogger_dir = output_root / filter_name(blogger_name, blogger_name)
+    blogger_dir = output_dir_for_name(output_root, blogger_name)
     for year, items in sorted(grouped_items.items()):
         year_dir = blogger_dir / str(year)
         year_dir.mkdir(parents=True, exist_ok=True)
@@ -385,8 +455,9 @@ def main() -> int:
     output_root.mkdir(parents=True, exist_ok=True)
     workbook_paths = sorted(
         path
-        for path in data_root.glob('UID*.xlsx')
+        for path in data_root.glob('*.xlsx')
         if path.is_file() and not is_temporary_file(path) and (not stems or path.stem in stems)
+        and re.match(r'^(UID|CID|MID)\d+_', path.stem)
     )
     total_written = 0
     total_matched = 0

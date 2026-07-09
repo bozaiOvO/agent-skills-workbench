@@ -6,7 +6,7 @@ description: |
   并对齐用户的个人写作风格。内置两轮复核机制：先识别并改写 AI 味，再反向检查
   还有哪些“像 AI 写的”残留，继续二次修订。
 license: MIT
-compatibility: claude-code opencode
+compatibility: claude-code opencode hermes
 allowed-tools:
   - Read
   - Write

@@ -7,6 +7,8 @@ description: Use when the user wants to turn livestream course transcripts and t
 
 Use this skill for Chinese livestream coaching, especially personal-IP, knowledge, lead-gen, and conversion-oriented rooms. The reference transcript library lives at `/Users/bo/Documents/2026/陈晶直播课程`; do not read the whole folder by default. Start with [references/course-map.md](references/course-map.md), then search or open only the 1-3 most relevant files.
 
+If the user wants to turn livestream `raw_transcript.txt` files into `Lxx/Qxx/Txx` structured reading documents, route to `$livestream-structuring` instead. This skill can consume that structured output later for coaching, but it should not own call-in merging, QA classification, first-source rebuild, or pre-sync quality gates.
+
 ## When To Use
 
 - Review a past livestream transcript.
@@ -14,6 +16,15 @@ Use this skill for Chinese livestream coaching, especially personal-IP, knowledg
 - Rewrite opening, self-intro, transitions, offer, or closing CTA.
 - Turn course transcripts into a reusable livestream playbook.
 - Connect short-video topics, persona material, and livestream content.
+
+## Do Not Use For
+
+- Rebuilding `02_原文与结构化内容.md` from `segment_*/raw_transcript.txt`.
+- Deciding whether content is a real call-in consultation, ordinary QA, or host-led teaching.
+- Merging one caller across livestream segments.
+- Checking whether a structured livestream document is safe to sync to Feishu.
+
+Use `$livestream-structuring` for those jobs first, then return here only if the next task is livestream coaching or conversion improvement.
 
 ## Inputs
 

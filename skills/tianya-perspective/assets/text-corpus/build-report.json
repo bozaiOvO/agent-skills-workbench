@@ -1,0 +1,47 @@
+{
+  "source": "/Users/jinbo/Documents/mac_2026/杂七杂八/天涯合集/提取文本",
+  "output": "/Users/jinbo/Documents/agent-workbench/agent-skills-workbench/skills/tianya-perspective/assets/text-corpus",
+  "manifest_items": 13,
+  "chunks": 802,
+  "summary": {
+    "kk合集【无水印】": {
+      "ok": 1
+    },
+    "中医命理": {
+      "ok": 1
+    },
+    "其他": {
+      "ok": 1
+    },
+    "国际观察": {
+      "ok": 1
+    },
+    "天涯小说": {
+      "ok": 1
+    },
+    "天涯故事": {
+      "ok": 1
+    },
+    "天涯杂谈": {
+      "ok": 1
+    },
+    "情感天地": {
+      "ok": 1
+    },
+    "煮酒论史": {
+      "ok": 1
+    },
+    "经济论坛": {
+      "ok": 1
+    },
+    "股市楼市": {
+      "ok": 1
+    },
+    "莲蓬鬼话": {
+      "ok": 1
+    },
+    "资料大合集": {
+      "ok": 1
+    }
+  }
+}

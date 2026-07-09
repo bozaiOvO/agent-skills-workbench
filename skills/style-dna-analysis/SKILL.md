@@ -1,3 +1,8 @@
+---
+name: style-dna-analysis
+description: "文风 DNA 深度解析：把高一致性文本样本拆成可复用写作规则，并产出 system prompt 或模仿型 skill。"
+---
+
 # 文风 DNA 深度解析 Skill
 
 ## 这个 skill 解决什么问题

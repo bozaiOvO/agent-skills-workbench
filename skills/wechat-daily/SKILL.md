@@ -9,6 +9,16 @@ description: |
 
 # 微信数字资产 Skill
 
+## 安全默认
+
+除非用户明确说“重新提取 key / 重新抓 key / 重新初始化微信密钥”，否则默认只使用已有的 `~/.config/wechat-keys.json` 和 `~/.config/wechat-daily.json` 读取本地微信数据库。
+
+- 不要自动运行 `scripts/extract_keys.py`。
+- 不要自动启动 `~/Desktop/WeChat.app` 签名副本。
+- 不要自动使用 frida / attach / spawn / codesign。
+- 如果 key 缺失、失效或某个库解不开，先报告缺什么和建议做法，不要自行重新提取。
+- 日常“查聊天记录、生成日报、列群聊/联系人”优先运行 `scripts/list_contacts.py` 或 `scripts/wechat_daily.py` 等读取脚本。
+
 ## 总览
 
 本 Skill 从微信 Mac 4.x 的本地加密数据库中提取聊天记录、朋友圈和收藏夹内容，把它们沉淀为可复盘、可检索、可行动的个人数字资产。默认先支持微信群聊日报，也可以引导用户配置朋友圈监督、收藏夹整理、客户跟进、大佬对话复盘等玩法。
@@ -27,6 +37,8 @@ description: |
 检查 `~/.config/wechat-daily.json` 是否存在且包含 `wxid` 或 `db_base_path`：
 - 不存在或不完整 → 进入 Phase 2（首次配置）
 - 存在且完整 → 进入 Phase 3（生成日报）
+
+如果 `~/.config/wechat-keys.json` 缺失或读取失败，只报告状态，不要自动进入 Step 2b 提取密钥，除非用户明确授权重新提取。
 
 ### Phase 2: 首次配置（新用户引导）
 
@@ -54,8 +66,34 @@ python3 {{SKILL_DIR}}/scripts/extract_keys.py
 5. 按本机 `sns.db` / `favorite.db` / `message_0.db` 等数据库 salt 捕获并匹配密钥
 6. 自动检测 wxid 和数据库路径
 7. 合并保存到 `~/.config/wechat-keys.json`，并更新 `~/.config/wechat-daily.json`
+8. 抓取结束后默认退出 `~/Desktop/WeChat.app` 签名副本，并重新打开 `/Applications/WeChat.app` 官方微信，避免日常微信图片/朋友圈/CDN 状态卡在抓 key 运行态。
 
 **重要：微信 Mac 4.1.x 是按库独立密钥。`favorite.db` 和 `sns.db` 往往不会在启动时加载；脚本运行期间必须在弹出的签名副本微信里手动打开「收藏」和「朋友圈」，朋友圈最好滚动一次。**
+
+**收尾原则：抓 key 的签名副本只用于临时捕获数据库 key，不作为日常微信使用。抓取结束后确认进程只剩 `/Applications/WeChat.app`；除非明确需要继续调试，不要传 `--keep-signed-copy-running`。**
+
+如果抓 key 或读取数据库后出现朋友圈图片加载失败、发图红色感叹号，优先做安全运行态修复，不要重装微信、不要删除数据库：
+
+```bash
+python3 {{SKILL_DIR}}/scripts/repair_wechat_media_runtime.py --verify
+python3 {{SKILL_DIR}}/scripts/repair_wechat_media_runtime.py --dry-run
+python3 {{SKILL_DIR}}/scripts/repair_wechat_media_runtime.py
+```
+
+若朋友圈图片仍异常，再重建当前月份朋友圈图片缓存：
+
+```bash
+python3 {{SKILL_DIR}}/scripts/repair_wechat_media_runtime.py --include-sns-img
+```
+
+如果本机开了 Clash Verge TUN/fake-ip，微信图片域名可能被解析成 `198.18.x.x`，导致朋友圈图片或发图上传走错路径。可先 dry-run，再补微信媒体域名直连和 fake-ip 过滤：
+
+```bash
+python3 {{SKILL_DIR}}/scripts/repair_wechat_media_runtime.py --dry-run --fix-clash-media-rules --clash-only
+python3 {{SKILL_DIR}}/scripts/repair_wechat_media_runtime.py --fix-clash-media-rules --clash-only
+```
+
+该修复脚本只会把可重建的网络/CDN/临时上传/朋友圈图片缓存移动到 `.codex_safe_cache_backup_时间戳`，并可选备份/修补 Clash Verge 生成配置后热重载；不会碰 `db_storage`、`msg/`、联系人、聊天记录或附件原件。
 
 如果已有 `message_0` / `contact` / `session` 密钥，只补朋友圈和收藏：
 

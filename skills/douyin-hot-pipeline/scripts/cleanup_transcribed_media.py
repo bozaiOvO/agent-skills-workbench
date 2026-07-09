@@ -15,7 +15,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         '--volume-root',
         type=Path,
-        default=Path('/Users/bo/Desktop/TikTokDownloader-master/Volume'),
+        default=Path('/Users/jinbo/AutomationCenter/workspace/TikTokDownloader-master/Volume'),
     )
     parser.add_argument('--folder', dest='folders', action='append', type=Path, default=[])
     return parser.parse_args()

@@ -7,14 +7,14 @@ from pathlib import Path
 
 from organize_transcripts_by_year import collect_items, filter_name, render_output
 
-DEFAULT_VOLUME_ROOT = Path('/Users/bo/Desktop/TikTokDownloader-master/Volume')
+DEFAULT_VOLUME_ROOT = Path('/Users/jinbo/AutomationCenter/workspace/TikTokDownloader-master/Volume')
 DEFAULT_RANKED_ROOT = DEFAULT_VOLUME_ROOT / '整理输出_按年份热度'
 SPECIAL_RULES = {
     'UID1822310415739536_老宋聊就业_发布作品': {
         'blogger_name': '老宋聊就业',
         'targets': [
-            Path('/Users/bo/Documents/2026/老宋系统/我的脚本/已发布'),
-            Path('/Users/bo/Documents/2026/老宋Claude/我的脚本/已发布'),
+            Path('/Users/jinbo/Documents/2026/老宋系统/我的脚本/已发布'),
+            Path('/Users/jinbo/Documents/2026/老宋Claude/我的脚本/已发布'),
         ],
     },
 }

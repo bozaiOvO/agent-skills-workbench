@@ -17,6 +17,8 @@ Use this skill to run the full local Douyin workflow on this Mac:
 
 The installed skill root on this machine is `/Users/bo/.codex/skills/douyin-hot-pipeline`. Resolve scripts relative to that directory instead of using stale workspace paths.
 
+On Jinbo's AutomationCenter install, the active weekly blogger flow uses `/Users/jinbo/.agents/skills/douyin-hot-pipeline` and `/Users/jinbo/AutomationCenter/workspace/TikTokDownloader-master`. Prefer configured paths from `/Users/jinbo/AutomationCenter/config/settings.json` when running automation scripts.
+
 ## Preflight
 
 Before running any command, decide 4 things:
@@ -50,6 +52,33 @@ Use the smallest command that matches the user's intent:
 | 已经有 transcript / workbook，只想重排年度 top | `scripts/organize_transcripts_by_year.py` |
 | workbook 有作品但本地缺媒体，要补拉 | `scripts/fetch_missing_workbook_media.py` |
 | 老宋聊就业要同步额外发布目录 | `scripts/sync_special_blogger_outputs.py` |
+| 单条抖音分享链接只要“转文字/发文本文件” | `scripts/download_douyin_detail_links.py` + `scripts/transcribe_media_batch.py` |
+
+### Single video link → transcript file
+
+When Jinbo sends a Douyin short/detail video URL and only asks for a transcript file, do **not** run the full blogger/ranking pipeline. Use the direct-link path:
+
+```bash
+cd /Users/jinbo/AutomationCenter
+OUT_DIR="/Users/jinbo/AutomationCenter/tmp/douyin_single_transcript_$(date +%Y%m%d_%H%M%S)"
+mkdir -p "$OUT_DIR"
+/Users/jinbo/AutomationCenter/workspace/TikTokDownloader-master/.venv/bin/python \
+  scripts/download_douyin_detail_links.py --out-dir "$OUT_DIR" 'https://v.douyin.com/xxxx/'
+python3 scripts/transcribe_media_batch.py --folder "$OUT_DIR" --workers 1 --retries 2
+```
+
+Then verify the sibling `.txt` exists and is non-empty; on Telegram, deliver the text file directly with `MEDIA:/absolute/path/to/file` and keep the reply short. See `references/single-video-transcription.md` for the dependency/bootstrap notes from the 2026-07 direct-link run.
+
+### Favorites distinction
+
+Douyin default favorites and categorized favorite folders are different downloader modes:
+
+- default favorites / 默认收藏 / 收藏作品: use `批量下载收藏作品(抖音)`, configured by `owner_url`, output stem `UID..._收藏作品`
+- categorized favorites / 分类收藏夹 / 收藏夹作品: use `批量下载收藏夹作品(抖音)`, output stems `CID..._收藏夹作品`
+
+Do not treat categorized `CID..._收藏夹作品` folders as proof that default favorites were downloaded. If the user asks broadly for 收藏内容, verify both `UID..._收藏作品` and `CID..._收藏夹作品` outputs.
+
+On AutomationCenter, use `/Users/jinbo/AutomationCenter/scripts/run_douyin_default_favorites.py` for the default favorites pipeline. It temporarily runs DouK-Downloader with `run_command=5 9 Q Q`, then transcribes, normalizes, organizes, and rewrites time-sorted headers. Keep media until NAS archive is verified; only delete through the verified archive cleanup path.
 
 如果用户同时给了 URL 和 `--stem`，优先确认是“增量补跑”还是“全量重跑”。
 
@@ -139,7 +168,11 @@ python3 /Users/bo/.codex/skills/douyin-hot-pipeline/scripts/run_douyin_pipeline.
    - downloaded media exists when download was requested
    - sibling `.txt` exists and includes metadata headers above正文 when transcription was requested
    - ranked `topNNN_*.txt` exists when organize was requested
-6. Report what succeeded, what failed, and where outputs were written.
+6. For weekly blogger archive runs, refresh Obsidian after successful archive:
+   - run `/Users/jinbo/AutomationCenter/scripts/export_douyin_obsidian_markdown.cjs --all --no-ai` to convert newly created `.txt` transcripts into Markdown
+   - run `/Users/jinbo/AutomationCenter/scripts/sync_douyin_obsidian_vault.sh` to copy the refreshed Markdown view into the vault
+   - verify `自动化中枢/01_博主/抖音脚本库/时间排序/<博主名>/` contains Markdown for newly created `.txt` transcripts
+7. Report what succeeded, what failed, where outputs were written, and the Obsidian sync result.
 
 ## Failure Handling
 
@@ -155,6 +188,8 @@ python3 /Users/bo/.codex/skills/douyin-hot-pipeline/scripts/run_douyin_pipeline.
 When running yearly hotness ranking:
 
 - group by `博主 / 年份`
+- if a workbook contains multiple rows for the same `作品ID`, always use the row with the latest `采集时间` for metrics, title, tags, duration, publish time, and score; if `采集时间` is unavailable, use the later workbook row
+- existing videos should not be re-downloaded just to refresh metrics, but both TOP outputs and sibling time-sorted `.txt` headers must be rewritten from the latest workbook metrics after each scan
 - compute `综合分 = 评论×4 + 收藏×3 + 分享×2 + 点赞×1`
 - sort by 综合分 descending, then comment/favorite/share/like counts
 - use `作品话题` as tags first; if empty, derive tags from `作品描述` hashtags
@@ -164,6 +199,7 @@ When running yearly hotness ranking:
 - insert `=======下为正文============` before正文
 - read transcript text with fallback encodings `utf-8`, `utf-8-sig`, `gb18030`
 - sibling time-sorted `.txt` outputs must use the same header/body format as ranked `topNNN_*.txt`, so downstream analysis can consume either format
+- when verifying a weekly scan, sample at least one repeated `作品ID` when available and confirm the `.txt` header matches the latest `采集时间` row in `Volume/Data/<stem>.xlsx`
 
 ## Output Contract
 
@@ -187,7 +223,9 @@ Default report structure:
 ## Notes
 
 - Treat `Volume/Data/UID*.xlsx` as the source of truth for metrics and tags.
+- Treat the latest `采集时间` row per `作品ID` as the source of truth inside that workbook.
 - Match each workbook row back to the downloader-generated filename pattern before reading sibling transcript text.
+- NAS archive and local `.txt` refresh are not enough for Obsidian visibility. After a weekly archive, first run `export_douyin_obsidian_markdown.cjs --all --no-ai` to generate/update Markdown, then run `sync_douyin_obsidian_vault.sh` to copy the time-sorted view into the Obsidian vault.
 - Expect image posts to be unmatched because they do not produce transcribed `.txt` 正文.
 - For direct-link 补下载, `scripts/fetch_missing_workbook_media.py` must treat existing `.txt` as already processed, even if the original `.mp4` was deleted.
 - Special case: when the processed stem is `UID1822310415739536_老宋聊就业_发布作品`, also run the special output sync into `/Users/bo/Documents/2026/老宋系统/我的脚本/已发布` and `/Users/bo/Documents/2026/老宋Claude/我的脚本/已发布`.

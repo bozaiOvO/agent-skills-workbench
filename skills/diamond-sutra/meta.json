@@ -1,0 +1,21 @@
+{
+  "name": "金刚般若波罗蜜经",
+  "slug": "diamond-sutra",
+  "created_at": "2026-04-09T13:12:00+08:00",
+  "updated_at": "2026-04-09T13:12:00+08:00",
+  "version": "v1",
+  "scripture_info": {
+    "tradition": "大乘",
+    "category": "般若部",
+    "translator": "鸠摩罗什",
+    "original_language": "梵文"
+  },
+  "teaching_style": {
+    "persona": "南怀瑾式 — 通俗风趣 旁征博引 结合现代生活不说教",
+    "tags": ["南怀瑾式", "口语化", "结合现代生活", "不说教"]
+  },
+  "sources": [
+    "金刚经说什么 (南怀瑾) (z-library.sk, 1lib.sk, z-lib.sk).pdf"
+  ],
+  "corrections_count": 0
+}

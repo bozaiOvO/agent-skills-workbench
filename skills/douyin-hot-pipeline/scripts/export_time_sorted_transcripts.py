@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import re
 from pathlib import Path
 
 import organize_transcripts_by_year as organizer
@@ -33,14 +34,17 @@ def transcript_map(folder: Path) -> dict[str, Path]:
 
 
 def row_targets(row_data: dict[str, object], txt_files: dict[str, Path]) -> list[Path]:
-    stem = organizer.expected_transcript_stem(row_data)
-    transcript = txt_files.get(stem)
-    if transcript is not None:
-        return [transcript]
-    prefix = organizer.transcript_prefix(row_data)
-    if not prefix:
-        return []
-    return sorted(path for key, path in txt_files.items() if key.startswith(prefix))
+    for match_row in organizer.match_row_variants(row_data):
+        stem = organizer.expected_transcript_stem(match_row)
+        transcript = txt_files.get(stem)
+        if transcript is not None:
+            return [transcript]
+        prefix = organizer.transcript_prefix(match_row)
+        if prefix:
+            candidates = sorted(path for key, path in txt_files.items() if key.startswith(prefix))
+            if len(candidates) == 1:
+                return candidates
+    return []
 
 
 def build_item(row_data: dict[str, object], transcript: Path) -> dict[str, object]:
@@ -65,14 +69,14 @@ def build_item(row_data: dict[str, object], transcript: Path) -> dict[str, objec
 
 def export_workbook(workbook_path: Path, transcript_dir: Path, output_dir: Path) -> tuple[int, int, int]:
     header, rows = organizer.workbook_rows(workbook_path)
+    row_datas = organizer.latest_workbook_rows(header, rows)
     txt_files = transcript_map(transcript_dir)
     matched_files: set[Path] = set()
     matched_rows = 0
     unmatched_rows = 0
     written = 0
 
-    for row in rows:
-        row_data = organizer.row_to_dict(header, row)
+    for row_data in row_datas:
         targets = row_targets(row_data, txt_files)
         if not targets:
             unmatched_rows += 1
@@ -108,8 +112,9 @@ def main() -> int:
 
     workbook_paths = sorted(
         path
-        for path in data_root.glob('UID*.xlsx')
+        for path in data_root.glob('*.xlsx')
         if path.is_file() and not organizer.is_temporary_file(path) and (not stems or path.stem in stems)
+        and re.match(r'^(UID|CID|MID)\d+_', path.stem)
     )
 
     total_written = 0

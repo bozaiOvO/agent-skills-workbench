@@ -1,6 +1,7 @@
 ---
 name: style-sample-filter
-description: "文风样本筛选与反推规划：从大量文本中清洗、去重、分簇，筛出适合反推 prompt 或 skill 的样本。"
+description: "清洗、去重、聚类大量文本，筛选最适合反推文风 Prompt 或 Skill 的样本。"
+
 ---
 
 # 文风样本筛选与反推规划 Skill

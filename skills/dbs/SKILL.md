@@ -1,10 +1,7 @@
 ---
 name: dbs
-description: |
-  dontbesilent 商业工具箱主入口。根据你的问题自动路由到最合适的诊断工具。
-  触发方式：/dbs、/商业、「帮我看看」
-  Main entry point for dontbesilent business toolkit. Routes to the right diagnostic skill.
-  Trigger: /dbs, "help me with my business"
+description: "dontbesilent 商业工具箱总入口。根据问题自动路由到合适的诊断 Skill。"
+
 ---
 
 # dbs：商业工具箱

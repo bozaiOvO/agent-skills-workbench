@@ -2,9 +2,9 @@
   "summary": {
     "target_count": 3,
     "baseline_total_errors": 5,
-    "current_total_errors": 4,
-    "winner_total_errors": 4,
-    "winner_vs_baseline_gain": 1,
+    "current_total_errors": 5,
+    "winner_total_errors": 5,
+    "winner_vs_baseline_gain": 0,
     "winner_vs_current_gain": 0
   },
   "comparisons": [
@@ -20,24 +20,24 @@
         "adversarial_errors": 0
       },
       "current": {
-        "tokens": 53,
-        "dev_errors": 0,
+        "tokens": 17,
+        "dev_errors": 1,
         "holdout_errors": 0,
         "blind_errors": 0,
         "judge_blind_errors": 0,
         "adversarial_errors": 0
       },
       "winner": {
-        "tokens": 53,
-        "dev_errors": 0,
+        "tokens": 17,
+        "dev_errors": 1,
         "holdout_errors": 0,
         "blind_errors": 0,
         "judge_blind_errors": 0,
         "adversarial_errors": 0
       },
       "delta": {
-        "current_vs_baseline": 1,
-        "winner_vs_baseline": 1,
+        "current_vs_baseline": 0,
+        "winner_vs_baseline": 0,
         "winner_vs_current": 0
       }
     },

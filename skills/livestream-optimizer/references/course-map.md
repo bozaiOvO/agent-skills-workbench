@@ -2,7 +2,7 @@
 
 Primary source folder:
 
-- `/Users/bo/Documents/2026/陈晶直播课程`
+- `/Users/jinbo/Documents/mac_2026/陈晶直播课程` (or `LIVESTREAM_COURSE_DIR`)
 
 This file is the navigation layer for the course library. Do not load all 21 transcripts by default. Start here, then jump into one of the reference files below.
 
@@ -74,13 +74,13 @@ Search by concept before opening files:
 Use ripgrep directly:
 
 ```bash
-rg -n "人设|定位|选题|痛点|连麦|逼单|违规" "/Users/bo/Documents/2026/陈晶直播课程"
+rg -n "人设|定位|选题|痛点|连麦|逼单|违规" "${LIVESTREAM_COURSE_DIR:-/Users/jinbo/Documents/mac_2026/陈晶直播课程}"
 ```
 
 Or use the helper script:
 
 ```bash
-/Users/bo/Documents/2026/杂七杂八/livestream-optimizer/scripts/search_course.sh "人设|定位|选题|痛点"
+scripts/search_course.sh "人设|定位|选题|痛点"
 ```
 
 ## Evidence Handling

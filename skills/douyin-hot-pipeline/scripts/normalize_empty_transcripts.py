@@ -2,7 +2,15 @@
 from __future__ import annotations
 
 import argparse
+import os
+import sys
 from pathlib import Path
+
+AUTOMATION_ROOT = Path(os.environ.get('AUTOMATION_CENTER_ROOT', '/Users/jinbo/AutomationCenter'))
+if str(AUTOMATION_ROOT / 'scripts') not in sys.path:
+    sys.path.insert(0, str(AUTOMATION_ROOT / 'scripts'))
+
+from storage_paths import load_storage_paths
 
 PLACEHOLDER = '【无有效语音识别结果】'
 TEMP_FILE_PREFIXES = ('._',)
@@ -15,7 +23,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         '--volume-root',
         type=Path,
-        default=Path('/Users/jinbo/AutomationCenter/workspace/TikTokDownloader-master/Volume'),
+        default=load_storage_paths().douyin_downloads_root,
     )
     parser.add_argument('--folder', dest='folders', action='append', type=Path, default=[])
     return parser.parse_args()

@@ -1,10 +1,7 @@
 ---
 name: dbs-resonate
-description: |
-  文稿共鸣诊断。你写完了一段内容但心里没底——怕没流量、怕没戳中观众、怕完播率低。把文稿给这个 skill，它用传播心理学框架诊断有没有引起共鸣、哪里出了问题、具体怎么改。
-  触发方式：/dbs-resonate、「这个文稿有没有戳中人」「帮我看看能不能发」「这个完播率会不会低」「文稿发出去有没有流量」
-  Draft resonance diagnosis. You finished a draft but aren't sure it will connect. Diagnoses psychological resonance issues and gives specific fixes.
-  Trigger: /dbs-resonate, "will this resonate", "check my draft", "will people watch this"
+description: "诊断文稿是否能打中受众并给出修改建议。用于共鸣、流量和完播风险检查。"
+
 ---
 
 # dbs-resonate：文稿共鸣诊断

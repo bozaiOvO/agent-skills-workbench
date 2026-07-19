@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import os
 import re
 import sys
 from dataclasses import dataclass
@@ -26,6 +27,18 @@ DEFAULT_CORPUS_ROOTS = [
     ('live', AUTOMATION_CENTER / 'outputs' / 'live' / KGE_BLOGGER_NAME),
 ]
 DEFAULT_JSONL_INDEX = AUTOMATION_CENTER / 'outputs' / '脚本库索引' / KGE_BLOGGER_NAME / 'kge_corpus_all.jsonl'
+
+
+def delegate_to_shared_index() -> None:
+    if os.environ.get('PERSONA_CORPUS_BACKEND', '').lower() == 'files':
+        return
+    fallback_flags = {'--corpus-dir', '--jsonl-index', '--no-jsonl', '--list-corpora'}
+    if any(flag in sys.argv[1:] for flag in fallback_flags):
+        return
+    search_script = AUTOMATION_CENTER / 'scripts' / 'search_persona_corpus.py'
+    sqlite_index = AUTOMATION_CENTER / 'outputs' / '脚本库索引' / KGE_BLOGGER_NAME / 'corpus.sqlite3'
+    if search_script.is_file() and sqlite_index.is_file():
+        os.execv(sys.executable, [sys.executable, str(search_script), *sys.argv[1:], '--persona', 'kge'])
 
 SOURCE_PRESETS = {
     'all': {'time', 'top', 'live'},
@@ -260,7 +273,14 @@ def iter_jsonl_docs(index_path: Path, source: str, year: str | None = None) -> I
                 continue
             row = json.loads(line)
             source_kind = str(row.get('source_type') or 'custom')
-            if source_kind not in allowed:
+            if source_kind == 'short_video':
+                rank = row.get('rank') if isinstance(row.get('rank'), int) else None
+                if source == 'live':
+                    continue
+                if source == 'top' and rank is None:
+                    continue
+                source_kind = 'top' if source in {'top', 'style'} and rank is not None else 'time'
+            elif source_kind not in allowed:
                 continue
             row_year = str(row.get('year') or 'unknown')
             if year and row_year != year:
@@ -275,7 +295,7 @@ def iter_jsonl_docs(index_path: Path, source: str, year: str | None = None) -> I
                 title=str(row.get('title') or path.stem),
                 tags=[str(t) for t in row.get('tags', []) if t],
                 heat=row.get('heat') if isinstance(row.get('heat'), int) else None,
-                body=str(row.get('body') or ''),
+                body=str(row.get('text') or row.get('body') or ''),
             )
 
 
@@ -489,4 +509,5 @@ def main() -> int:
 
 
 if __name__ == '__main__':
+    delegate_to_shared_index()
     sys.exit(main())

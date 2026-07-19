@@ -1,6 +1,6 @@
 ---
 name: baoyu-compress-image
-description: Compresses images to WebP (default) or PNG with automatic tool selection. Use when user asks to "compress image", "optimize image", "convert to webp", or reduce image file size.
+description: "压缩并转换图片格式。用于减小体积、转 WebP/PNG 和图片优化。"
 version: 1.56.1
 metadata:
   openclaw:

@@ -1,4 +1,4 @@
 interface:
   display_name: "且曼周刊链接提取"
-  short_description: "从飞书且曼周刊批量提取推荐视频和公开链接并落盘"
+  short_description: "提取飞书且曼周刊的推荐视频与公开链接"
   default_prompt: "读取飞书里的且曼周刊/且曼内刊页面，逐条提取推荐内容对应的公开链接，保留飞书定位链接，并生成 Markdown 汇总和原始 JSON。"

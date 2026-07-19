@@ -2,13 +2,75 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
+import json
+import os
 import re
+import tempfile
+import time
 from pathlib import Path
 
 import organize_transcripts_by_year as organizer
 
 
 DEFAULT_VOLUME_ROOT = organizer.DEFAULT_VOLUME_ROOT
+COMPLETION_MARKER_SUFFIX = '.complete.json'
+
+
+def verified_completion_payload(transcript: Path) -> dict[str, object] | None:
+    marker = transcript.with_name(f'{transcript.name}{COMPLETION_MARKER_SUFFIX}')
+    if not marker.is_file():
+        return None
+    try:
+        data = transcript.read_bytes()
+        payload = json.loads(marker.read_text(encoding='utf-8'))
+    except (OSError, UnicodeError, json.JSONDecodeError):
+        return None
+    source = payload.get('source') if isinstance(payload, dict) else None
+    transcript_payload = payload.get('transcript') if isinstance(payload, dict) else None
+    if not (
+        payload.get('schema_version') == 1
+        and isinstance(source, dict)
+        and isinstance(source.get('path'), str)
+        and source.get('path')
+        and isinstance(transcript_payload, dict)
+        and transcript_payload.get('bytes') == len(data)
+        and transcript_payload.get('sha256') == hashlib.sha256(data).hexdigest()
+    ):
+        return None
+    return payload
+
+
+def atomic_write_bytes(path: Path, data: bytes) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fd, temporary_name = tempfile.mkstemp(prefix=f'.{path.name}.', suffix='.tmp', dir=path.parent)
+    temporary = Path(temporary_name)
+    try:
+        with os.fdopen(fd, 'wb') as handle:
+            fd = -1
+            handle.write(data)
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(temporary, path)
+    finally:
+        if fd >= 0:
+            os.close(fd)
+        temporary.unlink(missing_ok=True)
+
+
+def write_rendered_transcript(output_path: Path, text: str, completion_payload: dict[str, object] | None) -> None:
+    data = text.encode('utf-8')
+    atomic_write_bytes(output_path, data)
+    if completion_payload is None:
+        return
+    payload = dict(completion_payload)
+    payload['transcript'] = {'bytes': len(data), 'sha256': hashlib.sha256(data).hexdigest()}
+    payload['completed_unix_ns'] = time.time_ns()
+    marker = output_path.with_name(f'{output_path.name}{COMPLETION_MARKER_SUFFIX}')
+    atomic_write_bytes(
+        marker,
+        (json.dumps(payload, ensure_ascii=False, sort_keys=True, indent=2) + '\n').encode('utf-8'),
+    )
 
 
 def parse_args() -> argparse.Namespace:
@@ -86,7 +148,12 @@ def export_workbook(workbook_path: Path, transcript_dir: Path, output_dir: Path)
             if transcript in matched_files:
                 continue
             output_path = output_dir / transcript.name
-            output_path.write_text(organizer.render_output(build_item(row_data, transcript)), encoding='utf-8')
+            completion_payload = verified_completion_payload(transcript)
+            write_rendered_transcript(
+                output_path,
+                organizer.render_output(build_item(row_data, transcript)),
+                completion_payload,
+            )
             matched_files.add(transcript)
             written += 1
 

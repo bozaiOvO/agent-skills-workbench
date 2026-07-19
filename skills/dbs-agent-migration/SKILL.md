@@ -1,10 +1,7 @@
 ---
 name: dbs-agent-migration
-description: |
-  Agent 工作台迁移。把任意项目整理成 Claude Code / Codex / Grok 三端一致、可长期维护的 Agent 工作台：审计规则文件、识别真源、统一命名并生成 bridge。
-  触发方式：/dbs-agent-migration、/agent迁移、「迁移到 Codex」「迁移到 Claude Code」「迁移到 Grok」「统一 AGENTS.md」「整理 skill bridge」「我的 Agent 工作台很乱」「帮我统一 Claude 和 Codex 和 Grok」
-  Agent workspace migration. Turn any project into a maintainable Claude Code / Codex / Grok three-host workspace by auditing rule files, establishing source-of-truth skills, normalizing names, and generating bridges.
-  Trigger: /dbs-agent-migration, /agent-migration, "migrate to Codex", "migrate to Claude Code", "migrate to Grok", "fix AGENTS.md", "organize skill bridges"
+description: "把项目整理成 Claude Code、Codex、Grok 共用的 Agent 工作台。用于真源、规则和 bridge 迁移。"
+
 ---
 
 # dbs-agent-migration：Agent 工作台迁移

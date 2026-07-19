@@ -1,6 +1,7 @@
 ---
 name: qieman-weekly-links
-description: Extract recommended video/public links from Feishu-based 且曼周刊 pages into a local Markdown summary. Use when the user asks to read a Feishu wiki/list of 且曼周刊、且曼内刊、推荐内容、推荐视频链接, gather every item link, preserve Feishu anchors, or rerun/update the local Markdown/JSON extraction.
+description: "从飞书且曼周刊提取推荐视频和公开链接，生成本地 Markdown 与 JSON 汇总。"
+
 ---
 
 # Qieman Weekly Links

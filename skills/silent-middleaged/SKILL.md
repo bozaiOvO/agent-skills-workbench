@@ -1,11 +1,7 @@
 ---
 name: silent-middleaged
-description: |
-  不想说话的中年人：模仿「我也不太了解她」的文风写作。冷静克制、细节堆砌、情感暗涌的第一人称叙事。
-  程序化流程 + 精确数字 + 技术细节 + 极简留白，用操作手册的质感写人间故事。
-  触发方式：/silent-middleaged、/不想说话的中年人、/中年人文风、「用中年人的语气写」「冷叙述风格」「帮我写个中年人视角的故事」
-  Silent middle-aged man writing style. Cold, restrained, detail-heavy first-person narration.
-  Trigger: /silent-middleaged, "write like a middle-aged man", "cold narration style"
+description: "模仿“不想说话的中年人”冷静克制、细节密集的第一人称文风写故事。"
+
 ---
 
 # 不想说话的中年人：文风写作

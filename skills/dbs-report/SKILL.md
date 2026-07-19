@@ -1,10 +1,7 @@
 ---
 name: dbs-report
-description: |
-  把多次 dbs-save 攒下来的诊断状态合并成一份可交付的 markdown 报告。
-  触发方式：/dbs-report、/出报告、「打包」「整理一份」「给合伙人看的」
-  Generate a deliverable diagnosis report by merging all dbs-save snapshots.
-  Trigger: /dbs-report, "package this up", "make me a report"
+description: "合并多次诊断存档，生成可交付的 Markdown 报告。用于汇报、打包和分享。"
+
 ---
 
 # dbs-report：诊断报告

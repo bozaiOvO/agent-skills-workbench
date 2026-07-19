@@ -1,6 +1,6 @@
 interface:
   display_name: "直播优化助手"
-  short_description: "从课程方法论抽取标准，复盘直播逐字稿并输出可执行优化建议"
+  short_description: "复盘直播逐字稿并给出可执行优化方案"
   default_prompt: "Use $livestream-optimizer to review my livestream transcript, diagnose the biggest blockers, and rewrite the opening, transitions, and closing CTA."
 
 policy:

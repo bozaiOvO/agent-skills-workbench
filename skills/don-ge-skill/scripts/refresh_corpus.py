@@ -9,7 +9,7 @@ from pathlib import Path
 from statistics import mean
 from typing import Any
 
-DEFAULT_SOURCE = Path("/Users/bo/Desktop/TikTokDownloader-master/Volume/整理输出_按年份热度/dontbesilent 聊赚钱")
+DEFAULT_SOURCE = Path("/Users/jinbo/Documents/mac_2026/金波创作系统/03_竞品语料库/dontbesilent 聊赚钱/dontbesilent 聊赚钱_热度排序")
 
 THEME_KEYWORDS = {
     "赚钱-创业": ["赚钱", "创业", "生意", "财务自由", "百万", "副业", "上班", "打工", "老板"],

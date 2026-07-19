@@ -42,12 +42,41 @@ def dialogue_stats(block: str) -> tuple[int, int]:
     if not marker:
         return 0, 0
     dialogue = block[marker.end() :]
-    next_meta = re.search(r"^\*\*(?:沟通技法拆解|连麦处理策略|可复用指数|来源定位|问题|回答要点)", dialogue, re.M)
+    next_meta = re.search(
+        r"^\*\*(?:沟通技法拆解|连麦处理策略|阶段性进展|可复用指数|来源定位|问题|回答要点)",
+        dialogue,
+        re.M,
+    )
     if next_meta:
         dialogue = dialogue[: next_meta.start()]
     turns = len(re.findall(r"^\*\*(?:连麦人|主播|咨询者|嘉宾|学生|家长)[^：]{0,8}：", dialogue, re.M))
     chars = len(re.sub(r"\s+", "", dialogue))
     return turns, chars
+
+
+def normalized_title(title: str) -> str:
+    title = re.sub(r"[（(].*?[）)]", "", title)
+    return re.sub(r"[^0-9A-Za-z\u4e00-\u9fff]+", "", title).lower()
+
+
+def optimized_original_signature(block: str) -> str:
+    marker = re.search(r"\*\*原文优化版[^\n]*\*\*", block)
+    if not marker:
+        return ""
+    body = block[marker.end() :]
+    next_field = re.search(r"^\*\*[^\n]+\*\*", body, re.M)
+    if next_field:
+        body = body[: next_field.start()]
+    return re.sub(r"[^0-9A-Za-z\u4e00-\u9fff]+", "", body).lower()
+
+
+def ngram_containment(left: str, right: str, width: int = 5) -> float:
+    if min(len(left), len(right)) < 100:
+        return 0.0
+    left_grams = {left[index : index + width] for index in range(len(left) - width + 1)}
+    right_grams = {right[index : index + width] for index in range(len(right) - width + 1)}
+    smaller = min(len(left_grams), len(right_grams))
+    return len(left_grams & right_grams) / smaller if smaller else 0.0
 
 
 def audit(path: Path) -> tuple[list[str], list[str]]:
@@ -69,6 +98,9 @@ def audit(path: Path) -> tuple[list[str], list[str]]:
     ):
         if marker in text:
             errors.append(f"codex_log_contamination: {marker}")
+    for marker in ("当前分块未提及", "承接上一分块", "延续到下一分块"):
+        if marker in text:
+            errors.append(f"chunk_boundary_contamination: {marker}")
 
     if len(text.strip()) < 1200:
         errors.append("document_too_short: output is suspiciously tiny")
@@ -117,7 +149,8 @@ def audit(path: Path) -> tuple[list[str], list[str]]:
             turns, chars = dialogue_stats(block)
             high_value = re.search(r"案例价值\s*[：:][^\n]*高", block) is not None
             medium_value = re.search(r"案例价值\s*[：:][^\n]*中", block) is not None
-            if turns < 8 or chars < 450:
+            substantial_dialogue = chars >= 450 and turns >= 4 and turns * chars >= 3600
+            if not substantial_dialogue:
                 errors.append(
                     f"L{number}: dialogue_too_short_for_call: turns={turns} chars={chars}"
                 )
@@ -142,6 +175,17 @@ def audit(path: Path) -> tuple[list[str], list[str]]:
     for number, block in qa_blocks:
         if "原文优化版" not in block:
             errors.append(f"Q{number}: missing_optimized_original_text")
+    qa_signatures = [
+        (number, optimized_original_signature(block))
+        for number, block in qa_blocks
+    ]
+    for index, (left_number, left_signature) in enumerate(qa_signatures):
+        for right_number, right_signature in qa_signatures[index + 1 :]:
+            overlap = ngram_containment(left_signature, right_signature)
+            if overlap >= 0.9:
+                errors.append(
+                    f"duplicate_qa_content: Q{left_number}/Q{right_number} overlap={overlap:.2f}"
+                )
     if len(qa_blocks) >= 4:
         short_deep_candidates = 0
         expanded_deep_candidates = 0
@@ -166,17 +210,18 @@ def audit(path: Path) -> tuple[list[str], list[str]]:
         if re.search(operations_terms, title):
             warnings.append(f"suspicious_call_title: {title}")
 
-    titles = [title.strip() for kind, _, title in items if kind == "L"]
-    normalized: dict[str, int] = {}
-    for title in titles:
-        key = re.sub(r"[（(].*?[）)]", "", title)
-        key = re.sub(r"\s+", "", key)
-        if not key:
-            continue
-        normalized[key] = normalized.get(key, 0) + 1
-    for key, count in normalized.items():
-        if count > 1:
-            errors.append(f"duplicate_call_title: {key} appears {count} times")
+    duplicate_labels = {"L": "call", "Q": "qa", "T": "teaching"}
+    for kind, label in duplicate_labels.items():
+        normalized: dict[str, int] = {}
+        for item_kind, _number, title in items:
+            if item_kind != kind:
+                continue
+            key = normalized_title(title.strip())
+            if key:
+                normalized[key] = normalized.get(key, 0) + 1
+        for key, count in normalized.items():
+            if count > 1:
+                errors.append(f"duplicate_{label}_title: {key} appears {count} times")
 
     return errors, warnings
 

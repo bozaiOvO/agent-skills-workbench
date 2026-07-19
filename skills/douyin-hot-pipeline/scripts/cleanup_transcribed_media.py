@@ -2,7 +2,15 @@
 from __future__ import annotations
 
 import argparse
+import os
+import sys
 from pathlib import Path
+
+AUTOMATION_ROOT = Path(os.environ.get('AUTOMATION_CENTER_ROOT', '/Users/jinbo/AutomationCenter'))
+if str(AUTOMATION_ROOT / 'scripts') not in sys.path:
+    sys.path.insert(0, str(AUTOMATION_ROOT / 'scripts'))
+
+from storage_paths import load_storage_paths
 
 VIDEO_EXTENSIONS = {'.mp4', '.mov', '.avi', '.ts'}
 TEMP_FILE_PREFIXES = ('._',)
@@ -15,7 +23,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         '--volume-root',
         type=Path,
-        default=Path('/Users/jinbo/AutomationCenter/workspace/TikTokDownloader-master/Volume'),
+        default=load_storage_paths().douyin_downloads_root,
     )
     parser.add_argument('--folder', dest='folders', action='append', type=Path, default=[])
     return parser.parse_args()
@@ -36,36 +44,14 @@ def iter_target_folders(volume_root: Path, folders: list[Path]) -> list[Path]:
     return result
 
 
-def cleanup_folder(folder: Path) -> tuple[int, int]:
-    deleted = 0
-    kept = 0
-    for path in sorted(folder.iterdir()):
-        if not path.is_file() or is_temporary_file(path):
-            continue
-        if path.suffix.lower() not in VIDEO_EXTENSIONS:
-            continue
-        transcript = path.with_suffix('.txt')
-        if transcript.is_file() and transcript.stat().st_size > 0:
-            path.unlink(missing_ok=True)
-            deleted += 1
-            print(f'[DEL] {path}')
-        else:
-            kept += 1
-    return deleted, kept
-
-
 def main() -> int:
-    args = parse_args()
-    volume_root = args.volume_root.expanduser().resolve()
-    folders = iter_target_folders(volume_root, args.folders)
-    total_deleted = 0
-    total_kept = 0
-    for folder in folders:
-        deleted, kept = cleanup_folder(folder)
-        total_deleted += deleted
-        total_kept += kept
-    print(f'SUMMARY deleted={total_deleted} kept_without_txt={total_kept} folders={len(folders)}')
-    return 0
+    parse_args()
+    print(
+        'ERROR unsafe cleanup disabled; use scripts/archive_douyin_blogger_outputs.py '
+        '--stem <UID..._发布作品> --delete-local-media after NAS verification',
+        file=sys.stderr,
+    )
+    return 2
 
 
 if __name__ == '__main__':

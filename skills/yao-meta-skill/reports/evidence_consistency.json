@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "ok": true,
-  "generated_at": "2026-06-21",
+  "generated_at": "2026-07-16",
   "skill_dir": ".",
   "summary": {
     "check_count": 39,
@@ -324,12 +324,12 @@
       "status": "pass",
       "expected": {
         "status": "pass",
-        "detail": "initial load 998/1000; deferred 530871/120000; top deferred scripts 469568; resource governance governed; quality density 140.3",
+        "detail": "initial load 962/1000; deferred 530871/120000; top deferred scripts 469568; resource governance governed; quality density 145.5",
         "evidence": "reports/context_budget.json"
       },
       "actual": {
         "status": "pass",
-        "detail": "initial load 998/1000; deferred 530871/120000; top deferred scripts 469568; resource governance governed; quality density 140.3",
+        "detail": "initial load 962/1000; deferred 530871/120000; top deferred scripts 469568; resource governance governed; quality density 145.5",
         "evidence": "reports/context_budget.json"
       },
       "paths": [
@@ -342,8 +342,8 @@
       "key": "benchmark-release-lock-self-consistency",
       "label": "Benchmark release lock matches source dirty state",
       "status": "pass",
-      "expected": true,
-      "actual": true,
+      "expected": false,
+      "actual": false,
       "paths": [
         "reports/benchmark_reproducibility.json"
       ],
@@ -357,7 +357,7 @@
       "actual": {
         "available": true,
         "clean": false,
-        "changed_file_count": 21
+        "changed_file_count": 365
       },
       "paths": [
         "reports/benchmark_reproducibility.json"
@@ -398,8 +398,8 @@
       "key": "overview-benchmark-commit",
       "label": "overview embeds the benchmark commit",
       "status": "pass",
-      "expected": "139d0fd15ce995757d6d75fb45fb417d0b1b4e7d",
-      "actual": "139d0fd15ce995757d6d75fb45fb417d0b1b4e7d",
+      "expected": "77ce0fca9e592c02d4b842e215c249f606078bab",
+      "actual": "77ce0fca9e592c02d4b842e215c249f606078bab",
       "paths": [
         "reports/benchmark_reproducibility.json",
         "reports/skill-overview.json"
@@ -411,36 +411,36 @@
       "label": "overview embeds benchmark summary fields",
       "status": "pass",
       "expected": {
-        "release_lock_ready": true,
+        "release_lock_ready": false,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "source_contract_sha256": "eddeea80a657e9c97cee2e1242d97577b886b33e2ffa6e319629ef5fcb029383",
+        "source_contract_sha256": "fdde9c0fbb4890650d512934fdf64f6f1d2ce51166e5fe3e0e1d75f631ba9bfa",
         "archive_sha256": "c56a8519244c0bc8ec17c92d4641c832629cc059f4b51fe177a2c039515253a7",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 19,
         "world_class_source_pass_count": 12,
         "world_class_source_blocked_count": 7,
-        "beta_test_ready": true,
-        "beta_test_blocker_count": 0,
+        "beta_test_ready": false,
+        "beta_test_blocker_count": 1,
         "beta_test_deferred_evidence_count": 4,
         "public_claim_ready": false,
-        "public_claim_blocker_count": 3
+        "public_claim_blocker_count": 4
       },
       "actual": {
-        "release_lock_ready": true,
+        "release_lock_ready": false,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "source_contract_sha256": "eddeea80a657e9c97cee2e1242d97577b886b33e2ffa6e319629ef5fcb029383",
+        "source_contract_sha256": "fdde9c0fbb4890650d512934fdf64f6f1d2ce51166e5fe3e0e1d75f631ba9bfa",
         "archive_sha256": "c56a8519244c0bc8ec17c92d4641c832629cc059f4b51fe177a2c039515253a7",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 19,
         "world_class_source_pass_count": 12,
         "world_class_source_blocked_count": 7,
-        "beta_test_ready": true,
-        "beta_test_blocker_count": 0,
+        "beta_test_ready": false,
+        "beta_test_blocker_count": 1,
         "beta_test_deferred_evidence_count": 4,
         "public_claim_ready": false,
-        "public_claim_blocker_count": 3
+        "public_claim_blocker_count": 4
       },
       "paths": [
         "reports/benchmark_reproducibility.json",
@@ -550,8 +550,8 @@
       "key": "interpretation-benchmark-commit",
       "label": "interpretation embeds the benchmark commit",
       "status": "pass",
-      "expected": "139d0fd15ce995757d6d75fb45fb417d0b1b4e7d",
-      "actual": "139d0fd15ce995757d6d75fb45fb417d0b1b4e7d",
+      "expected": "77ce0fca9e592c02d4b842e215c249f606078bab",
+      "actual": "77ce0fca9e592c02d4b842e215c249f606078bab",
       "paths": [
         "reports/benchmark_reproducibility.json",
         "reports/skill-interpretation.json"
@@ -563,36 +563,36 @@
       "label": "interpretation embeds benchmark summary fields",
       "status": "pass",
       "expected": {
-        "release_lock_ready": true,
+        "release_lock_ready": false,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "source_contract_sha256": "eddeea80a657e9c97cee2e1242d97577b886b33e2ffa6e319629ef5fcb029383",
+        "source_contract_sha256": "fdde9c0fbb4890650d512934fdf64f6f1d2ce51166e5fe3e0e1d75f631ba9bfa",
         "archive_sha256": "c56a8519244c0bc8ec17c92d4641c832629cc059f4b51fe177a2c039515253a7",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 19,
         "world_class_source_pass_count": 12,
         "world_class_source_blocked_count": 7,
-        "beta_test_ready": true,
-        "beta_test_blocker_count": 0,
+        "beta_test_ready": false,
+        "beta_test_blocker_count": 1,
         "beta_test_deferred_evidence_count": 4,
         "public_claim_ready": false,
-        "public_claim_blocker_count": 3
+        "public_claim_blocker_count": 4
       },
       "actual": {
-        "release_lock_ready": true,
+        "release_lock_ready": false,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "source_contract_sha256": "eddeea80a657e9c97cee2e1242d97577b886b33e2ffa6e319629ef5fcb029383",
+        "source_contract_sha256": "fdde9c0fbb4890650d512934fdf64f6f1d2ce51166e5fe3e0e1d75f631ba9bfa",
         "archive_sha256": "c56a8519244c0bc8ec17c92d4641c832629cc059f4b51fe177a2c039515253a7",
         "world_class_ledger_pending_count": 4,
         "world_class_source_check_count": 19,
         "world_class_source_pass_count": 12,
         "world_class_source_blocked_count": 7,
-        "beta_test_ready": true,
-        "beta_test_blocker_count": 0,
+        "beta_test_ready": false,
+        "beta_test_blocker_count": 1,
         "beta_test_deferred_evidence_count": 4,
         "public_claim_ready": false,
-        "public_claim_blocker_count": 3
+        "public_claim_blocker_count": 4
       },
       "paths": [
         "reports/benchmark_reproducibility.json",
@@ -739,7 +739,7 @@
           "label": "可维护性",
           "score": 100,
           "reasons": [
-            "SKILL.md 约 339 个词/字。",
+            "SKILL.md 约 351 个词/字。",
             "入口文件保持克制，可维护性较好。",
             "references/ 已承载扩展指导。",
             "scripts/ 已承载确定性逻辑。",
@@ -760,7 +760,7 @@
           "label": "上下文成本",
           "score": 42,
           "reasons": [
-            "入口约 339 个词/字，references 约 16934 个词/字。",
+            "入口约 351 个词/字，references 约 16934 个词/字。",
             "分数越高代表上下文成本越低。",
             "上下文成本偏高，建议压缩入口或拆分 references。"
           ]
@@ -803,7 +803,7 @@
           "label": "可维护性",
           "score": 100,
           "reasons": [
-            "SKILL.md 约 339 个词/字。",
+            "SKILL.md 约 351 个词/字。",
             "入口文件保持克制，可维护性较好。",
             "references/ 已承载扩展指导。",
             "scripts/ 已承载确定性逻辑。",
@@ -824,7 +824,7 @@
           "label": "上下文成本",
           "score": 42,
           "reasons": [
-            "入口约 339 个词/字，references 约 16934 个词/字。",
+            "入口约 351 个词/字，references 约 16934 个词/字。",
             "分数越高代表上下文成本越低。",
             "上下文成本偏高，建议压缩入口或拆分 references。"
           ]
@@ -954,7 +954,7 @@
       "status": "pass",
       "expected": {
         "trigger": {
-          "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
+          "description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。",
           "activation": "manual",
           "execution": "inline",
           "shell": "bash"
@@ -970,9 +970,9 @@
           "结构化 Skill 目录，共 8 类关键资产。"
         ],
         "should_trigger": [
-          "把重复流程沉淀为可复用的 agent skill。",
           "把分散提示词、对话记录或操作规范整理为稳定能力。",
-          "团队复用前，需要明确触发边界、质量证据和维护责任。"
+          "团队复用前，需要明确触发边界、质量证据和维护责任。",
+          "用户说出类似需求时：Use $yao-meta-skill to turn my workflow or notes into a reusable skill with lean structure, clear triggering, and the right evals."
         ],
         "should_not_trigger": [
           "只需要一次性回答、没有复用价值的临时请求。",
@@ -982,7 +982,7 @@
         "boundary_cards": [
           {
             "label": "Owned",
-            "body": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution."
+            "body": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。"
           },
           {
             "label": "Adjacent",
@@ -996,7 +996,7 @@
       },
       "actual": {
         "trigger": {
-          "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
+          "description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。",
           "activation": "manual",
           "execution": "inline",
           "shell": "bash"
@@ -1012,9 +1012,9 @@
           "结构化 Skill 目录，共 8 类关键资产。"
         ],
         "should_trigger": [
-          "把重复流程沉淀为可复用的 agent skill。",
           "把分散提示词、对话记录或操作规范整理为稳定能力。",
-          "团队复用前，需要明确触发边界、质量证据和维护责任。"
+          "团队复用前，需要明确触发边界、质量证据和维护责任。",
+          "用户说出类似需求时：Use $yao-meta-skill to turn my workflow or notes into a reusable skill with lean structure, clear triggering, and the right evals."
         ],
         "should_not_trigger": [
           "只需要一次性回答、没有复用价值的临时请求。",
@@ -1024,7 +1024,7 @@
         "boundary_cards": [
           {
             "label": "Owned",
-            "body": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution."
+            "body": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。"
           },
           {
             "label": "Adjacent",
@@ -1056,7 +1056,7 @@
           "已生成 Output Review Adjudication，可记录盲评决策、一致率和待评审项。"
         ],
         "gaps": [
-          "上下文成本需要补强：入口约 339 个词/字，references 约 16934 个词/字。"
+          "上下文成本需要补强：入口约 351 个词/字，references 约 16934 个词/字。"
         ],
         "recommendations": [
           "先改触发边界，再扩展工作流。",
@@ -1104,7 +1104,7 @@
           "已生成 Output Review Adjudication，可记录盲评决策、一致率和待评审项。"
         ],
         "gaps": [
-          "上下文成本需要补强：入口约 339 个词/字，references 约 16934 个词/字。"
+          "上下文成本需要补强：入口约 351 个词/字，references 约 16934 个词/字。"
         ],
         "recommendations": [
           "先改触发边界，再扩展工作流。",
@@ -1179,7 +1179,7 @@
             "name": "包体膨胀风险",
             "impact": 2,
             "probability": 1,
-            "signal": "SKILL.md 约 339 个词/字。",
+            "signal": "SKILL.md 约 351 个词/字。",
             "response": "先补证据和边界，再增加包体复杂度。"
           },
           {
@@ -1338,7 +1338,7 @@
             "name": "包体膨胀风险",
             "impact": 2,
             "probability": 1,
-            "signal": "SKILL.md 约 339 个词/字。",
+            "signal": "SKILL.md 约 351 个词/字。",
             "response": "先补证据和边界，再增加包体复杂度。"
           },
           {
@@ -1680,10 +1680,10 @@
             "path": "reports",
             "label": "Generated evidence and overview artifacts",
             "kind": "folder",
-            "file_count": 152
+            "file_count": 156
           }
         ],
-        "file_count": 375,
+        "file_count": 379,
         "folder_count": 4,
         "distribution": [
           {
@@ -1716,7 +1716,7 @@
           },
           {
             "label": "reports",
-            "value": 152
+            "value": 156
           }
         ]
       },
@@ -1768,10 +1768,10 @@
             "path": "reports",
             "label": "Generated evidence and overview artifacts",
             "kind": "folder",
-            "file_count": 152
+            "file_count": 156
           }
         ],
-        "file_count": 375,
+        "file_count": 379,
         "folder_count": 4,
         "distribution": [
           {
@@ -1804,7 +1804,7 @@
           },
           {
             "label": "reports",
-            "value": 152
+            "value": 156
           }
         ]
       },
@@ -1989,10 +1989,10 @@
       "label": "Benchmark separates beta testing from public claims",
       "status": "pass",
       "expected": {
-        "beta_test_ready": true,
+        "beta_test_ready": false,
         "public_claim_ready": false,
         "human_review_complete": false,
-        "beta_release_ready": true,
+        "beta_release_ready": false,
         "beta_release_scope": "beta/public test release without superiority, fully-reviewed, or world-class claims",
         "deferred_evidence_keys": [
           "human-adjudication",
@@ -2003,10 +2003,10 @@
         "deferred_human_review": true
       },
       "actual": {
-        "beta_test_ready": true,
+        "beta_test_ready": false,
         "public_claim_ready": false,
         "human_review_complete": false,
-        "beta_release_ready": true,
+        "beta_release_ready": false,
         "beta_release_scope": "beta/public test release without superiority, fully-reviewed, or world-class claims",
         "deferred_evidence_keys": [
           "human-adjudication",
@@ -3585,7 +3585,7 @@
         "`0` permission failures",
         "`25` required artifacts",
         "`23` reproduction commands",
-        "initial load `998/1000`",
+        "initial load `962/1000`",
         "target count is `83`"
       ],
       "actual": "all present",

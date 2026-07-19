@@ -1,10 +1,7 @@
 ---
 name: dbs-xhs-title
-description: |
-  小红书标题公式工具。从 75 个验证过的爆款公式中，帮你挑对的、用对的、理解为什么用这个。
-  触发方式：/dbs-xhs-title、/小红书标题、「帮我起个小红书标题」「小红书标题公式」
-  Xiaohongshu title formula tool. Pick the right formula from 75 proven templates.
-  Trigger: /dbs-xhs-title, "xiaohongshu title", "RED title formula"
+description: "从验证过的公式中生成和筛选小红书标题。用于起标题并解释选择理由。"
+
 ---
 
 # dbs-xhs-title：小红书标题公式工具

@@ -1,10 +1,7 @@
 ---
 name: dbs-chatroom-austrian
-description: |
-  哈耶克 × 米塞斯 × Claude 三人对话。奥派经济学视角的多角色讨论。
-  触发方式：/dbs-chatroom-austrian、/chatroom-austrian、/奥派、「奥派聊天室」
-  Austrian economics chatroom. Hayek × Mises × Claude debate.
-  Trigger: /dbs-chatroom-austrian, /chatroom-austrian, /奥派, "Austrian chat"
+description: "模拟哈耶克、米塞斯与 Claude 的奥派经济学对话。用于奥派视角讨论。"
+
 ---
 
 # dbs-chatroom-austrian：奥派经济聊天室

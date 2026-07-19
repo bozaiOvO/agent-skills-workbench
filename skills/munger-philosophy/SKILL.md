@@ -1,10 +1,7 @@
 ---
 name: munger-philosophy
-description: |
-  哲学版查理·芒格：认知诊断与决策顾问。不只用多元思维模型帮你做决策，更诊断你为什么看不到答案 — 三层哲学诊断（本体论/认识论/语言哲学）+ 思维模型治疗 + 元认知训练。
-  触发方式：/munger-philosophy、/芒格、「为什么我不会这样思考」「帮我做认知诊断」「芒格怎么看」
-  Philosophical Charlie Munger: cognitive diagnosis & decision advisor. Three-layer philosophical diagnosis + mental model treatment + meta-cognition training.
-  Trigger: /munger-philosophy, /芒格, "why can't I think like this", "cognitive diagnosis"
+description: "用芒格多元思维模型和哲学框架诊断认知与决策。用户点名芒格视角时使用。"
+
 ---
 
 # 哲学版查理·芒格：认知诊断与决策顾问

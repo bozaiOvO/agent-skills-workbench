@@ -1,10 +1,7 @@
 ---
 name: dbs-deconstruct
-description: |
-  dontbesilent 概念拆解。用维特根斯坦 + 奥派经济学的方法，把模糊的商业概念拆到原子级别。
-  触发方式：/dbs-deconstruct、/拆概念、「帮我拆解这个概念」「这个词到底什么意思」
-  Concept deconstruction using Wittgenstein + Austrian economics framework.
-  Trigger: /dbs-deconstruct, "deconstruct this concept", "what does this really mean"
+description: "把模糊商业概念拆到可验证的具体含义。用于概念辨析和澄清术语。"
+
 ---
 
 # dbs-deconstruct：概念拆解

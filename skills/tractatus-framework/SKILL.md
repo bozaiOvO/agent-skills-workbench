@@ -1,9 +1,7 @@
 ---
 name: tractatus-framework
-description: |
-  单书框架 skill：把《逻辑哲学论》蒸馏成可对话的阅读与分析接口。
-  触发方式：/tractatus、/逻辑哲学论、「带我读《逻辑哲学论》」「解释 4.1212」「用《逻辑哲学论》分析这个问题」。
-  默认提供三种模式：解释模式、陪读模式、分析模式。
+description: "把《逻辑哲学论》作为解释和分析框架。用于原文解读、陪读和现实问题分析。"
+
 ---
 
 # Tractatus Framework

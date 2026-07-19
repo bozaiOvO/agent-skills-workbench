@@ -1,6 +1,6 @@
 ---
 name: baoyu-image-gen
-description: AI image generation with OpenAI GPT Image 2, Azure OpenAI, Google, OpenRouter, DashScope, Z.AI GLM-Image, MiniMax, Jimeng, Seedream, Replicate and Agnes APIs. Supports text-to-image, reference images, aspect ratios, and batch generation from saved prompt files. Sequential by default; use batch parallel generation when the user already has multiple prompts or wants stable multi-image throughput. Use when user asks to generate, create, or draw images.
+description: "调用多种 AI 平台生成或编辑图片。支持参考图、比例和批量生图。"
 version: 2.1.0
 metadata:
   openclaw:

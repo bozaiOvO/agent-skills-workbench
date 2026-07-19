@@ -2,13 +2,22 @@
 from __future__ import annotations
 
 import argparse
+import os
 import shutil
+import sys
 from pathlib import Path
 
 from organize_transcripts_by_year import collect_items, filter_name, render_output
 
-DEFAULT_VOLUME_ROOT = Path('/Users/jinbo/AutomationCenter/workspace/TikTokDownloader-master/Volume')
-DEFAULT_RANKED_ROOT = DEFAULT_VOLUME_ROOT / '整理输出_按年份热度'
+AUTOMATION_ROOT = Path(os.environ.get('AUTOMATION_CENTER_ROOT', '/Users/jinbo/AutomationCenter'))
+if str(AUTOMATION_ROOT / 'scripts') not in sys.path:
+    sys.path.insert(0, str(AUTOMATION_ROOT / 'scripts'))
+
+from storage_paths import load_storage_paths
+
+STORAGE = load_storage_paths()
+DEFAULT_VOLUME_ROOT = STORAGE.douyin_downloads_root
+DEFAULT_RANKED_ROOT = STORAGE.douyin_ranked_root
 SPECIAL_RULES = {
     'UID1822310415739536_老宋聊就业_发布作品': {
         'blogger_name': '老宋聊就业',

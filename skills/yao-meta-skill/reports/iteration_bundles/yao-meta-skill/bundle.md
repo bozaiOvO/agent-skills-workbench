@@ -27,7 +27,7 @@
 | Role | Label | Ranking State | Promotion State | Tokens | Dev Errors | Holdout Errors |
 | --- | --- | --- | --- | ---: | ---: | ---: |
 | baseline | `Baseline` | reference | reference | 8 | 1 | 0 |
-| current | `Current` | selected_by_dev | kept_current | 53 | 0 | 0 |
+| current | `Current` | selected_by_dev | kept_current | 17 | 1 | 0 |
 | candidate | `Minimal` | not_selected | blocked | 41 | 2 | 0 |
 | candidate | `Guardrail` | not_selected | blocked | 56 | 2 | 0 |
 | candidate | `Balanced` | not_selected | blocked | 60 | 2 | 0 |
@@ -37,8 +37,8 @@
 ## Human Review Stub
 
 - target: yao-meta-skill
-- current description: Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.
-- candidate description: Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.
+- current description: 创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。.
+- candidate description: 创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。.
 - review focus: no_candidate_outperformed_current
 
 ## Artifact Paths

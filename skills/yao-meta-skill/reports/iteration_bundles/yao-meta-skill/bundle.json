@@ -35,9 +35,9 @@
       "label": "Current",
       "ranking_state": "selected_by_dev",
       "promotion_state": "kept_current",
-      "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
-      "tokens": 53,
-      "dev_errors": 0,
+      "description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。.",
+      "tokens": 17,
+      "dev_errors": 1,
       "holdout_errors": 0,
       "reason_tags": []
     },
@@ -52,7 +52,8 @@
       "dev_errors": 2,
       "holdout_errors": 0,
       "reason_tags": [
-        "weaker_dev_fit"
+        "weaker_dev_fit",
+        "longer_without_gain"
       ]
     },
     {
@@ -118,8 +119,8 @@
   ],
   "review_template": {
     "target": "yao-meta-skill",
-    "current_description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
-    "candidate_description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
+    "current_description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。.",
+    "candidate_description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。.",
     "focus": [
       "no_candidate_outperformed_current"
     ]

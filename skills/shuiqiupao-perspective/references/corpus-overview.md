@@ -1,39 +1,43 @@
-# 水球泡语料总览（长文本 + 泡泡说切片）
+# 水球泡语料总览（水球泡视频 + 泡泡说直播/视频切片）
 
 ## 语料范围
 
 这个 skill 现在有两层底座，都是同一作者体系，但职责不同：
 
-1. **水球泡长文本**  
-   来源：`~/Desktop/TikTokDownloader-master/Volume/整理输出_按年份热度/水球泡`  
+1. **水球泡长文本**
+   来源：`/Users/jinbo/AutomationCenter/downloads/douyin/bloggers/整理输出_按年份热度/水球泡`
    更适合拿：底层框架、完整论证、宏观/结构判断。
 
-2. **泡泡说切片**  
-   来源：`~/Desktop/TikTokDownloader-master/Volume/整理输出_按年份热度/泡泡说`  
+2. **泡泡说切片**
+   来源：`/Users/jinbo/AutomationCenter/downloads/douyin/bloggers/整理输出_按年份热度/泡泡说`
    更适合拿：学生/求职/实习/城市/学习/AI 入行/花钱加速等短兵相接的打法，以及更当下的口语节奏。
 
-合并后，本次高保真底座共 **1243** 篇：
+去重后，本次高保真底座共 **1483** 篇，最新到 **2026-07-11**：
 
 | 来源 | 年份范围 | 数量 | 平均正文长度 | 主要作用 |
 |---|---|---:|---:|---|
-| 水球泡长文本 | 2023-2026 | 697 | 2023: ~2325 / 2024: ~5489 / 2025: ~6643 / 2026: ~6852 | 框架底座、长论证、年份演化 |
-| 泡泡说切片 | 2024-2026 | 546 | 2024: ~2817 / 2025: ~3752 / 2026: ~5187 | 增量打法、口语推进、短周期动作 |
+| 水球泡长文本 | 2023-2026 | 899 | 2023: 2227 / 2024: 4680 / 2025: 6142 / 2026: 6671 | 框架底座、长论证、年份演化 |
+| 泡泡说切片 | 2024-2026 | 584 | 2024: 2851 / 2025: 3828 / 2026: 5260 | 连麦/视频切片、增量打法、短周期动作 |
 
 按年份合并看：
 
 | 年份 | 水球泡 | 泡泡说 | 合计 |
 |---|---:|---:|---:|
-| 2023 | 112 | 0 | 112 |
-| 2024 | 200 | 77 | 277 |
-| 2025 | 274 | 371 | 645 |
-| 2026 | 111 | 98 | 209 |
+| 2023 | 117 | 0 | 117 |
+| 2024 | 255 | 77 | 332 |
+| 2025 | 325 | 375 | 700 |
+| 2026（截至 07-11） | 202 | 132 | 334 |
 
 整体趋势很明显：
 
 1. **2023**：从 UI/设计/求职/就业切入，偏职业入口
 2. **2024**：转向人性、规则、职业路径、AI 入行
 3. **2025**：AI、创业、学生转社会、学习方法、城市与选择密度最高
-4. **2026**：进一步收束到 AI 重写行业、短周期务实、风口窗口、训练与成长
+4. **2026**：从 AI 高压进场细化到岗位分层、Agent/Codex 工作流，并修正为“短反馈，不追快钱”
+
+### 关于“直播语料”
+
+`泡泡说` 已按用户确认并入水球泡人物体系。它包含大量连麦/直播式切片，但当前文件形态是抖音已发布视频的逐字稿，因此索引标记为 `paopaoshuo_clip`。AutomationCenter 暂未发现独立的水球泡原始整场直播目录；不能把切片数量冒充整场直播数量。
 
 ## 两套语料的分工
 
@@ -145,10 +149,30 @@
 
 ### 默认检索策略
 
-`scripts/search_corpus.py` 现在默认会同时检索两套语料，并在结果里显示 `source`。脚本会优先使用 skill 内置的 `assets/corpus/`、`assets/paopaoshuo/` 镜像；若本地镜像缺失，再回落到桌面整理目录：
+`scripts/search_corpus.py` 默认走六层本地结构：
+
+1. 原始 Markdown/TXT：唯一真源，可审计、可回看。
+2. 文档 JSONL：标准化元数据和完整正文。
+3. 全文分块 JSONL：约 1000 字一块，供 FTS5 精确检索。
+4. 语义分块 JSONL：不超过 400 字一块，适配 embedding 模型窗口。
+5. SQLite FTS5：中文 trigram 全文检索，加账号、年份、时间和热度重排。
+6. 本地 embedding：`BAAI/bge-small-zh-v1.5` 语义召回，与 FTS5 用 RRF 融合。
+
+默认会同时检索两套语料，并在结果里显示 `account`：
 
 - `source=水球泡`
 - `source=泡泡说`
+
+索引文件：
+
+- `/Users/jinbo/AutomationCenter/outputs/脚本库索引/水球泡/corpus.sqlite3`
+- `/Users/jinbo/AutomationCenter/outputs/脚本库索引/水球泡/shuiqiupao_corpus_all.jsonl`
+- `/Users/jinbo/AutomationCenter/outputs/脚本库索引/水球泡/shuiqiupao_corpus_chunks.jsonl`
+- `/Users/jinbo/AutomationCenter/outputs/脚本库索引/水球泡/shuiqiupao_corpus_semantic_chunks.jsonl`
+- `/Users/jinbo/AutomationCenter/outputs/脚本库索引/水球泡/semantic_index.json`
+- `/Users/jinbo/AutomationCenter/outputs/脚本库索引/水球泡/manifest.json`
+
+索引缺失时，搜索脚本才回退到原始文件扫描。
 
 如果只想看单一来源，可以加：
 

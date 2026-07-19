@@ -1,6 +1,6 @@
 ---
 name: livestream-structuring
-description: Use when the user needs to turn livestream raw transcripts into a structured reading document. Classify and merge call-in consultations, ordinary QA, and host-led teaching from segment raw_transcript.txt files; enforce first-source raw transcript rules, cross-segment merging, non-call filtering, and pre-sync quality checks. Do not use for downloading, ASR transcription, Feishu sync, or livestream conversion coaching.
+description: "把直播原始逐字稿合并整理成可读文档。用于区分连麦、问答和主播讲解，不负责下载转写。"
 metadata:
   owner: jinbo
   lifecycle: production

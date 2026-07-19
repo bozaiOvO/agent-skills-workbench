@@ -1,10 +1,7 @@
 ---
 name: dbs-goal
-description: |
-  dontbesilent 目标清晰化。用维特根斯坦的语言哲学把模糊的目标审计成可检查的交付物。
-  触发方式：/dbs-goal、/目标、「帮我搞清楚目标」「我想做个人 IP」「我的目标是成为...」「我想变得更...」
-  Goal clarification using Wittgenstein's philosophy of language. Audits fuzzy goals into checkable deliverables.
-  Trigger: /dbs-goal, "help me clarify my goal", "I want to become...", "my goal is..."
+description: "把模糊愿望审计成可检查的目标和交付物。用于个人 IP、成长或业务目标澄清。"
+
 ---
 
 # dbs-goal：目标清晰化

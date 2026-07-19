@@ -1,6 +1,6 @@
 ---
 name: cheat-migrate
-description: '把老用户的 .cheat-state.json 升级到当前 schema_version。读 migrations/registry.md 算迁移链，按顺序应用每一步迁移文件。幂等：跑两次结果一样。失败停在中间版本不前进。触发词："迁移"/"升级 state"/"migrate"/"我的 state 是老版本"/"schema 版本不对"。'
+description: "升级旧版 `.cheat-state.json` 数据结构。用于 schema 迁移和版本不兼容修复。"
 argument-hint: '[— from: <version>] [— to: <version>] [— dry-run]'
 allowed-tools: Bash(*), Read, Write, Edit, Skill
 ---

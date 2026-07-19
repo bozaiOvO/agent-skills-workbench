@@ -1,10 +1,7 @@
 ---
 name: truth-check
-description: |
-  Judgment guardrail for analysis, comparison, recommendation, strategy, diagnosis, and review.
-  Use when the user asks for a verdict, evaluation, comparison, or advice that could be mistaken
-  for fact. Forces fact / inference / uncertainty separation, checks for user-pleasing drift,
-  and runs a second-pass critique before finalizing.
+description: "判断类任务的事实校验护栏。用于区分事实、推断与不确定性，并做二次反驳检查。"
+
 ---
 
 # Truth Check

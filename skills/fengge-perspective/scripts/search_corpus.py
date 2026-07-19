@@ -4,13 +4,14 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable, List
 
 
-DATASET_ROOT = Path("/Users/bo/Desktop/TikTokDownloader-master/Volume/Zhoulifeng-Streaming-Dataset")
+DATASET_ROOT = Path(os.environ.get("FENGGE_DATASET_ROOT", Path(__file__).resolve().parents[1] / "assets/Zhoulifeng-Streaming-Dataset"))
 ORIGINAL_DIR = DATASET_ROOT / "orginal_text"
 SFT_PATH = DATASET_ROOT / "refine_data_process" / "10_feng_sft_train.json"
 

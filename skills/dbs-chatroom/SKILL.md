@@ -1,6 +1,7 @@
 ---
 name: dbs-chatroom
-description: 定向聊天室：根据话题推荐或接受用户指定的专家，模拟多角色对话。触发方式：/dbs-chatroom、/定向聊天室、「定向聊天室」
+description: "根据话题组织多位专家模拟讨论。用于定向聊天室和多角色观点碰撞。"
+
 ---
 
 # dbs-chatroom：定向聊天室

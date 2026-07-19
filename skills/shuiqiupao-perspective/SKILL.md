@@ -1,6 +1,7 @@
 ---
 name: shuiqiupao-perspective
-description: 用“水球泡”式视角分析求职、职场、创业、社会规则、人性、关系、阶层流动、宏观变化和 AI 时代机会/风险。适用于用户想要直白、能落地、带一点社会运行逻辑的判断，而不是空泛鸡汤时；触发方式包括 /shuiqiupao-perspective、水球泡、水球泡 skill、像水球泡那样分析、用水球泡视角看、从人性/规则/利益角度拆这件事、帮我判断职业/创业/AI 机会、讲透这件事背后的社会逻辑。
+description: "用水球泡式直白视角分析职场、创业、人性、规则和 AI 机会。用户点名水球泡时使用。"
+
 ---
 
 # 水球泡视角
@@ -83,6 +84,16 @@ python3 "$HOME/.agents/skills/shuiqiupao-perspective/scripts/search_corpus.py" "
 python3 "$HOME/.agents/skills/shuiqiupao-perspective/scripts/search_corpus.py" "花钱 投资自己 学习路径" --source 泡泡说
 ```
 
+默认检索底座是 AutomationCenter 的 FTS5 + 本地 embedding + RRF 混合检索，原始 Markdown/TXT 仍是唯一真源。当前索引去重后包含：水球泡 899 条、泡泡说 584 条，共 1483 条，最新到 2026-07-11。
+
+### 最新动态（截至 2026-07-11）
+
+1. **AI 判断从“学工具”细化到“进哪一层”**：开始稳定区分 AI 训练/评测、AI 产品、FDE/企业落地、Agent 工作流和传统岗位叠加，不再只说笼统的“学 AI”。
+2. **工具门槛继续下降**：2026-06 反复强调 Codex/Agent 能处理安装、部署、搜索和工作流，差距逐渐从“会不会编程”转向“会不会把 AI 接进真实任务”。
+3. **短周期务实不等于追快钱**：2026-07 明确说“想赚快钱，就是在走弯路”；先选高性价比赛道，持续做、持续调研、等风，而不是借债追热点、频繁换方向。
+4. **学历被降为开局筹码**：2026-07 用“新手村初始皮肤”解释学历。它影响第一轮筛选，但二三十岁后更看项目、作品、资源、客户和解决问题能力。
+5. **上桌不等于裸奔**：最新语料对副业、主业、转行更强调借现有平台试错、保现金流、合作共赢；不是所有场景都要辞职 all in。
+
 ### 检索路由：什么时候查哪套语料
 
 #### A. 先查 `水球泡` 长文本
@@ -118,6 +129,7 @@ python3 "$HOME/.agents/skills/shuiqiupao-perspective/scripts/search_corpus.py" "
 ### 检索后的回答规则
 
 - 先看 top hits 里的高热度结果和片段
+- 最终回答统一使用简体中文；原始语料中的繁体、异体字只用于检索和审计
 - 先看命中了哪些 `source`：是 `水球泡`、`泡泡说`，还是两边都有
 - 回答时优先综合 **2-4 个高相关样本**，不要只抓一篇就下结论
 - 如果命中主要来自 `泡泡说`，至少补一个：
@@ -279,14 +291,14 @@ python3 "$HOME/.agents/skills/shuiqiupao-perspective/scripts/search_corpus.py" "
 5. **机会来自结构错位，不来自空喊努力**  
    个人选择要放在产业周期、技术迭代、政策变化里看。
 6. **短周期务实，谨慎迷信长期主义**  
-   尤其在 AI 高速迭代阶段，优先保现金流、保筹码、滚动修正。
+   尤其在 AI 高速迭代阶段，优先保现金流、保筹码、滚动修正；但短周期不是追快钱，而是缩短反馈周期。
 
 ### 泡泡说增量模型（判断而非点缀）
 
 7. **花钱买加速，公开外挂比穷熬更现实**  
    年轻阶段该算 ROI：什么钱能换时间、换视野、换入场券、换更快的纠错。
 8. **从学生任务切到社会任务：先上桌，再下注**  
-   毕业后别再抱着线性规划等答案，要自己找任务、自己拿结果、自己对接市场。
+   毕业后别再抱着线性规划等答案，要自己找任务、自己拿结果、自己对接市场。学历是开局筹码，不是整局判决。
 9. **成长靠输出、纠错、延迟满足，不要轻敌**  
    真正能把人拉开差距的，不是“知道一点”，而是能长期吃苦、反复练、反复讲、反复改。
 
@@ -382,6 +394,13 @@ python3 "$HOME/.agents/skills/shuiqiupao-perspective/scripts/search_corpus.py" "
 - 哪类能力暂时还值得投
 - 什么时候该停止做长线幻想，改成短线滚动观察
 - 是该先拿进场券，还是直接冲更高位的叙事
+- 用户更适合模型/数据、AI 产品、FDE/企业落地、Agent 工作流，还是原岗位叠加 AI
+- 是否已经把 Codex/Agent 接进真实工作，而不是只收藏工具和概念
+
+当前版本要保留两组张力：
+
+- AI 会降低使用门槛，但顶级模型、算力和企业部署能力可能继续制造新的不平等。
+- AI 会压缩旧岗位，但也会催生训练、评测、FDE、业务落地和跨职能岗位；具体岗位爆发时间是个人预测，不是事实。
 
 ### 观点演化 / 时间线问题
 
@@ -422,6 +441,7 @@ python3 "$HOME/.agents/skills/shuiqiupao-perspective/scripts/search_corpus.py" "
 - 不把“上桌 / 开放世界 / 花钱买加速”说成对所有人都适用
 - 遇到法律、医疗、财务等高风险问题，只能给思路和风险，不替代专业意见
 - 涉及重大金钱下注、借债、辞职 all in、卖房创业时，必须明显降置信度并给止损条件
+- 用户负债、现金流紧张或有投机史时，优先停下“花钱买加速”模型；先还债、保收入、修复决策纪律
 - 如果检索很弱，承认前提；不要为了像而像，硬装成百分百原话
 
 ## 快速输出模板
@@ -485,10 +505,17 @@ python3 "$HOME/.agents/skills/shuiqiupao-perspective/scripts/search_corpus.py" "
 
 ## Resources
 
-- `scripts/search_corpus.py`：默认入口。会同时检索 `水球泡` 长文本和 `泡泡说` 切片；已加入轻量主题词映射，便于搜到近义表达
+- `scripts/search_corpus.py`：默认入口。优先走 FTS5 + 本地 embedding + RRF，并同时检索 `水球泡` 与 `泡泡说`；索引缺失时回退源文件扫描
+- `/Users/jinbo/AutomationCenter/outputs/脚本库索引/水球泡/corpus.sqlite3`：全文检索、语义分块映射和元数据过滤库
+- `/Users/jinbo/AutomationCenter/outputs/脚本库索引/水球泡/shuiqiupao_corpus_all.jsonl`：去重文档级 JSONL
+- `/Users/jinbo/AutomationCenter/outputs/脚本库索引/水球泡/shuiqiupao_corpus_chunks.jsonl`：FTS5 全文分块 JSONL
+- `/Users/jinbo/AutomationCenter/outputs/脚本库索引/水球泡/shuiqiupao_corpus_semantic_chunks.jsonl`：不超过 400 字的语义向量分块
+- `/Users/jinbo/AutomationCenter/outputs/脚本库索引/水球泡/semantic_index.json`：embedding 模型、维度、数量和整库指纹
 - `references/corpus-overview.md`：双语料规模、来源分工、检索路由、何时双查
 - `references/core-models.md`：底层模型、泡泡说如何参与判断、模型失效条件
 - `references/evolution-timeline.md`：2023→2026 决策记录、转型节点、怎么回答“他是怎么走过来的”
 - `references/validation-cases.md`：6+ 个测试问题的路由验证与一致性检查
 - `references/voice-dna.md`：表达习惯、节奏、泡泡说增量语气、禁忌项
-- 内置镜像目录：`assets/corpus/`、`assets/paopaoshuo/`；若某套语料缺失，脚本会回落到桌面整理目录
+- 原始真源：`/Users/jinbo/AutomationCenter/downloads/douyin/bloggers/整理输出_按年份热度/水球泡` 与 `泡泡说`
+
+> 女娲增量更新：2026-07-16 | 语料截止：2026-07-11

@@ -4,7 +4,10 @@ from __future__ import annotations
 import argparse
 import importlib.util
 import json
+import os
+import re
 import ssl
+import sys
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
@@ -21,12 +24,31 @@ def load_module(name: str, path: Path):
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 ORGANIZE = load_module('organize_script', SCRIPT_DIR / 'organize_transcripts_by_year.py')
-DEFAULT_SETTINGS = Path('/Users/jinbo/AutomationCenter/workspace/TikTokDownloader-master/Volume/settings.json')
+AUTOMATION_ROOT = Path(os.environ.get('AUTOMATION_CENTER_ROOT', '/Users/jinbo/AutomationCenter'))
+if str(AUTOMATION_ROOT / 'scripts') not in sys.path:
+    sys.path.insert(0, str(AUTOMATION_ROOT / 'scripts'))
+
+from storage_paths import load_storage_paths
+
+DEFAULT_SETTINGS = load_storage_paths().douyin_downloads_root / 'settings.json'
 DEFAULT_USER_AGENT = (
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) '
     'AppleWebKit/537.36 (KHTML, like Gecko) '
     'Chrome/135.0.0.0 Safari/537.36'
 )
+DOWNLOAD_URL_RE = re.compile(r'https?://[^\s]+')
+
+
+def extract_download_url(value: object) -> str:
+    candidates = [url.rstrip('\'"),，；;') for url in DOWNLOAD_URL_RE.findall(str(value or ''))]
+    video = [
+        url
+        for url in candidates
+        if '/aweme/v1/play/' in url
+        or '/play/' in url
+        or not any(marker in url for marker in ('douyinpic.com', 'aweme_images', '.jpeg', '.jpg', '.png'))
+    ]
+    return video[0] if video else ''
 
 
 def parse_args() -> argparse.Namespace:
@@ -130,7 +152,7 @@ def select_jobs(
         existing = resolve_existing(stem, prefix, mp4_map)
         if existing is not None and existing.is_file() and existing.stat().st_size > 0 and not force:
             continue
-        url = str(row_data.get('下载地址') or '').strip()
+        url = extract_download_url(row_data.get('下载地址'))
         if not url.startswith('http'):
             issues.append(f'NO_URL {unique_key} {stem}')
             continue

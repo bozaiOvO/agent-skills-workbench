@@ -1,6 +1,6 @@
 ---
 name: cheat-on-content
-description: "给所有想把感觉变成可校准预测的内容创作者。方法论通用：打分、盲预测、T+3d 复盘、进化 rubric；触发词包括初始化、打分这篇、启动预测、已发布、复盘、升级 rubric、推荐选题、抓热点、状态、找对标、learn from。首次使用必须先跑 /cheat-init。"
+description: "内容创作校准系统：完成打分、盲预测、发布复盘和规则进化。首次使用先运行 `/cheat-init`。"
 argument-hint: "[draft-path] [mode: cold-start|calibration]"
 allowed-tools: Bash(*), Read, Write, Edit, Grep, Glob, Skill, mcp__llm-chat__chat
 ---

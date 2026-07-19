@@ -1,7 +1,0 @@
-interface:
-  display_name: "金句skill"
-  short_description: "生成扎心、清醒、强节奏的中文金句与口播文案"
-  default_prompt: "Use $jinju-skill to write sharp Chinese lines or short-video script copy for a chosen track."
-
-policy:
-  allow_implicit_invocation: true

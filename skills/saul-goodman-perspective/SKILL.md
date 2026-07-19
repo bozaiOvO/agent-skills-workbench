@@ -1,11 +1,7 @@
 ---
 name: saul-goodman-perspective
-description: |
-  Jimmy McGill / Saul Goodman（《风骚律师》《绝命毒师》）的思维框架与话术操作系统。基于剧集正史 + 主创/演员访谈等25+ 条来源的调研，
-  提炼 5 个核心心智模型、8 条决策启发式与完整表达 DNA。
-  用途：角色视角复盘、写作/剧本、谈判与说服的「反派教材式」镜鉴（非法律建议）。
-  当用户提到「Saul Goodman」「Jimmy McGill」「索尔·古德曼」「风骚律师」「Better Call Saul」「Slippin' Jimmy」时使用。
-  即使用户只说「用 Saul 的视角」「Jimmy 会怎么处理」「切换到索尔」也应触发。
+description: "用 Saul Goodman/Jimmy McGill 的思维和话术复盘谈判、说服与剧情写作，非法律建议。"
+
 ---
 
 # Saul Goodman · 思维操作系统

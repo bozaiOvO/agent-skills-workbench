@@ -6,7 +6,7 @@ if [ "$#" -lt 1 ]; then
   exit 1
 fi
 
-COURSE_DIR="/Users/bo/Documents/2026/陈晶直播课程"
+COURSE_DIR="${LIVESTREAM_COURSE_DIR:-/Users/jinbo/Documents/mac_2026/陈晶直播课程}"
 PATTERN="$1"
 
 rg -n --glob '*.txt' "$PATTERN" "$COURSE_DIR"

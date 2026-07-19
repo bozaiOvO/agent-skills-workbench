@@ -65,7 +65,7 @@
       "key": "context-budget",
       "label": "上下文",
       "status": "pass",
-      "detail": "initial load 998/1000; deferred 530871/120000; top deferred scripts 469568; resource governance governed; quality density 140.3",
+      "detail": "initial load 962/1000; deferred 530871/120000; top deferred scripts 469568; resource governance governed; quality density 145.5",
       "evidence": "reports/context_budget.json",
       "link": "context_budget.md",
       "review_action_id": "",
@@ -185,7 +185,7 @@
       "key": "operations-loop",
       "label": "运营回路",
       "status": "pass",
-      "detail": "1 metadata events; adoption 100.0; missed 0; bad-output 0; risk low; daily proposals 5; daily decision proposal-review; daily release lock true; weekly queue 5 unique; weekly ready 1; weekly top 88; weekly release lock true",
+      "detail": "1 metadata events; adoption 100.0; missed 0; bad-output 0; risk low; daily proposals 5; daily decision proposal-review; daily release lock false; weekly queue 5 unique; weekly ready 1; weekly top 88; weekly release lock false",
       "evidence": "reports/adoption_drift_report.json + reports/skillops/daily + reports/skillops/weekly",
       "link": "adoption_drift_report.md",
       "review_action_id": "",
@@ -1437,8 +1437,8 @@
     "upgrade_check": "reports/upgrade_check.md",
     "migration": "docs/migration-v2.md",
     "skill_ir": "skill-ir/examples/yao-meta-skill.json",
-    "daily_skillops": "reports/skillops/daily/2026-06-21.md",
-    "weekly_curator": "reports/skillops/weekly/2026-W25.md"
+    "daily_skillops": "reports/skillops/daily/2026-07-16.md",
+    "weekly_curator": "reports/skillops/weekly/2026-W29.md"
   },
   "data": {
     "overview": {
@@ -1446,7 +1446,7 @@
         "name": "yao-meta-skill",
         "title": "Yao Meta Skill",
         "display_name": "Yao Meta Skill",
-        "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
+        "description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。",
         "maturity": "governed",
         "updated_at": "2026-03-31",
         "core_value": "把一次性经验沉淀为可复用、可评估、可迁移的 Skill 包体。",
@@ -1523,7 +1523,7 @@
           "label": "可维护性",
           "score": 100,
           "reasons": [
-            "SKILL.md 约 339 个词/字。",
+            "SKILL.md 约 351 个词/字。",
             "入口文件保持克制，可维护性较好。",
             "references/ 已承载扩展指导。",
             "scripts/ 已承载确定性逻辑。",
@@ -1544,7 +1544,7 @@
           "label": "上下文成本",
           "score": 42,
           "reasons": [
-            "入口约 339 个词/字，references 约 16934 个词/字。",
+            "入口约 351 个词/字，references 约 16934 个词/字。",
             "分数越高代表上下文成本越低。",
             "上下文成本偏高，建议压缩入口或拆分 references。"
           ]
@@ -1598,7 +1598,7 @@
       },
       "contract_boundary": {
         "trigger": {
-          "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
+          "description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。",
           "activation": "manual",
           "execution": "inline",
           "shell": "bash"
@@ -1614,9 +1614,9 @@
           "结构化 Skill 目录，共 8 类关键资产。"
         ],
         "should_trigger": [
-          "把重复流程沉淀为可复用的 agent skill。",
           "把分散提示词、对话记录或操作规范整理为稳定能力。",
-          "团队复用前，需要明确触发边界、质量证据和维护责任。"
+          "团队复用前，需要明确触发边界、质量证据和维护责任。",
+          "用户说出类似需求时：Use $yao-meta-skill to turn my workflow or notes into a reusable skill with lean structure, clear triggering, and the right evals."
         ],
         "should_not_trigger": [
           "只需要一次性回答、没有复用价值的临时请求。",
@@ -1626,7 +1626,7 @@
         "boundary_cards": [
           {
             "label": "Owned",
-            "body": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution."
+            "body": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。"
           },
           {
             "label": "Adjacent",
@@ -1648,7 +1648,7 @@
           "已生成 Output Review Adjudication，可记录盲评决策、一致率和待评审项。"
         ],
         "gaps": [
-          "上下文成本需要补强：入口约 339 个词/字，references 约 16934 个词/字。"
+          "上下文成本需要补强：入口约 351 个词/字，references 约 16934 个词/字。"
         ],
         "recommendations": [
           "先改触发边界，再扩展工作流。",
@@ -1713,7 +1713,7 @@
             "name": "包体膨胀风险",
             "impact": 2,
             "probability": 1,
-            "signal": "SKILL.md 约 339 个词/字。",
+            "signal": "SKILL.md 约 351 个词/字。",
             "response": "先补证据和边界，再增加包体复杂度。"
           },
           {
@@ -1964,10 +1964,10 @@
             "path": "reports",
             "label": "Generated evidence and overview artifacts",
             "kind": "folder",
-            "file_count": 152
+            "file_count": 156
           }
         ],
-        "file_count": 375,
+        "file_count": 379,
         "folder_count": 4,
         "distribution": [
           {
@@ -2000,7 +2000,7 @@
           },
           {
             "label": "reports",
-            "value": 152
+            "value": 156
           }
         ]
       },
@@ -2075,7 +2075,7 @@
       "name": "yao-meta-skill",
       "title": "Yao Meta Skill",
       "display_name": "Yao Meta Skill",
-      "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
+      "description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。",
       "logic_steps": [
         "For one-off/no reusable process: `Do not create a skill`; `near-neighbor`; require `repeated use` + `reusable output contract`.",
         "Capture job, output, exclusions, constraints, standards, and the lightest fit.",
@@ -2085,7 +2085,7 @@
       ],
       "usage_steps": [
         "Use $yao-meta-skill to turn my workflow or notes into a reusable skill with lean structure, clear triggering, and the right evals.",
-        "Use this skill when the request matches: Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution."
+        "Use this skill when the request matches: 创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。"
       ],
       "package_map": [
         {
@@ -2134,7 +2134,7 @@
           "path": "reports",
           "label": "Generated evidence and overview artifacts",
           "kind": "folder",
-          "file_count": 152
+          "file_count": 156
         }
       ],
       "strengths": [
@@ -2146,13 +2146,13 @@
         "已生成 Output Review Adjudication，可记录盲评决策、一致率和待评审项。"
       ],
       "scenarios": [
-        "把重复流程沉淀为可复用的 agent skill。",
         "把分散提示词、对话记录或操作规范整理为稳定能力。",
         "团队复用前，需要明确触发边界、质量证据和维护责任。",
-        "用户说出类似需求时：Use $yao-meta-skill to turn my workflow or notes into a reusable skill with lean structure, clear triggering, and the right evals."
+        "用户说出类似需求时：Use $yao-meta-skill to turn my workflow or notes into a reusable skill with lean structure, clear triggering, and the right evals.",
+        "已有原始资料，但还没有清晰输入、输出和后续迭代路径。"
       ],
       "trigger_contract": {
-        "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
+        "description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。",
         "activation": "manual",
         "execution": "inline",
         "shell": "bash"
@@ -2454,12 +2454,12 @@
         "ok": true,
         "summary": {
           "reproducibility_ready": true,
-          "release_lock_ready": true,
+          "release_lock_ready": false,
           "methodology_complete": true,
           "required_artifact_count": 25,
           "missing_artifact_count": 0,
-          "evidence_bundle_sha256": "e819a616c7276f6433bbcf38f30696cc0f19b6c035adf5c8cf09e64cbe8db9ad",
-          "source_contract_sha256": "eddeea80a657e9c97cee2e1242d97577b886b33e2ffa6e319629ef5fcb029383",
+          "evidence_bundle_sha256": "4a611e1f5767058aba59888e9703f59ab7df8c76fb47c7944793025539930b9d",
+          "source_contract_sha256": "e1bb117a37fdb34d9fe2ef25b63eecb17e5d307a95fb221e21eb4ba752d40a18",
           "archive_sha256": "c56a8519244c0bc8ec17c92d4641c832629cc059f4b51fe177a2c039515253a7",
           "output_case_count": 5,
           "failure_disclosure_count": 3,
@@ -2477,19 +2477,19 @@
           "world_class_source_check_count": 19,
           "world_class_source_pass_count": 12,
           "world_class_source_blocked_count": 7,
-          "beta_test_ready": true,
-          "beta_test_blocker_count": 0,
+          "beta_test_ready": false,
+          "beta_test_blocker_count": 1,
           "beta_test_deferred_evidence_count": 4,
           "public_claim_ready": false,
-          "public_claim_blocker_count": 3,
+          "public_claim_blocker_count": 4,
           "working_tree_dirty": true,
-          "changed_file_count": 3,
-          "source_tree_dirty": false,
-          "source_changed_file_count": 0,
+          "changed_file_count": 358,
+          "source_tree_dirty": true,
+          "source_changed_file_count": 280,
           "generated_tree_dirty": true,
-          "generated_changed_file_count": 3
+          "generated_changed_file_count": 78
         },
-        "commit": "139d0fd15ce995757d6d75fb45fb417d0b1b4e7d",
+        "commit": "77ce0fca9e592c02d4b842e215c249f606078bab",
         "missing_artifacts": [],
         "limitations": [
           "The git commit and dirty flags are generation-time context; release lock is blocked by source changes, while generated evidence artifacts are tracked separately.",
@@ -2595,7 +2595,7 @@
         "interactive_script_count": 0,
         "package_hash_scope": "source-contract-without-generated-reports",
         "package_hash_file_count": 247,
-        "package_sha256": "eddeea80a657e9c97cee2e1242d97577b886b33e2ffa6e319629ef5fcb029383"
+        "package_sha256": "e1bb117a37fdb34d9fe2ef25b63eecb17e5d307a95fb221e21eb4ba752d40a18"
       },
       "skill_atlas": {
         "skill_count": 11,
@@ -2619,7 +2619,7 @@
           "schema_version": "2.0",
           "name": "yao-meta-skill",
           "version": "1.1.0",
-          "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
+          "description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。",
           "targets": [
             "openai",
             "claude",
@@ -2633,7 +2633,7 @@
           "trust_level": "local",
           "license": "MIT",
           "checksums": {
-            "package_sha256": "eddeea80a657e9c97cee2e1242d97577b886b33e2ffa6e319629ef5fcb029383",
+            "package_sha256": "e1bb117a37fdb34d9fe2ef25b63eecb17e5d307a95fb221e21eb4ba752d40a18",
             "archive_sha256": "c56a8519244c0bc8ec17c92d4641c832629cc059f4b51fe177a2c039515253a7"
           },
           "compatibility": {
@@ -2670,7 +2670,7 @@
             "install_simulated": true,
             "install_simulation": "reports/install_simulation.json"
           },
-          "generated_at": "2026-06-21"
+          "generated_at": "2026-06-13"
         },
         "failures": [],
         "warnings": []
@@ -2694,7 +2694,7 @@
         "ok": true,
         "summary": {
           "archive_present": true,
-          "archive_entry_count": 580,
+          "archive_entry_count": 584,
           "nested_skill_entry_count": 0,
           "archive_extracted": true,
           "entrypoint_loaded": true,
@@ -2755,7 +2755,7 @@
             {
               "field": "description",
               "from": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes.",
-              "to": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution."
+              "to": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。"
             }
           ],
           "checksum_changes": [
@@ -2767,7 +2767,7 @@
             {
               "field": "package_sha256",
               "from": "0000000000000000000000000000000000000000000000000000000000000000",
-              "to": "eddeea80a657e9c97cee2e1242d97577b886b33e2ffa6e319629ef5fcb029383"
+              "to": "e1bb117a37fdb34d9fe2ef25b63eecb17e5d307a95fb221e21eb4ba752d40a18"
             }
           ]
         },
@@ -3856,7 +3856,7 @@
           "correct_count": 3,
           "precision": 1.0,
           "recall": 1.0,
-          "average_margin": 0.701
+          "average_margin": 0.576
         },
         "team-frontend-review": {
           "expected_count": 3,
@@ -3872,7 +3872,7 @@
           "correct_count": 3,
           "precision": 1.0,
           "recall": 1.0,
-          "average_margin": 0.586
+          "average_margin": 0.691
         },
         "no_route": {
           "expected_count": 4,
@@ -3918,18 +3918,17 @@
           "expected_route": "yao-meta-skill",
           "predicted_route": "yao-meta-skill",
           "correct": true,
-          "margin": 1.0,
+          "margin": 0.657,
           "ambiguous": false,
           "ranked_routes": [
             {
               "name": "yao-meta-skill",
-              "score": 1.0,
+              "score": 0.657,
               "passed_threshold": true,
               "threshold": 0.33,
               "matched_desired_concepts": [
                 "eval_optimize",
                 "reuse_package",
-                "team_operationalize",
                 "transform_workflow"
               ],
               "matched_negative_concepts": []
@@ -3958,12 +3957,12 @@
           "expected_route": "yao-meta-skill",
           "predicted_route": "yao-meta-skill",
           "correct": true,
-          "margin": 0.661,
+          "margin": 0.431,
           "ambiguous": false,
           "ranked_routes": [
             {
               "name": "yao-meta-skill",
-              "score": 0.661,
+              "score": 0.431,
               "passed_threshold": true,
               "threshold": 0.33,
               "matched_desired_concepts": [
@@ -3996,15 +3995,17 @@
           "expected_route": "yao-meta-skill",
           "predicted_route": "yao-meta-skill",
           "correct": true,
-          "margin": 0.441,
+          "margin": 0.641,
           "ambiguous": false,
           "ranked_routes": [
             {
               "name": "yao-meta-skill",
-              "score": 0.441,
+              "score": 0.641,
               "passed_threshold": true,
               "threshold": 0.33,
               "matched_desired_concepts": [
+                "build_skill",
+                "multi_asset",
                 "reuse_package"
               ],
               "matched_negative_concepts": []
@@ -4053,18 +4054,18 @@
               "matched_negative_concepts": []
             },
             {
-              "name": "yao-meta-skill",
-              "score": 0.012,
-              "passed_threshold": false,
-              "threshold": 0.33,
-              "matched_desired_concepts": [],
-              "matched_negative_concepts": []
-            },
-            {
               "name": "governed-incident-command",
               "score": 0.012,
               "passed_threshold": false,
               "threshold": 0.48,
+              "matched_desired_concepts": [],
+              "matched_negative_concepts": []
+            },
+            {
+              "name": "yao-meta-skill",
+              "score": 0.0,
+              "passed_threshold": false,
+              "threshold": 0.33,
               "matched_desired_concepts": [],
               "matched_negative_concepts": []
             }
@@ -4093,18 +4094,18 @@
               "matched_negative_concepts": []
             },
             {
-              "name": "yao-meta-skill",
-              "score": 0.008,
-              "passed_threshold": false,
-              "threshold": 0.33,
-              "matched_desired_concepts": [],
-              "matched_negative_concepts": []
-            },
-            {
               "name": "governed-incident-command",
               "score": 0.008,
               "passed_threshold": false,
               "threshold": 0.48,
+              "matched_desired_concepts": [],
+              "matched_negative_concepts": []
+            },
+            {
+              "name": "yao-meta-skill",
+              "score": 0.0,
+              "passed_threshold": false,
+              "threshold": 0.33,
               "matched_desired_concepts": [],
               "matched_negative_concepts": []
             }
@@ -4133,18 +4134,18 @@
               "matched_negative_concepts": []
             },
             {
-              "name": "yao-meta-skill",
-              "score": 0.012,
-              "passed_threshold": false,
-              "threshold": 0.33,
-              "matched_desired_concepts": [],
-              "matched_negative_concepts": []
-            },
-            {
               "name": "governed-incident-command",
               "score": 0.006,
               "passed_threshold": false,
               "threshold": 0.48,
+              "matched_desired_concepts": [],
+              "matched_negative_concepts": []
+            },
+            {
+              "name": "yao-meta-skill",
+              "score": 0.0,
+              "passed_threshold": false,
+              "threshold": 0.33,
               "matched_desired_concepts": [],
               "matched_negative_concepts": []
             }
@@ -4173,18 +4174,18 @@
               "matched_negative_concepts": []
             },
             {
-              "name": "yao-meta-skill",
-              "score": 0.016,
-              "passed_threshold": false,
-              "threshold": 0.33,
-              "matched_desired_concepts": [],
-              "matched_negative_concepts": []
-            },
-            {
               "name": "team-frontend-review",
               "score": 0.011,
               "passed_threshold": false,
               "threshold": 0.48,
+              "matched_desired_concepts": [],
+              "matched_negative_concepts": []
+            },
+            {
+              "name": "yao-meta-skill",
+              "score": 0.0,
+              "passed_threshold": false,
+              "threshold": 0.33,
               "matched_desired_concepts": [],
               "matched_negative_concepts": []
             }
@@ -4212,7 +4213,7 @@
             },
             {
               "name": "yao-meta-skill",
-              "score": 0.328,
+              "score": 0.192,
               "passed_threshold": false,
               "threshold": 0.33,
               "matched_desired_concepts": [
@@ -4236,7 +4237,7 @@
           "expected_route": "governed-incident-command",
           "predicted_route": "governed-incident-command",
           "correct": true,
-          "margin": 0.252,
+          "margin": 0.567,
           "ambiguous": false,
           "ranked_routes": [
             {
@@ -4254,12 +4255,11 @@
             },
             {
               "name": "yao-meta-skill",
-              "score": 0.748,
+              "score": 0.433,
               "passed_threshold": true,
               "threshold": 0.33,
               "matched_desired_concepts": [
                 "reuse_package",
-                "team_operationalize",
                 "transform_workflow"
               ],
               "matched_negative_concepts": []
@@ -4323,18 +4323,18 @@
           "ambiguous": false,
           "ranked_routes": [
             {
-              "name": "yao-meta-skill",
-              "score": 0.008,
-              "passed_threshold": false,
-              "threshold": 0.33,
-              "matched_desired_concepts": [],
-              "matched_negative_concepts": []
-            },
-            {
               "name": "governed-incident-command",
               "score": 0.008,
               "passed_threshold": false,
               "threshold": 0.48,
+              "matched_desired_concepts": [],
+              "matched_negative_concepts": []
+            },
+            {
+              "name": "yao-meta-skill",
+              "score": 0.0,
+              "passed_threshold": false,
+              "threshold": 0.33,
               "matched_desired_concepts": [],
               "matched_negative_concepts": []
             },
@@ -4362,18 +4362,18 @@
           "ambiguous": false,
           "ranked_routes": [
             {
-              "name": "yao-meta-skill",
-              "score": 0.024,
-              "passed_threshold": false,
-              "threshold": 0.33,
-              "matched_desired_concepts": [],
-              "matched_negative_concepts": []
-            },
-            {
               "name": "team-frontend-review",
               "score": 0.008,
               "passed_threshold": false,
               "threshold": 0.48,
+              "matched_desired_concepts": [],
+              "matched_negative_concepts": []
+            },
+            {
+              "name": "yao-meta-skill",
+              "score": 0.0,
+              "passed_threshold": false,
+              "threshold": 0.33,
               "matched_desired_concepts": [],
               "matched_negative_concepts": []
             },
@@ -6313,27 +6313,58 @@
     "benchmark_reproducibility": {
       "schema_version": "1.0",
       "ok": true,
-      "generated_at": "2026-06-21",
+      "generated_at": "2026-07-16",
       "skill_dir": ".",
-      "commit": "139d0fd15ce995757d6d75fb45fb417d0b1b4e7d",
+      "commit": "77ce0fca9e592c02d4b842e215c249f606078bab",
       "git_status": {
         "available": true,
         "dirty": true,
-        "changed_file_count": 3,
+        "changed_file_count": 358,
         "generated_dirty": true,
-        "generated_changed_file_count": 3,
-        "source_dirty": false,
-        "source_changed_file_count": 0,
+        "generated_changed_file_count": 78,
+        "source_dirty": true,
+        "source_changed_file_count": 280,
         "sample": [
-          " M reports/context_budget.json",
-          " M reports/context_budget.md",
-          " M reports/context_budget_summary.json"
+          " M ../../README.md",
+          " M ../../SKILL_DEPENDENCIES.md",
+          " M ../../SYNC_NOTES.md",
+          " M ../../scripts/check-skill-dependencies.sh",
+          " M ../../scripts/install-bridges.sh",
+          " M ../agent-browser/SKILL.md",
+          " M ../baoyu-article-illustrator/SKILL.md",
+          " M ../baoyu-comic/SKILL.md",
+          " M ../baoyu-compress-image/SKILL.md",
+          " M ../baoyu-cover-image/SKILL.md",
+          " M ../baoyu-danger-gemini-web/SKILL.md",
+          " M ../baoyu-danger-x-to-markdown/SKILL.md"
         ],
-        "source_sample": [],
+        "source_sample": [
+          " M ../../README.md",
+          " M ../../SKILL_DEPENDENCIES.md",
+          " M ../../SYNC_NOTES.md",
+          " M ../../scripts/check-skill-dependencies.sh",
+          " M ../../scripts/install-bridges.sh",
+          " M ../agent-browser/SKILL.md",
+          " M ../baoyu-article-illustrator/SKILL.md",
+          " M ../baoyu-comic/SKILL.md",
+          " M ../baoyu-compress-image/SKILL.md",
+          " M ../baoyu-cover-image/SKILL.md",
+          " M ../baoyu-danger-gemini-web/SKILL.md",
+          " M ../baoyu-danger-x-to-markdown/SKILL.md"
+        ],
         "generated_sample": [
-          " M reports/context_budget.json",
-          " M reports/context_budget.md",
-          " M reports/context_budget_summary.json"
+          " M registry/index.json",
+          " M registry/packages/yao-meta-skill.json",
+          " M reports/adaptation_proposals.json",
+          " M reports/adaptation_proposals.md",
+          " M reports/adoption_drift_report.json",
+          " M reports/artifact-design-profile.json",
+          " M reports/artifact-design-profile.md",
+          " M reports/baseline-compare.json",
+          " M reports/baseline-compare.md",
+          " M reports/benchmark_reproducibility.json",
+          " M reports/benchmark_reproducibility.md",
+          " M reports/candidate_registry.json"
         ],
         "generated_dirty_prefixes": [
           "dist/",
@@ -6347,12 +6378,12 @@
       },
       "summary": {
         "reproducibility_ready": true,
-        "release_lock_ready": true,
+        "release_lock_ready": false,
         "methodology_complete": true,
         "required_artifact_count": 25,
         "missing_artifact_count": 0,
-        "evidence_bundle_sha256": "e819a616c7276f6433bbcf38f30696cc0f19b6c035adf5c8cf09e64cbe8db9ad",
-        "source_contract_sha256": "eddeea80a657e9c97cee2e1242d97577b886b33e2ffa6e319629ef5fcb029383",
+        "evidence_bundle_sha256": "4a611e1f5767058aba59888e9703f59ab7df8c76fb47c7944793025539930b9d",
+        "source_contract_sha256": "e1bb117a37fdb34d9fe2ef25b63eecb17e5d307a95fb221e21eb4ba752d40a18",
         "archive_sha256": "c56a8519244c0bc8ec17c92d4641c832629cc059f4b51fe177a2c039515253a7",
         "output_case_count": 5,
         "failure_disclosure_count": 3,
@@ -6370,22 +6401,24 @@
         "world_class_source_check_count": 19,
         "world_class_source_pass_count": 12,
         "world_class_source_blocked_count": 7,
-        "beta_test_ready": true,
-        "beta_test_blocker_count": 0,
+        "beta_test_ready": false,
+        "beta_test_blocker_count": 1,
         "beta_test_deferred_evidence_count": 4,
         "public_claim_ready": false,
-        "public_claim_blocker_count": 3,
+        "public_claim_blocker_count": 4,
         "working_tree_dirty": true,
-        "changed_file_count": 3,
-        "source_tree_dirty": false,
-        "source_changed_file_count": 0,
+        "changed_file_count": 358,
+        "source_tree_dirty": true,
+        "source_changed_file_count": 280,
         "generated_tree_dirty": true,
-        "generated_changed_file_count": 3
+        "generated_changed_file_count": 78
       },
       "beta_test_release": {
-        "ready": true,
+        "ready": false,
         "scope": "beta/public test release without superiority, fully-reviewed, or world-class claims",
-        "blockers": [],
+        "blockers": [
+          "release lock is not clean or commit is unavailable"
+        ],
         "allowed_deferred_evidence": [
           {
             "key": "provider-holdout",
@@ -6415,6 +6448,7 @@
         "ready": false,
         "scope": "public benchmark or world-class readiness claim",
         "blockers": [
+          "release lock is not clean or commit is unavailable",
           "human blind-review adjudication is incomplete",
           "world-class evidence is not accepted yet (3 open gaps, 4 ledger pending)",
           "world-class source checks are not all accepted (12/19 pass, 7 blocked)"
@@ -6422,12 +6456,12 @@
         "policy": "Local reproducibility can pass before public claims; public claims require provider evidence, human adjudication, clean release lock, accepted world-class evidence, and complete source checks."
       },
       "release_lock": {
-        "ready": true,
-        "commit": "139d0fd15ce995757d6d75fb45fb417d0b1b4e7d",
+        "ready": false,
+        "commit": "77ce0fca9e592c02d4b842e215c249f606078bab",
         "status_scope": "generation-time status before this report is written",
-        "source_changed_file_count": 0,
-        "generated_changed_file_count": 3,
-        "reason": "only generated evidence artifacts were dirty at generation time"
+        "source_changed_file_count": 280,
+        "generated_changed_file_count": 78,
+        "reason": "source files were dirty at generation time"
       },
       "evidence_bundle": {
         "algorithm": "sha256(path,label,exists,artifact_sha256)",
@@ -6435,7 +6469,7 @@
         "existing_count": 25,
         "missing_count": 0,
         "missing_paths": [],
-        "sha256": "e819a616c7276f6433bbcf38f30696cc0f19b6c035adf5c8cf09e64cbe8db9ad"
+        "sha256": "4a611e1f5767058aba59888e9703f59ab7df8c76fb47c7944793025539930b9d"
       },
       "methodology": {
         "path": "reports/benchmark_methodology.md",
@@ -6529,8 +6563,8 @@
           "label": "trigger_scorecard",
           "path": "reports/route_scorecard.json",
           "exists": true,
-          "bytes": 16950,
-          "sha256": "a649547a7d3d5fe02262ca1b188ed4022d8f557770be425f7b7cf762aa76533a"
+          "bytes": 16926,
+          "sha256": "cd3b62cb9ad096f8c6c249f833446b9145229ec9d47a9be1f7243b73a5037a24"
         },
         {
           "label": "runtime_conformance",
@@ -6544,7 +6578,7 @@
           "path": "reports/security_trust_report.json",
           "exists": true,
           "bytes": 139090,
-          "sha256": "2ef43f009be68b1dd1a994b841d69b89723cf0b6d7725dc6ad86670d14235135"
+          "sha256": "2e8aea2c8d9d4dc90dc30859949dde1c9261b7ec2e037da991401df4d94031d7"
         },
         {
           "label": "python_compatibility",
@@ -6557,8 +6591,8 @@
           "label": "registry_audit",
           "path": "reports/registry_audit.json",
           "exists": true,
-          "bytes": 3137,
-          "sha256": "03cb951dc8ba71843602bffa1148d7a40095a7e109a024193422aaa8a94ba4c7"
+          "bytes": 3068,
+          "sha256": "8a97d178122d51f7fa54b4cc9bff135707762ce4c2487b40bc4ea44776725179"
         },
         {
           "label": "package_verification",
@@ -6571,64 +6605,64 @@
           "label": "install_simulation",
           "path": "reports/install_simulation.json",
           "exists": true,
-          "bytes": 8793,
-          "sha256": "6cf79201727352e5f92f4e1fa1697a069ab325d526065f5316ee939e84475ef5"
+          "bytes": 8947,
+          "sha256": "97e40c0a235b003b159e207d583739936ff7cf4a25c1013a0c2bb120d3215237"
         },
         {
           "label": "skill_os2_audit",
           "path": "reports/skill_os2_audit.json",
           "exists": true,
           "bytes": 13824,
-          "sha256": "1079221b5ac72e19e3e7a0f4970f133d828336f34bac82abf3fb867d18834cfa"
+          "sha256": "150c0027deaa3c2dd44db5380e9a9b16f123e8a8e3ff6142c711b2b0c432f81c"
         },
         {
           "label": "world_class_evidence_plan",
           "path": "reports/world_class_evidence_plan.json",
           "exists": true,
           "bytes": 23314,
-          "sha256": "374ee899a0ba5b84a95337de993439d78e5708be4fdf40dee4292766d0d2bf99"
+          "sha256": "3f84676acc733486571c8a356f8c46797ad83694758991ae45aaa6b2be12fd2a"
         },
         {
           "label": "world_class_evidence_ledger",
           "path": "reports/world_class_evidence_ledger.json",
           "exists": true,
           "bytes": 26274,
-          "sha256": "565ae80a82286e912df134c88a269566ecf635f39e55618df4ed4eac69d7c7ea"
+          "sha256": "70172a5933ef533a953f3d22b9f2b9b7d5b6b052a27745d6fc4079a6e8803023"
         },
         {
           "label": "world_class_evidence_intake",
           "path": "reports/world_class_evidence_intake.json",
           "exists": true,
           "bytes": 20922,
-          "sha256": "e36a7e753f4176e7ddd7a74fcc5b064769191baf73b5faa58752f80457ec58ff"
+          "sha256": "7015921b7b0d1dd830cfd865d4e7b821fc7b9f1e774dc2e010ba03864a7c0438"
         },
         {
           "label": "world_class_evidence_preflight",
           "path": "reports/world_class_evidence_preflight.json",
           "exists": true,
-          "bytes": 90852,
-          "sha256": "9e4f0bc489ca958b5a9e2854f17b847de8ee1f081de40e8c8b86cec138afe633"
+          "bytes": 90854,
+          "sha256": "5f21bb2b7cf451e69dcad5eb2c1d92f2e1e8b37b38dc45106fdb35d1be34e9d9"
         },
         {
           "label": "world_class_submission_review",
           "path": "reports/world_class_submission_review.json",
           "exists": true,
           "bytes": 17292,
-          "sha256": "3c944b4bd27f61483e8e02aa3f3b6c8cdb4aba8dc986241e8cbe60ba64489123"
+          "sha256": "3547f05019b30a9766626246498c7823eb877fda8e703468c138b678e586754a"
         },
         {
           "label": "world_class_operator_runbook",
           "path": "reports/world_class_operator_runbook.json",
           "exists": true,
           "bytes": 83712,
-          "sha256": "d8678010fcfd5fb8f28d95925478496749f5498ce13a171c80f79372b874351d"
+          "sha256": "76d3899ae1f031a44723b4f823a7f7b50f430f9fddb07029f4177cba5281e6e4"
         },
         {
           "label": "world_class_operator_runbook_markdown",
           "path": "reports/world_class_operator_runbook.md",
           "exists": true,
           "bytes": 25504,
-          "sha256": "fe3a73bf2eb9a018ec03881c95d23d30abcbf8bc36cbb264f68daa08238d8e5f"
+          "sha256": "922c09b02c264e4851a4c22ee5b4ac7873561921e76ec5a040313f7e4ac3a5e0"
         },
         {
           "label": "world_class_operator_runbook_html",
@@ -6641,8 +6675,8 @@
           "label": "world_class_claim_guard",
           "path": "reports/world_class_claim_guard.json",
           "exists": true,
-          "bytes": 18759,
-          "sha256": "556700f05a65bda9b55d829c109d1aec54ae5b4da80ffbefe1196319df86f117"
+          "bytes": 19137,
+          "sha256": "d74f60d5b315b07e7eb94bf22b821b635471738785867045fa3fd6ba4f1a1620"
         }
       ],
       "missing_artifacts": [],
@@ -6783,7 +6817,7 @@
     "skill_os2_coverage": {
       "schema_version": "1.0",
       "ok": true,
-      "generated_at": "2026-06-21",
+      "generated_at": "2026-07-16",
       "skill_dir": ".",
       "summary": {
         "item_count": 21,
@@ -7531,11 +7565,11 @@
               "exists": true
             },
             {
-              "path": "reports/skillops/daily/2026-06-21.json",
+              "path": "reports/skillops/daily/2026-07-16.json",
               "exists": true
             },
             {
-              "path": "reports/skillops/daily/2026-06-21.md",
+              "path": "reports/skillops/daily/2026-07-16.md",
               "exists": true
             }
           ],
@@ -7558,11 +7592,11 @@
               "exists": true
             },
             {
-              "path": "reports/skillops/weekly/2026-W25.json",
+              "path": "reports/skillops/weekly/2026-W29.json",
               "exists": true
             },
             {
-              "path": "reports/skillops/weekly/2026-W25.md",
+              "path": "reports/skillops/weekly/2026-W29.md",
               "exists": true
             }
           ],
@@ -7594,7 +7628,7 @@
     "compiled_targets": {
       "schema_version": "1.0",
       "ok": true,
-      "generated_at": "2026-06-21",
+      "generated_at": "2026-06-13",
       "skill_dir": ".",
       "summary": {
         "target_count": 5,
@@ -7631,10 +7665,10 @@
             "name": "yao-meta-skill",
             "title": "Yao Meta Skill",
             "version": "1.1.0",
-            "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
+            "description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。",
             "job_to_be_done": "Turn repeated workflows, prompts, transcripts, runbooks, documents, or existing skill packages into routeable, evaluable, packageable, and governable agent skills for personal, team, library, or governed reuse.",
             "trigger": {
-              "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
+              "description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。",
               "should_trigger": [
                 "Create a skill from this repeated workflow.",
                 "Turn this runbook into a reusable agent skill.",
@@ -8216,7 +8250,7 @@
               "native_surface": "OpenAI-style interface metadata plus neutral Agent Skills source",
               "activation": {
                 "policy": "Use frontmatter description for catalog routing and targets/openai/agents/openai.yaml for display name, default prompt, and compatibility metadata.",
-                "trigger_description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
+                "trigger_description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。",
                 "manual_activation_supported": true,
                 "automatic_activation_note": "Depends on the target client route/catalog implementation."
               },
@@ -8474,7 +8508,7 @@
             "native_surface": "OpenAI-style interface metadata plus neutral Agent Skills source",
             "activation": {
               "policy": "Use frontmatter description for catalog routing and targets/openai/agents/openai.yaml for display name, default prompt, and compatibility metadata.",
-              "trigger_description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
+              "trigger_description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。",
               "manual_activation_supported": true,
               "automatic_activation_note": "Depends on the target client route/catalog implementation."
             },
@@ -8588,10 +8622,10 @@
             "name": "yao-meta-skill",
             "title": "Yao Meta Skill",
             "version": "1.1.0",
-            "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
+            "description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。",
             "job_to_be_done": "Turn repeated workflows, prompts, transcripts, runbooks, documents, or existing skill packages into routeable, evaluable, packageable, and governable agent skills for personal, team, library, or governed reuse.",
             "trigger": {
-              "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
+              "description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。",
               "should_trigger": [
                 "Create a skill from this repeated workflow.",
                 "Turn this runbook into a reusable agent skill.",
@@ -9173,7 +9207,7 @@
               "native_surface": "Claude-compatible neutral source folder with adapter notes",
               "activation": {
                 "policy": "Use SKILL.md frontmatter description as the primary activation contract and adapter.json for review metadata.",
-                "trigger_description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
+                "trigger_description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。",
                 "manual_activation_supported": true,
                 "automatic_activation_note": "Depends on the target client route/catalog implementation."
               },
@@ -9431,7 +9465,7 @@
             "native_surface": "Claude-compatible neutral source folder with adapter notes",
             "activation": {
               "policy": "Use SKILL.md frontmatter description as the primary activation contract and adapter.json for review metadata.",
-              "trigger_description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
+              "trigger_description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。",
               "manual_activation_supported": true,
               "automatic_activation_note": "Depends on the target client route/catalog implementation."
             },
@@ -9545,10 +9579,10 @@
             "name": "yao-meta-skill",
             "title": "Yao Meta Skill",
             "version": "1.1.0",
-            "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
+            "description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。",
             "job_to_be_done": "Turn repeated workflows, prompts, transcripts, runbooks, documents, or existing skill packages into routeable, evaluable, packageable, and governable agent skills for personal, team, library, or governed reuse.",
             "trigger": {
-              "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
+              "description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。",
               "should_trigger": [
                 "Create a skill from this repeated workflow.",
                 "Turn this runbook into a reusable agent skill.",
@@ -10130,7 +10164,7 @@
               "native_surface": "Agent Skills compatible neutral package",
               "activation": {
                 "policy": "Use SKILL.md name and description; consumers decide automatic or manual activation.",
-                "trigger_description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
+                "trigger_description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。",
                 "manual_activation_supported": true,
                 "automatic_activation_note": "Depends on the target client route/catalog implementation."
               },
@@ -10381,7 +10415,7 @@
             "native_surface": "Agent Skills compatible neutral package",
             "activation": {
               "policy": "Use SKILL.md name and description; consumers decide automatic or manual activation.",
-              "trigger_description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
+              "trigger_description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。",
               "manual_activation_supported": true,
               "automatic_activation_note": "Depends on the target client route/catalog implementation."
             },
@@ -10486,10 +10520,10 @@
             "name": "yao-meta-skill",
             "title": "Yao Meta Skill",
             "version": "1.1.0",
-            "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
+            "description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。",
             "job_to_be_done": "Turn repeated workflows, prompts, transcripts, runbooks, documents, or existing skill packages into routeable, evaluable, packageable, and governable agent skills for personal, team, library, or governed reuse.",
             "trigger": {
-              "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
+              "description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。",
               "should_trigger": [
                 "Create a skill from this repeated workflow.",
                 "Turn this runbook into a reusable agent skill.",
@@ -11071,7 +11105,7 @@
               "native_surface": "Agent Skills standard source tree",
               "activation": {
                 "policy": "Use SKILL.md frontmatter name and description for progressive disclosure.",
-                "trigger_description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
+                "trigger_description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。",
                 "manual_activation_supported": true,
                 "automatic_activation_note": "Depends on the target client route/catalog implementation."
               },
@@ -11322,7 +11356,7 @@
             "native_surface": "Agent Skills standard source tree",
             "activation": {
               "policy": "Use SKILL.md frontmatter name and description for progressive disclosure.",
-              "trigger_description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
+              "trigger_description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。",
               "manual_activation_supported": true,
               "automatic_activation_note": "Depends on the target client route/catalog implementation."
             },
@@ -11427,10 +11461,10 @@
             "name": "yao-meta-skill",
             "title": "Yao Meta Skill",
             "version": "1.1.0",
-            "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
+            "description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。",
             "job_to_be_done": "Turn repeated workflows, prompts, transcripts, runbooks, documents, or existing skill packages into routeable, evaluable, packageable, and governable agent skills for personal, team, library, or governed reuse.",
             "trigger": {
-              "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
+              "description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。",
               "should_trigger": [
                 "Create a skill from this repeated workflow.",
                 "Turn this runbook into a reusable agent skill.",
@@ -12012,7 +12046,7 @@
               "native_surface": "VS Code/Copilot Agent Skills project or user scope",
               "activation": {
                 "policy": "Use folder name plus SKILL.md name/description; keep description under platform limits.",
-                "trigger_description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
+                "trigger_description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。",
                 "manual_activation_supported": true,
                 "automatic_activation_note": "Depends on the target client route/catalog implementation."
               },
@@ -12267,7 +12301,7 @@
             "native_surface": "VS Code/Copilot Agent Skills project or user scope",
             "activation": {
               "policy": "Use folder name plus SKILL.md name/description; keep description under platform limits.",
-              "trigger_description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
+              "trigger_description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。",
               "manual_activation_supported": true,
               "automatic_activation_note": "Depends on the target client route/catalog implementation."
             },
@@ -12603,7 +12637,7 @@
       "schema_version": "1.0",
       "ok": true,
       "skill_dir": ".",
-      "package_dir": "dist",
+      "package_dir": "tests/tmp_review_studio/dist",
       "expected_capabilities": [
         "file_write",
         "network",
@@ -12643,7 +12677,7 @@
         {
           "target": "openai",
           "status": "pass",
-          "adapter": "dist/targets/openai/adapter.json",
+          "adapter": "tests/tmp_review_studio/dist/targets/openai/adapter.json",
           "permission_model": "metadata-only",
           "native_enforcement": false,
           "metadata_fallback_explicit": true,
@@ -12740,7 +12774,7 @@
         {
           "target": "claude",
           "status": "pass",
-          "adapter": "dist/targets/claude/adapter.json",
+          "adapter": "tests/tmp_review_studio/dist/targets/claude/adapter.json",
           "permission_model": "neutral-source-plus-adapter",
           "native_enforcement": false,
           "metadata_fallback_explicit": true,
@@ -12822,7 +12856,7 @@
         {
           "target": "generic",
           "status": "pass",
-          "adapter": "dist/targets/generic/adapter.json",
+          "adapter": "tests/tmp_review_studio/dist/targets/generic/adapter.json",
           "permission_model": "agent-skills-compatible-metadata",
           "native_enforcement": false,
           "metadata_fallback_explicit": true,
@@ -12904,7 +12938,7 @@
         {
           "target": "vscode",
           "status": "pass",
-          "adapter": "dist/targets/vscode/adapter.json",
+          "adapter": "tests/tmp_review_studio/dist/targets/vscode/adapter.json",
           "permission_model": "vscode-workspace-trust-plus-metadata",
           "native_enforcement": false,
           "metadata_fallback_explicit": true,
@@ -13015,7 +13049,7 @@
         "interactive_script_count": 0,
         "package_hash_scope": "source-contract-without-generated-reports",
         "package_hash_file_count": 247,
-        "package_sha256": "eddeea80a657e9c97cee2e1242d97577b886b33e2ffa6e319629ef5fcb029383"
+        "package_sha256": "e1bb117a37fdb34d9fe2ef25b63eecb17e5d307a95fb221e21eb4ba752d40a18"
       },
       "failures": [],
       "warnings": [],
@@ -18201,10 +18235,10 @@
       "stats": {
         "context_budget_tier": "production",
         "context_budget_limit": 1000,
-        "skill_body_tokens": 805,
-        "other_text_tokens": 1169049,
-        "estimated_initial_load_tokens": 998,
-        "estimated_total_text_tokens": 1169854,
+        "skill_body_tokens": 769,
+        "other_text_tokens": 1182325,
+        "estimated_initial_load_tokens": 962,
+        "estimated_total_text_tokens": 1183094,
         "deferred_resource_tokens": 530871,
         "deferred_resource_warn_threshold": 120000,
         "deferred_resource_dirs": [
@@ -18262,10 +18296,10 @@
           ],
           "summary": "Large deferred resources are indexed and backed by evidence."
         },
-        "relevant_file_count": 571,
+        "relevant_file_count": 577,
         "unused_resource_dirs": [],
         "quality_signal_points": 140,
-        "quality_density": 140.3
+        "quality_density": 145.5
       }
     },
     "promotion": {
@@ -18279,9 +18313,9 @@
         {
           "name": "yao-meta-skill",
           "winner_label": "Current",
-          "winner_description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
-          "winner_tokens": 53,
-          "current_tokens": 53,
+          "winner_description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。.",
+          "winner_tokens": 17,
+          "current_tokens": 17,
           "winner_holdout_fp": 0,
           "winner_holdout_fn": 0,
           "current_holdout_fp": 0,
@@ -18312,44 +18346,44 @@
           "calibration": {
             "holdout": {
               "threshold": 0.33,
-              "mean_positive_score": 0.908,
+              "mean_positive_score": 0.708,
               "mean_non_trigger_score": 0.003,
               "mean_near_neighbor_score": 0.006,
-              "min_positive_score": 0.767,
-              "max_non_trigger_score": 0.023,
-              "score_gap": 0.744,
-              "threshold_margin": 0.307,
-              "positive_threshold_buffer": 0.437,
-              "negative_threshold_buffer": 0.307,
+              "min_positive_score": 0.515,
+              "max_non_trigger_score": 0.024,
+              "score_gap": 0.491,
+              "threshold_margin": 0.185,
+              "positive_threshold_buffer": 0.185,
+              "negative_threshold_buffer": 0.306,
               "boundary_case_count": 0,
               "boundary_case_rate": 0.0,
               "risk_band": "healthy"
             },
             "blind_holdout": {
               "threshold": 0.33,
-              "mean_positive_score": 0.669,
-              "mean_non_trigger_score": 0.116,
-              "mean_near_neighbor_score": 0.152,
-              "min_positive_score": 0.665,
-              "max_non_trigger_score": 0.305,
-              "score_gap": 0.36,
-              "threshold_margin": 0.025,
-              "positive_threshold_buffer": 0.335,
-              "negative_threshold_buffer": 0.025,
-              "boundary_case_count": 1,
-              "boundary_case_rate": 0.167,
-              "risk_band": "tight"
+              "mean_positive_score": 0.426,
+              "mean_non_trigger_score": 0.042,
+              "mean_near_neighbor_score": 0.026,
+              "min_positive_score": 0.423,
+              "max_non_trigger_score": 0.116,
+              "score_gap": 0.307,
+              "threshold_margin": 0.093,
+              "positive_threshold_buffer": 0.093,
+              "negative_threshold_buffer": 0.214,
+              "boundary_case_count": 0,
+              "boundary_case_rate": 0.0,
+              "risk_band": "healthy"
             },
             "adversarial_holdout": {
               "threshold": 0.33,
-              "mean_positive_score": 1.0,
+              "mean_positive_score": 0.925,
               "mean_non_trigger_score": 0.0,
               "mean_near_neighbor_score": 0.0,
-              "min_positive_score": 1.0,
+              "min_positive_score": 0.923,
               "max_non_trigger_score": 0.0,
-              "score_gap": 1.0,
+              "score_gap": 0.923,
               "threshold_margin": 0.33,
-              "positive_threshold_buffer": 0.67,
+              "positive_threshold_buffer": 0.593,
               "negative_threshold_buffer": 0.33,
               "boundary_case_count": 0,
               "boundary_case_rate": 0.0,
@@ -18440,7 +18474,7 @@
             "route_metrics": {
               "precision": 1.0,
               "recall": 1.0,
-              "average_margin": 0.701,
+              "average_margin": 0.576,
               "misroute_count": 0,
               "ambiguous_case_count": 0
             }
@@ -18463,9 +18497,9 @@
               "label": "Current",
               "ranking_state": "selected_by_dev",
               "promotion_state": "kept_current",
-              "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
-              "tokens": 53,
-              "dev_errors": 0,
+              "description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。.",
+              "tokens": 17,
+              "dev_errors": 1,
               "holdout_errors": 0,
               "reason_tags": []
             },
@@ -18480,7 +18514,8 @@
               "dev_errors": 2,
               "holdout_errors": 0,
               "reason_tags": [
-                "weaker_dev_fit"
+                "weaker_dev_fit",
+                "longer_without_gain"
               ]
             },
             {
@@ -18972,7 +19007,7 @@
             "route_metrics": {
               "precision": 1.0,
               "recall": 1.0,
-              "average_margin": 0.586,
+              "average_margin": 0.691,
               "misroute_count": 0,
               "ambiguous_case_count": 0
             }
@@ -19114,7 +19149,7 @@
           {
             "name": "yao-meta-skill",
             "path": ".",
-            "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
+            "description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。",
             "owner": "Yao Team",
             "version": "1.1.0",
             "status": "active",
@@ -19327,22 +19362,14 @@
               "templates/complex_skill.md.j2"
             ],
             "token_set": [
-              "creation",
-              "distribution",
-              "docs",
               "evals",
-              "evaluate",
-              "improvement",
-              "notes",
-              "or",
-              "package",
-              "packaging",
-              "prompts",
-              "refactor",
-              "team-ready",
-              "transcripts",
-              "workflow",
-              "workflows"
+              "创建",
+              "并运行",
+              "文档或提示词做成可复用",
+              "用于把工作流",
+              "评测和打包",
+              "质量验证",
+              "重构"
             ],
             "atlas_scope": "release",
             "actionable": true,
@@ -20093,7 +20120,7 @@
     "adoption_drift": {
       "ok": true,
       "schema_version": "2.0",
-      "generated_at": "2026-06-20T12:35:58Z",
+      "generated_at": "2026-07-16T07:43:19Z",
       "skill_dir": ".",
       "privacy_contract": {
         "storage": "local-first",
@@ -20177,7 +20204,7 @@
     "daily_skillops": {
       "schema_version": "1.0",
       "ok": true,
-      "generated_at": "2026-06-21",
+      "generated_at": "2026-07-16T07:42:49Z",
       "skill_dir": ".",
       "decision": "proposal-review",
       "source_supplied": false,
@@ -20190,7 +20217,7 @@
       "local_blueprint_ready": true,
       "public_world_class_ready": false,
       "world_class_pending_count": 4,
-      "release_lock_ready": true,
+      "release_lock_ready": false,
       "evidence_consistency_ok": true,
       "writes_source_files": false,
       "auto_patch_enabled": false,
@@ -20207,7 +20234,7 @@
         "local_blueprint_ready": true,
         "public_world_class_ready": false,
         "world_class_pending_count": 4,
-        "release_lock_ready": true,
+        "release_lock_ready": false,
         "evidence_consistency_ok": true,
         "writes_source_files": false,
         "auto_patch_enabled": false,
@@ -20656,7 +20683,7 @@
         "local_blueprint_ready": true,
         "public_world_class_ready": false,
         "world_class_pending_count": 4,
-        "release_lock_ready": true,
+        "release_lock_ready": false,
         "evidence_consistency_ok": true
       },
       "actions": [
@@ -20683,20 +20710,20 @@
         "benchmark_reproducibility": "reports/benchmark_reproducibility.json"
       },
       "artifacts": {
-        "json": "reports/skillops/daily/2026-06-21.json",
-        "markdown": "reports/skillops/daily/2026-06-21.md"
+        "json": "reports/skillops/daily/2026-07-16.json",
+        "markdown": "reports/skillops/daily/2026-07-16.md"
       },
-      "source_path": "reports/skillops/daily/2026-06-21.json"
+      "source_path": "reports/skillops/daily/2026-07-16.json"
     },
     "weekly_curator": {
       "schema_version": "1.0",
       "ok": true,
-      "generated_at": "2026-06-21",
+      "generated_at": "2026-07-16T07:42:50Z",
       "skill_dir": ".",
       "decision": "curator-review",
-      "week_id": "2026-W25",
-      "daily_report_count": 4,
-      "opportunity_count": 20,
+      "week_id": "2026-W29",
+      "daily_report_count": 5,
+      "opportunity_count": 25,
       "unique_opportunity_count": 5,
       "ready_for_approval_review_count": 1,
       "proposal_review_count": 4,
@@ -20705,7 +20732,7 @@
       "top_score": 88,
       "skill_count": 11,
       "actionable_portfolio_issue_count": 0,
-      "release_lock_ready": true,
+      "release_lock_ready": false,
       "evidence_consistency_ok": true,
       "public_world_class_ready": false,
       "world_class_pending_count": 4,
@@ -20714,9 +20741,9 @@
       "failure_count": 0,
       "summary": {
         "decision": "curator-review",
-        "week_id": "2026-W25",
-        "daily_report_count": 4,
-        "opportunity_count": 20,
+        "week_id": "2026-W29",
+        "daily_report_count": 5,
+        "opportunity_count": 25,
         "unique_opportunity_count": 5,
         "ready_for_approval_review_count": 1,
         "proposal_review_count": 4,
@@ -20725,7 +20752,7 @@
         "top_score": 88,
         "skill_count": 11,
         "actionable_portfolio_issue_count": 0,
-        "release_lock_ready": true,
+        "release_lock_ready": false,
         "evidence_consistency_ok": true,
         "public_world_class_ready": false,
         "world_class_pending_count": 4,
@@ -20782,7 +20809,8 @@
         "reports/skillops/daily/2026-06-16.json",
         "reports/skillops/daily/2026-06-17.json",
         "reports/skillops/daily/2026-06-20.json",
-        "reports/skillops/daily/2026-06-21.json"
+        "reports/skillops/daily/2026-06-21.json",
+        "reports/skillops/daily/2026-07-16.json"
       ],
       "opportunity_summary": {
         "action_type_counts": {
@@ -20980,7 +21008,7 @@
         "no_route_opportunity_count": 0
       },
       "release_state": {
-        "release_lock_ready": true,
+        "release_lock_ready": false,
         "evidence_consistency_ok": true,
         "public_world_class_ready": false,
         "world_class_pending_count": 4
@@ -21006,10 +21034,10 @@
         "world_class_ledger": "reports/world_class_evidence_ledger.json"
       },
       "artifacts": {
-        "json": "reports/skillops/weekly/2026-W25.json",
-        "markdown": "reports/skillops/weekly/2026-W25.md"
+        "json": "reports/skillops/weekly/2026-W29.json",
+        "markdown": "reports/skillops/weekly/2026-W29.md"
       },
-      "source_path": "reports/skillops/weekly/2026-W25.json"
+      "source_path": "reports/skillops/weekly/2026-W29.json"
     },
     "review_waivers": {
       "schema_version": "1.0",
@@ -21158,7 +21186,7 @@
     "adaptation_proposals": {
       "schema_version": "1.0",
       "ok": true,
-      "generated_at": "2026-06-21",
+      "generated_at": "2026-07-16T07:42:49Z",
       "skill_dir": ".",
       "source_patterns": "reports/user_patterns.json",
       "pattern_count": 5,
@@ -21556,7 +21584,7 @@
     "world_class_evidence_ledger": {
       "schema_version": "1.0",
       "ok": true,
-      "generated_at": "2026-06-20",
+      "generated_at": "2026-07-16",
       "skill_dir": ".",
       "decision": "evidence-pending",
       "ready_to_claim_world_class": false,
@@ -22158,7 +22186,7 @@
     "world_class_evidence_intake": {
       "schema_version": "1.0",
       "ok": true,
-      "generated_at": "2026-06-20",
+      "generated_at": "2026-07-16",
       "skill_dir": ".",
       "summary": {
         "schema_present": true,
@@ -22556,7 +22584,7 @@
     "world_class_evidence_preflight": {
       "schema_version": "1.0",
       "ok": true,
-      "generated_at": "2026-06-21",
+      "generated_at": "2026-07-16",
       "skill_dir": ".",
       "summary": {
         "evidence_item_count": 4,
@@ -24534,7 +24562,7 @@
     "world_class_submission_review": {
       "schema_version": "1.0",
       "ok": true,
-      "generated_at": "2026-06-20",
+      "generated_at": "2026-07-16",
       "skill_dir": ".",
       "decision": "awaiting-submissions",
       "ready_to_claim_world_class": false,
@@ -24976,7 +25004,7 @@
     "world_class_operator_runbook": {
       "schema_version": "1.0",
       "ok": true,
-      "generated_at": "2026-06-20",
+      "generated_at": "2026-07-16",
       "skill_dir": ".",
       "summary": {
         "evidence_item_count": 4,
@@ -26667,14 +26695,14 @@
     "world_class_claim_guard": {
       "schema_version": "1.0",
       "ok": true,
-      "generated_at": "2026-06-21",
+      "generated_at": "2026-07-16",
       "skill_dir": ".",
       "summary": {
         "ledger_ready_to_claim_world_class": false,
         "ledger_pending_count": 4,
-        "claim_surface_count": 184,
-        "json_claim_surface_count": 91,
-        "metadata_claim_surface_count": 92,
+        "claim_surface_count": 188,
+        "json_claim_surface_count": 93,
+        "metadata_claim_surface_count": 94,
         "package_claim_surface_count": 17,
         "violation_count": 0,
         "overclaim_guard_active": true,
@@ -27305,11 +27333,27 @@
           "violation_count": 0
         },
         {
+          "path": "reports/skillops/daily/2026-07-16.json",
+          "violation_count": 0
+        },
+        {
+          "path": "reports/skillops/daily/2026-07-16.md",
+          "violation_count": 0
+        },
+        {
           "path": "reports/skillops/weekly/2026-W25.json",
           "violation_count": 0
         },
         {
           "path": "reports/skillops/weekly/2026-W25.md",
+          "violation_count": 0
+        },
+        {
+          "path": "reports/skillops/weekly/2026-W29.json",
+          "violation_count": 0
+        },
+        {
+          "path": "reports/skillops/weekly/2026-W29.md",
           "violation_count": 0
         },
         {
@@ -27464,7 +27508,7 @@
         "schema_version": "2.0",
         "name": "yao-meta-skill",
         "version": "1.1.0",
-        "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
+        "description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。",
         "targets": [
           "openai",
           "claude",
@@ -27478,7 +27522,7 @@
         "trust_level": "local",
         "license": "MIT",
         "checksums": {
-          "package_sha256": "eddeea80a657e9c97cee2e1242d97577b886b33e2ffa6e319629ef5fcb029383",
+          "package_sha256": "e1bb117a37fdb34d9fe2ef25b63eecb17e5d307a95fb221e21eb4ba752d40a18",
           "archive_sha256": "c56a8519244c0bc8ec17c92d4641c832629cc059f4b51fe177a2c039515253a7"
         },
         "compatibility": {
@@ -27515,11 +27559,11 @@
           "install_simulated": true,
           "install_simulation": "reports/install_simulation.json"
         },
-        "generated_at": "2026-06-21"
+        "generated_at": "2026-06-13"
       },
       "index": {
         "schema_version": "2.0",
-        "generated_at": "2026-06-21",
+        "generated_at": "2026-06-13",
         "package_count": 1,
         "packages": [
           {
@@ -27535,7 +27579,7 @@
               "vscode"
             ],
             "package_metadata": "registry/packages/yao-meta-skill.json",
-            "package_sha256": "eddeea80a657e9c97cee2e1242d97577b886b33e2ffa6e319629ef5fcb029383"
+            "package_sha256": "e1bb117a37fdb34d9fe2ef25b63eecb17e5d307a95fb221e21eb4ba752d40a18"
           }
         ]
       },
@@ -28223,14 +28267,14 @@
     "install_simulation": {
       "ok": true,
       "schema_version": "2.0",
-      "generated_at": "2026-06-21",
+      "generated_at": "2026-06-13",
       "skill_dir": ".",
-      "package_dir": "dist",
-      "install_root": "dist/install-simulation/simulate-yao-meta-skill",
-      "installed_skill_dir": "dist/install-simulation/simulate-yao-meta-skill/yao-meta-skill",
+      "package_dir": "tests/tmp_review_studio/dist",
+      "install_root": "tests/tmp_review_studio/install-root/simulate-yao-meta-skill",
+      "installed_skill_dir": "tests/tmp_review_studio/install-root/simulate-yao-meta-skill/yao-meta-skill",
       "summary": {
         "archive_present": true,
-        "archive_entry_count": 580,
+        "archive_entry_count": 584,
         "nested_skill_entry_count": 0,
         "archive_extracted": true,
         "entrypoint_loaded": true,
@@ -28249,7 +28293,7 @@
         {
           "id": "archive-present",
           "status": "pass",
-          "detail": "Package archive exists: dist/yao-meta-skill.zip"
+          "detail": "Package archive exists: tests/tmp_review_studio/dist/yao-meta-skill.zip"
         },
         {
           "id": "archive-safe-paths",
@@ -28500,16 +28544,16 @@
       "failures": [],
       "warnings": [],
       "artifacts": {
-        "archive": "dist/yao-meta-skill.zip",
-        "package_manifest": "dist/manifest.json",
-        "json": "reports/install_simulation.json",
-        "markdown": "reports/install_simulation.md"
+        "archive": "tests/tmp_review_studio/dist/yao-meta-skill.zip",
+        "package_manifest": "tests/tmp_review_studio/dist/manifest.json",
+        "json": "tests/tmp_review_studio/install_simulation.json",
+        "markdown": "tests/tmp_review_studio/install_simulation.md"
       }
     },
     "upgrade_check": {
       "ok": true,
       "schema_version": "2.0",
-      "generated_at": "2026-06-21",
+      "generated_at": "2026-06-13",
       "previous": {
         "name": "yao-meta-skill",
         "version": "1.0.0",
@@ -28571,7 +28615,7 @@
           {
             "field": "description",
             "from": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes.",
-            "to": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution."
+            "to": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。"
           }
         ],
         "checksum_changes": [
@@ -28583,7 +28627,7 @@
           {
             "field": "package_sha256",
             "from": "0000000000000000000000000000000000000000000000000000000000000000",
-            "to": "eddeea80a657e9c97cee2e1242d97577b886b33e2ffa6e319629ef5fcb029383"
+            "to": "e1bb117a37fdb34d9fe2ef25b63eecb17e5d307a95fb221e21eb4ba752d40a18"
           }
         ]
       },
@@ -28598,8 +28642,8 @@
       "artifacts": {
         "previous_package": "registry/examples/yao-meta-skill-1.0.0.json",
         "current_package": "reports/registry_audit.json",
-        "json": "reports/upgrade_check.json",
-        "markdown": "reports/upgrade_check.md"
+        "json": "tests/tmp_review_studio/upgrade_check.json",
+        "markdown": "tests/tmp_review_studio/upgrade_check.md"
       }
     },
     "manifest": {
@@ -28628,7 +28672,7 @@
     },
     "frontmatter": {
       "name": "yao-meta-skill",
-      "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
+      "description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。",
       "metadata": {
         "author": "Yao Team"
       }

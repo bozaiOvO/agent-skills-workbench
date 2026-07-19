@@ -2,6 +2,19 @@
 set -euo pipefail
 
 repo_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+automation_root="${AUTOMATION_CENTER_ROOT:-/Users/jinbo/AutomationCenter}"
+storage_resolver="$automation_root/scripts/storage_paths.py"
+python_bin="$(command -v python3 || true)"
+
+resolve_storage_path() {
+  local key="$1"
+  if [ -n "$python_bin" ] && [ -f "$storage_resolver" ]; then
+    "$python_bin" "$storage_resolver" --get "$key" 2>/dev/null || true
+  fi
+}
+
+douyin_downloads_root="$(resolve_storage_path douyin_downloads_root)"
+douyin_ranked_root="$(resolve_storage_path douyin_ranked_root)"
 
 count_files() {
   local path="$1"
@@ -80,10 +93,10 @@ show_dir "livestream distilled references" "$repo_dir/skills/livestream-optimize
 
 echo
 echo "External corpus/runtime dependencies on this Mac:"
-show_env_dir "don-ge raw refresh corpus" "DON_GE_CORPUS_DIR" "/Users/bo/Desktop/TikTokDownloader-master/Volume/整理输出_按年份热度/dontbesilent 聊赚钱"
-show_env_dir "fengge raw dataset" "FENGGE_DATASET_ROOT" "/Users/bo/Desktop/TikTokDownloader-master/Volume/Zhoulifeng-Streaming-Dataset"
-show_env_dir "programmer-luck raw corpus" "LUCK_CORPUS_DIR" "$HOME/Desktop/TikTokDownloader-master/Volume/整理输出_按年份热度/程序员luck"
-show_env_dir "livestream course transcripts" "LIVESTREAM_COURSE_DIR" "/Users/bo/Documents/2026/陈晶直播课程"
+show_env_dir "don-ge raw refresh corpus" "DON_GE_CORPUS_DIR" "${douyin_ranked_root:-/unresolved/douyin-ranked-root}/dontbesilent 聊赚钱"
+show_env_dir "fengge raw dataset" "FENGGE_DATASET_ROOT" "${douyin_downloads_root:-/unresolved/douyin-downloads-root}/Zhoulifeng-Streaming-Dataset"
+show_env_dir "programmer-luck raw corpus" "LUCK_CORPUS_DIR" "${douyin_ranked_root:-/unresolved/douyin-ranked-root}/程序员luck"
+show_env_dir "livestream course transcripts" "LIVESTREAM_COURSE_DIR" "/Users/jinbo/Documents/mac_2026/陈晶直播课程"
 show_env_file "qieman weeklies JSON" "QIEMAN_WEEKLIES_PATH" "/private/tmp/qieman_weeklies_2025_2026.json"
 show_file "wechat daily config" "$HOME/.config/wechat-daily.json"
 show_file "wechat keys" "$HOME/.config/wechat-keys.json"

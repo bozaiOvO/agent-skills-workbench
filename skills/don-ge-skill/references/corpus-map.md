@@ -1,6 +1,6 @@
 # Don 哥语料索引
 
-- 源目录：`/Users/bo/Desktop/TikTokDownloader-master/Volume/整理输出_按年份热度/dontbesilent 聊赚钱`
+- 源目录：`/Users/jinbo/Documents/mac_2026/金波创作系统/03_竞品语料库/dontbesilent 聊赚钱/dontbesilent 聊赚钱_热度排序`
 - 总文件数：174
 - 正文总行数：30205
 - 正文总字数（近似字符）：378108

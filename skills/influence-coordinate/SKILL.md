@@ -1,10 +1,7 @@
 ---
 name: influence-coordinate
-description: |
-  影响力坐标：分析内容对受众的影响类型和强度。从作用对象（行为层/认知层/本体层）、作用机制（信息传递/框架替换/身份建构）、叠加强度三个维度精确定位内容的影响力坐标。
-  触发方式：/influence-coordinate、/影响力坐标、「分析这条内容的影响力」「这条内容属于什么类型」「帮我做影响力分析」
-  Influence Coordinate: Analyze content impact type and intensity across 3 dimensions — target layer, mechanism, and stacking intensity.
-  Trigger: /influence-coordinate, "analyze influence", "what type of influence is this"
+description: "从作用对象、机制和强度分析内容影响力。用于判断内容会怎样影响受众。"
+
 ---
 
 # 影响力坐标：内容影响力分析

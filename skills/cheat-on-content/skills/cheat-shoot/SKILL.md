@@ -1,6 +1,6 @@
 ---
 name: cheat-shoot
-description: 登记一条视频已拍摄。**建 video folder + 询问实际拍摄稿是否与 scripts/<id>.md 一致 + buffer +1**。与 cheat-publish 配对：拍了进队列，发了出队列。触发词："拍了"/"拍了 X"/"shot"/"shot it"/"已拍 X"/"录完了"。
+description: "登记视频已拍摄并加入待发布队列。用于记录实际拍摄稿和拍摄进度。"
 argument-hint: <scripts-path-or-id>
 allowed-tools: Bash(*), Read, Write, Edit, Glob
 ---

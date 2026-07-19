@@ -1,6 +1,7 @@
 ---
 name: guizang-social-card-skill
-description: 生成归藏风格的社交媒体封面和图文卡片：小红书/Rednote 3:4 封面与轮播图、微信公众号 21:9 主封面 + 1:1 方封面、文章封面、平台缩略图、截图重排卡片、产品说明卡、教程图文、瑞士风或杂志风 social card。用户提到“小红书图文、封面、公众号封面、社交卡片、轮播图、3:4 封面、21:9 + 1:1、Swiss Style、杂志风封面”时使用。
+description: "生成归藏风格的社交媒体封面和图文卡片。用于小红书、公众号和轮播图。"
+
 ---
 
 # Guizang Social Card Skill

@@ -1,10 +1,7 @@
 ---
 name: clarify
-description: |
-  问题澄清助理：不回答问题，只帮你把模糊的问题变成精确的问题。通过耐心追问，消除歧义、补全信息、明确意图，最终交付一个可以被直接回答的精确问题。
-  触发方式：/clarify、/澄清、「帮我把这个问题想清楚」「我不知道怎么问」「帮我理清问题」
-  Question clarification assistant. Doesn't answer questions — only helps you sharpen vague questions into precise ones through targeted follow-ups.
-  Trigger: /clarify, "help me clarify this", "I don't know how to ask this"
+description: "通过追问把模糊问题整理成可直接回答的精确问题。用于目标、范围或意图不清时。"
+
 ---
 
 # 问题澄清助理

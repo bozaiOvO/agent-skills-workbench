@@ -2,7 +2,7 @@
 
 ## 路径
 
-- 数据集根目录：`/Users/bo/Desktop/TikTokDownloader-master/Volume/Zhoulifeng-Streaming-Dataset`
+- 原始数据集由环境变量 `FENGGE_DATASET_ROOT` 指定；未配置时使用 skill 内 `references/` 蒸馏材料。
 
 ## 当前可见结构
 

@@ -1,10 +1,7 @@
 ---
 name: dbs-hook
-description: |
-  dontbesilent 短视频开头优化。诊断开头问题 + 生成优化方案。
-  触发方式：/dbs-hook、/hook、「帮我优化开头」「开头怎么写」
-  Short video opening optimization with diagnosis and solutions.
-  Trigger: /dbs-hook, "optimize my opening", "how to write opening"
+description: "诊断并优化短视频开头。用于 Hook、首句和开场留人设计。"
+
 ---
 
 # dbs-hook：短视频开头优化

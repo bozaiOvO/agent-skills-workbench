@@ -1,6 +1,6 @@
 ---
 name: baoyu-post-to-weibo
-description: Posts content to Weibo (微博). Supports regular posts with text, images, and videos, and headline articles (头条文章) with Markdown input via Chrome CDP. Use when user asks to "post to Weibo", "发微博", "发布微博", "publish to Weibo", "share on Weibo", "写微博", or "微博头条文章".
+description: "发布文字、图片、视频或头条文章到微博。用于微博内容发布。"
 version: 1.117.3
 metadata:
   openclaw:

@@ -1,6 +1,6 @@
 ---
 name: weread
-description: 微信读书助手 — 搜索书籍、管理书架、查看笔记划线、浏览书评、阅读统计、发现推荐好书
+description: "操作微信读书：搜索书籍、管理书架、查看划线笔记、书评和阅读统计。"
 version: 1.0.3
 author: Tencent WeRead
 license: Unknown

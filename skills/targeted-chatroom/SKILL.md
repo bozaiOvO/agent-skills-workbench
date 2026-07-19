@@ -1,6 +1,7 @@
 ---
 name: targeted-chatroom
-description: 定向聊天室。根据话题推荐或接受用户指定的专家，模拟多角色对话，并给出判官总结。
+description: "按话题组织指定专家进行多角色对话，并给出裁判式总结。"
+
 ---
 
 # targeted-chatroom：定向聊天室

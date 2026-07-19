@@ -1,6 +1,6 @@
 ---
 name: cheat-bump
-description: 提议并执行 rubric 或 bucket 升级。两种模式：**完整 rubric bump**（最高风险动作，5 步强制 + 跨模型审核）和 **--bucket-only 轻量重校**（只换 bucket 边界，不动 rubric 公式）。**Phase 2 强制走 cheat-score-blind sub-agent 给校准池重打分**——不接受 self-scored fallback。触发词："升级 rubric"/"bump rubric"/"更新公式"/"我想加一个维度"/"调整权重"/"重校桶"/"recalibrate bucket"。
+description: "升级内容评分规则或分桶边界。用户要求升级 rubric、调整权重或重新校准时使用。"
 argument-hint: --propose "<...>" | --bucket-only [--scheme ratio|absolute|percentile]
 allowed-tools: Bash(*), Read, Write, Edit, Glob, Grep, Skill, Task, mcp__llm-chat__chat
 ---

@@ -1,6 +1,6 @@
 ---
 name: cheat-status
-description: cheat-on-content 的状态看板。显示当前模式 / rubric 版本 / 校准进度 / 待复盘 / pool 状态 / 是否该升级 SQLite / 是否该 bump rubric。**任何时候都可调，无副作用**。触发词："状态"/"看板"/"status"/"我现在该做什么"/"进度怎么样"。
+description: "查看内容校准系统的状态、进度和待办。只读查询，任何时候都可运行。"
 allowed-tools: Bash(*), Read, Glob, Grep
 ---
 

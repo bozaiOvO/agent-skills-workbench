@@ -1,6 +1,6 @@
 ---
 name: cheat-recommend
-description: '从 candidates.md 里按当前 rubric 排序推荐 top N 选题，每条带 composite + 一句 rationale + 锚点对比。**candidates 不存在时给引导而非报错**。触发词："推荐选题"/"next topic"/"下一篇做什么"/"recommend topics"/"挑一个选题"。'
+description: "按当前评分规则从候选池推荐优先选题。用于决定下一篇或下一条做什么。"
 argument-hint: '[— top: N] [— filter: tier1|all|safe|risky]'
 allowed-tools: Read, Glob, Grep
 ---

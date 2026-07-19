@@ -1,6 +1,6 @@
 # Livestream Methodology
 
-This is the distilled reference library from the 21 transcript files in `/Users/bo/Documents/2026/陈晶直播课程`.
+This is the distilled reference library from the 21 transcript files in `/Users/jinbo/Documents/mac_2026/陈晶直播课程` (override with `LIVESTREAM_COURSE_DIR`).
 
 Use this document when the user wants a stronger, reusable operating system instead of a file-by-file summary.
 

@@ -1,6 +1,7 @@
 ---
 name: clarity-first
-description: Use this skill as a lightweight global reasoning guard for user requests, especially broad, ambiguous, assumption-heavy, strategic, creative, business, writing, research, planning, troubleshooting, or execution tasks. The assistant should not blindly agree or rush to execute; it should first understand the real goal, check for false premises, identify missing information, and ask concise clarifying questions only when needed.
+description: "执行前检查目标、前提和缺失信息。用于宽泛、含糊或假设较多的任务。"
+
 ---
 
 # Clarity First

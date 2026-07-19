@@ -5,10 +5,10 @@
   "stats": {
     "context_budget_tier": "production",
     "context_budget_limit": 1000,
-    "skill_body_tokens": 805,
-    "other_text_tokens": 1169049,
-    "estimated_initial_load_tokens": 998,
-    "estimated_total_text_tokens": 1169854,
+    "skill_body_tokens": 769,
+    "other_text_tokens": 1182325,
+    "estimated_initial_load_tokens": 962,
+    "estimated_total_text_tokens": 1183094,
     "deferred_resource_tokens": 530871,
     "deferred_resource_warn_threshold": 120000,
     "deferred_resource_dirs": [
@@ -66,9 +66,9 @@
       ],
       "summary": "Large deferred resources are indexed and backed by evidence."
     },
-    "relevant_file_count": 571,
+    "relevant_file_count": 577,
     "unused_resource_dirs": [],
     "quality_signal_points": 140,
-    "quality_density": 140.3
+    "quality_density": 145.5
   }
 }

@@ -1,10 +1,7 @@
 ---
 name: dbs-save
-description: |
-  把当前诊断的关键状态存到本地，下次回来可以接着用。
-  触发方式：/dbs-save、/存档、「保存这次诊断」「记下来」「这个结论留着」
-  Save the current diagnosis state to disk for cross-session recall.
-  Trigger: /dbs-save, "save this diagnosis", "remember this"
+description: "把当前诊断的关键状态保存到本地。用于跨会话续接和保留结论。"
+
 ---
 
 # dbs-save：诊断存档

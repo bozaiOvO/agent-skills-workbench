@@ -1,10 +1,7 @@
 ---
 name: humanizer
 version: 2.5.1
-description: |
-  双重复审去除 AI 味儿：基于维基百科人工审校规则，清理 AI 生成文本里的套路痕迹，
-  并对齐用户的个人写作风格。内置两轮复核机制：先识别并改写 AI 味，再反向检查
-  还有哪些“像 AI 写的”残留，继续二次修订。
+description: "双重复审并去除文案 AI 味，同时贴近用户原有文风。用于人工化改写和润色。"
 license: MIT
 compatibility: claude-code opencode hermes
 allowed-tools:

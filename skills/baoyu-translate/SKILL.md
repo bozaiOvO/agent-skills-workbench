@@ -1,11 +1,6 @@
 ---
 name: baoyu-translate
-description: >-
-  This skill should be used when the user asks to "translate", "翻译", "精翻", "translate article",
-  "translate to Chinese", "translate to English", "改成中文", "改成英文", "convert to Chinese",
-  "localize", "本地化", "refined translation", "精细翻译", "proofread translation", "快速翻译", "快翻",
-  "这篇文章翻译一下", or provides a URL/file with translation intent. Supports three modes
-  (quick/normal/refined) with custom glossary support.
+description: "翻译并润色文本、文件或网页。支持快翻、标准翻译、精翻和术语表。"
 version: 1.117.3
 metadata:
   openclaw:

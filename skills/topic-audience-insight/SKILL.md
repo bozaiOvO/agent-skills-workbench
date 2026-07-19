@@ -1,11 +1,7 @@
 ---
 name: topic-audience-insight
-description: |
-  选题人群洞察：基于选题倒推目标人群，提炼人群洞察，重构底层问题，用多思维模型分析共性底层逻辑。
-  触发方式：/topic-audience-insight、/选题人群洞察、/人群洞察、「这个选题在跟谁说话」「帮我找人群」「人群洞察」
-  Audience insight from topic — deconstruct who the topic is really speaking to,
-  reframe the real question, analyze underlying logic with multiple mental models.
-  Trigger: /topic-audience-insight, "who is this topic for", "audience insight"
+description: "从选题反推目标受众、真实问题和底层需求。用于判断内容在对谁说话。"
+
 ---
 
 # 选题人群洞察

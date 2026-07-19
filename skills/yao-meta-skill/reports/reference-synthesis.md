@@ -1,7 +1,7 @@
 # Reference Synthesis
 
 Skill: `yao-meta-skill`
-- Description: Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.
+- Description: 创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。
 - Intent confidence: `100/100` (`high`)
 
 ## Live GitHub Benchmarks

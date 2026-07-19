@@ -7,7 +7,7 @@
     "schema_version": "2.0",
     "name": "yao-meta-skill",
     "version": "1.1.0",
-    "description": "Create, refactor, evaluate, and package agent skills from workflows, prompts, transcripts, docs, or notes. Use for skill creation, reusable workflow packaging, skill improvement, evals, and team-ready distribution.",
+    "description": "创建、重构、评测和打包 Agent Skill。用于把工作流、文档或提示词做成可复用 Skill，并运行 `evals/` 质量验证。",
     "targets": [
       "openai",
       "claude",
@@ -21,7 +21,7 @@
     "trust_level": "local",
     "license": "MIT",
     "checksums": {
-      "package_sha256": "eddeea80a657e9c97cee2e1242d97577b886b33e2ffa6e319629ef5fcb029383",
+      "package_sha256": "e1bb117a37fdb34d9fe2ef25b63eecb17e5d307a95fb221e21eb4ba752d40a18",
       "archive_sha256": "c56a8519244c0bc8ec17c92d4641c832629cc059f4b51fe177a2c039515253a7"
     },
     "compatibility": {
@@ -58,11 +58,11 @@
       "install_simulated": true,
       "install_simulation": "reports/install_simulation.json"
     },
-    "generated_at": "2026-06-21"
+    "generated_at": "2026-06-13"
   },
   "index": {
     "schema_version": "2.0",
-    "generated_at": "2026-06-21",
+    "generated_at": "2026-06-13",
     "package_count": 1,
     "packages": [
       {
@@ -78,7 +78,7 @@
           "vscode"
         ],
         "package_metadata": "registry/packages/yao-meta-skill.json",
-        "package_sha256": "eddeea80a657e9c97cee2e1242d97577b886b33e2ffa6e319629ef5fcb029383"
+        "package_sha256": "e1bb117a37fdb34d9fe2ef25b63eecb17e5d307a95fb221e21eb4ba752d40a18"
       }
     ]
   },

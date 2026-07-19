@@ -1,6 +1,6 @@
 ---
 name: dbskill-upgrade
-description: 升级全局安装的 dbskill 到最新版本，兼容 Codex 的 `$CODEX_HOME/skills` / `~/.codex/skills`。先检测安装目录、比对远程版本、创建备份、征得用户确认，再安全同步新版本；失败时从备份恢复。
+description: "安全升级全局 dbskill，自动检测版本、备份并同步。用于更新 Codex 中的 dbskill。"
 trigger: /dbskill-upgrade、/升级dbskill、「升级 dbskill」
 ---
 

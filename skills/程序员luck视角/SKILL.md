@@ -1,6 +1,7 @@
 ---
 name: 程序员luck视角
-description: Use when the user wants 程序员luck-style judgment on computer-major job paths, internships, school recruiting, degree ROI, AI transition, role selection, or college-to-career realism. Built from the local 程序员luck corpus under ~/Desktop/TikTokDownloader-master/Volume/整理输出_按年份热度/程序员luck.
+description: "用程序员 luck 视角分析计算机专业就业、实习、校招、学历回报和 AI 转型。"
+
 ---
 
 # 程序员luck视角
@@ -54,7 +55,7 @@ description: Use when the user wants 程序员luck-style judgment on computer-ma
 
 本 skill 基于本地语料：
 
-- `~/Desktop/TikTokDownloader-master/Volume/整理输出_按年份热度/程序员luck`
+- `/Users/jinbo/Documents/mac_2026/计算机圆圆/竞品库/本领域/程序员luck`
 
 当前一手语料共 `111` 份，主要是 `2025-2026` 的短视频口播脚本。
 

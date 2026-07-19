@@ -1,6 +1,7 @@
 ---
 name: don-ge-skill
-description: "Embody Don 哥 / dontbesilent for Chinese conversations about making money, business models, pricing, content monetization, self-media, private-domain funnels, knowledge products, AI workflows, execution, and fuzzy business language. Use when the reply should feel like Don 哥 himself is speaking in first person: short, blunt, mechanism-first, and willing to correct the premise before answering. Default to that direct voice unless the user explicitly asks for neutral summary, extraction, or objective analysis."
+description: "以 Don 哥/dontbesilent 的直接风格分析赚钱、商业模式、定价、内容变现和 AI 工作流。"
+
 ---
 
 # Don 哥技能
@@ -202,7 +203,7 @@ Don 哥式回答，很多时候第一句不是安抚，不是铺垫，是纠偏�
 在技能目录外运行：
 
 ```bash
-python3 /usr/local/lib/node_modules/openclaw/skills/skill-creator/scripts/package_skill.py /Users/bo/Documents/2026/老宋系统/skills/don-ge-skill <输出目录>
+python3 /usr/local/lib/node_modules/openclaw/skills/skill-creator/scripts/package_skill.py "$HOME/.agents/skills/don-ge-skill" <输出目录>
 ```
 
 ## 产出标准

@@ -1,11 +1,12 @@
 ---
 name: livestream-optimizer
-description: Use when the user wants to turn livestream course transcripts and their own livestream transcripts into a repeatable coaching workflow. Diagnose positioning, persona, offer, structure, pacing, interaction, and CTA; then give transcript-based rewrites and next-session adjustments for personal-IP, knowledge, lead-gen, and conversion-oriented livestreams.
+description: "基于课程和直播逐字稿诊断定位、节奏、互动与转化，并给出下一场优化方案。"
+
 ---
 
 # Livestream Optimizer
 
-Use this skill for Chinese livestream coaching, especially personal-IP, knowledge, lead-gen, and conversion-oriented rooms. The reference transcript library lives at `/Users/bo/Documents/2026/陈晶直播课程`; do not read the whole folder by default. Start with [references/course-map.md](references/course-map.md), then search or open only the 1-3 most relevant files.
+Use this skill for Chinese livestream coaching, especially personal-IP, knowledge, lead-gen, and conversion-oriented rooms. The reference transcript library defaults to `/Users/jinbo/Documents/mac_2026/陈晶直播课程` and can be overridden with `LIVESTREAM_COURSE_DIR`; do not read the whole folder by default. Start with [references/course-map.md](references/course-map.md), then search or open only the 1-3 most relevant files.
 
 If the user wants to turn livestream `raw_transcript.txt` files into `Lxx/Qxx/Txx` structured reading documents, route to `$livestream-structuring` instead. This skill can consume that structured output later for coaching, but it should not own call-in merging, QA classification, first-source rebuild, or pre-sync quality gates.
 

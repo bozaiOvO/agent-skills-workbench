@@ -1,6 +1,6 @@
 ---
 name: baoyu-infographic
-description: Generate professional infographics with 21 layout types and 22 visual styles. Analyzes content, recommends layout×style combinations, and generates publication-ready infographics. Use when user asks to create "infographic", "信息图", "visual summary", "可视化", or "高密度信息大图".
+description: "把内容制作成专业信息图。用于高密度摘要、知识可视化和发布级长图。"
 version: 1.117.4
 metadata:
   openclaw:

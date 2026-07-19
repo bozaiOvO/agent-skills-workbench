@@ -4,7 +4,7 @@
 
 本次蒸馏使用本地目录：
 
-- `~/Desktop/TikTokDownloader-master/Volume/整理输出_按年份热度/程序员luck`
+- `/Users/jinbo/Documents/mac_2026/计算机圆圆/竞品库/本领域/程序员luck`
 
 当前共扫描 `111` 份 `.txt` 脚本：
 

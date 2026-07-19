@@ -11,7 +11,7 @@ from typing import Iterable, List
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CORPUS_DIRS = [
     ROOT / "assets" / "corpus",
-    Path.home() / "Desktop" / "TikTokDownloader-master" / "Volume" / "整理输出_按年份热度" / "程序员luck",
+    Path("/Users/jinbo/Documents/mac_2026/计算机圆圆/竞品库/本领域/程序员luck"),
 ]
 
 YEAR_BOOSTS = {

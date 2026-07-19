@@ -1,6 +1,7 @@
 # Skill Sync Notes
 
 This repository is intended to be the GitHub-backed source for shared local agent skills.
+The short contract lives in [SOURCE_OF_TRUTH.md](SOURCE_OF_TRUTH.md).
 
 ## Source Of Truth Contract
 
@@ -12,8 +13,33 @@ There are three layers:
   - `~/.agents/skills` -> `<local-repo>/skills`
   - `~/.codex/skills/*` -> `~/.agents/skills/*`
   - `~/.claude/skills/*` -> `~/.agents/skills/*`
+  - `~/.openclaw/acpx/codex-home/skills/*` -> `~/.agents/skills/*` when OpenClaw is installed
+  - Hermes profiles load `~/.agents/skills` via `skills.external_dirs`
 
 Do not copy skills into each agent one by one. Use symlinks so one local repo update reaches every agent on that Mac.
+
+Host directories are bridge layers, not maintenance layers:
+
+- OK: Codex/Claude platform or bundled skills that are owned by the host.
+- OK: `~/.claude/skills/<name>` and `~/.codex/skills/<name>` symlink to `~/.agents/skills/<name>`.
+- Not OK: user-maintained functional skills living as real directories under `~/.claude/skills` or `~/.codex/skills`.
+
+Run this after installs, pulls, or skill creation:
+
+```bash
+bash scripts/audit-skill-bridges.sh
+bash scripts/audit-skill-routes.sh
+bash scripts/install-claude-commands.sh
+bash scripts/audit-agent-skill-hosts.sh
+```
+
+`scripts/install-bridges.sh` runs the all-host audit in strict mode by default and regenerates Claude Code command bridges. If the audit fails, do not keep patching one host by hand; either promote the local skill into `skills/` or explicitly document it as a host-only exception.
+
+The installer also repairs Hermes profile `skills.external_dirs` and cc-switch Claude provider `skillListingBudgetFraction` when those configs exist locally.
+
+OpenClaw is a special case: its Codex wrapper sets `CODEX_HOME` to `~/.openclaw/acpx/codex-home`, so it does not automatically see `~/.codex/skills`. Keep its `skills/.system` directory intact and add only per-skill symlinks into `~/.openclaw/acpx/codex-home/skills`.
+
+Hermes has another special case: local/builtin skills are scanned before external dirs. If a truth-source skill name is shadowed by a Hermes local copy, bridge the local Hermes entry back to `~/.agents/skills/<name>` with a backup. Current known shadow: `creative/humanizer`.
 
 ## Find The Existing Local Source First
 
@@ -38,6 +64,7 @@ After the repo path is known:
 ```bash
 git -C "$repo_dir" pull --ff-only origin main
 bash "$repo_dir/scripts/install-bridges.sh"
+bash "$repo_dir/scripts/audit-skill-routes.sh"
 bash "$repo_dir/scripts/check-skill-dependencies.sh"
 ```
 
@@ -45,15 +72,12 @@ bash "$repo_dir/scripts/check-skill-dependencies.sh"
 
 The following skills are intentionally not synced to GitHub. They may exist on the main Mac, but should not be uploaded or auto-installed on other machines:
 
-- `ipdna拆解`
 - `huashu-nuwa`
 - `douyin-hot-pipeline`
 - `zhangxuefeng-perspective`
 - `小K视角`
 - `silent-middleaged`
-- `laosong-script-writing`
 - `learning-lobster`
-- `jinju-skill`
 - `codex-primary-runtime`
 
 Reasons include local corpus dependency, machine-specific scripts, experimental workflow status, or user preference.
@@ -93,7 +117,7 @@ https://github.com/bozaiOvO/agent-skills-workbench
 4. 对现有仓库先 git status --short。若有未提交改动，不要覆盖，先报告。工作区干净后 git pull --ff-only origin main。
 5. 跑 bash scripts/install-bridges.sh，让 ~/.agents/skills 指向仓库 skills，并让 ~/.codex/skills 与 ~/.claude/skills 指向 ~/.agents/skills。
 6. 如果发现 ~/.codex/skills 或 ~/.claude/skills 里已有同名 skill 且不是软链接，不要删除，不要合并，先列出冲突让我确认。
-7. 不要自行恢复这些本地专用 skill：ipdna拆解、huashu-nuwa、douyin-hot-pipeline、zhangxuefeng-perspective、小K视角、silent-middleaged、laosong-script-writing、learning-lobster、jinju-skill。
+7. 不要自行恢复这些本地专用 skill：huashu-nuwa、douyin-hot-pipeline、zhangxuefeng-perspective、小K视角、silent-middleaged、learning-lobster。
 8. qieman-weekly-links 和 agent-browser 要同步过去。注意：同步的是 skill、脚本和 assets/且曼周刊推荐内容链接汇总.md；不同步飞书登录态、Chrome/CDP 会话、浏览器 cookies、/private/tmp 原始 JSON。
 9. Mac mini 上如果只需要读且曼周刊现成汇总，直接看仓库里的 skills/qieman-weekly-links/assets/且曼周刊推荐内容链接汇总.md。
 10. Mac mini 上如果要重新提取且曼周刊：先保证 Feishu 在 Chrome 里已登录，再开启可调试 Chrome/CDP（默认端口 9223），用 curl -s http://127.0.0.1:9223/json/list 验证；然后按 qieman-weekly-links/SKILL.md 设置 QIEMAN_WEEKLIES_PATH、QIEMAN_OUTPUT_MD、QIEMAN_OUTPUT_JSON，运行 scripts/extract_feishu_weekly_recommendation_links.mjs。

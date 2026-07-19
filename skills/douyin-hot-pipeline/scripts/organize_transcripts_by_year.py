@@ -2,7 +2,9 @@
 from __future__ import annotations
 
 import argparse
+import os
 import re
+import sys
 from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
@@ -12,8 +14,15 @@ from unicodedata import name as unicode_name
 
 from openpyxl import load_workbook
 
-DEFAULT_VOLUME_ROOT = Path('/Users/jinbo/AutomationCenter/workspace/TikTokDownloader-master/Volume')
-DEFAULT_OUTPUT_ROOT = DEFAULT_VOLUME_ROOT / '整理输出_按年份热度'
+AUTOMATION_ROOT = Path(os.environ.get('AUTOMATION_CENTER_ROOT', '/Users/jinbo/AutomationCenter'))
+if str(AUTOMATION_ROOT / 'scripts') not in sys.path:
+    sys.path.insert(0, str(AUTOMATION_ROOT / 'scripts'))
+
+from storage_paths import load_storage_paths
+
+STORAGE = load_storage_paths()
+DEFAULT_VOLUME_ROOT = STORAGE.douyin_downloads_root
+DEFAULT_OUTPUT_ROOT = STORAGE.douyin_ranked_root
 TEXT_ENCODINGS = ('utf-8', 'utf-8-sig', 'gb18030')
 TEMP_FILE_PREFIXES = ('._',)
 TEMP_FILE_MARKERS = ('.~lock',)
@@ -308,6 +317,7 @@ def output_dir_for_name(output_root: Path, name: str) -> Path:
 
 BODY_DELIMITER = '=======下为正文============'
 METADATA_PREFIXES = (
+    '作品ID：',
     '评论：',
     '收藏：',
     '分享：',
@@ -333,6 +343,7 @@ def strip_metadata_header(text: str) -> str:
 def render_output(item: dict[str, object]) -> str:
     body = strip_metadata_header(str(item['body']))
     lines = [
+        f"作品ID：{item['work_id']}",
         f"评论：{item['comments']}",
         f"收藏：{item['favorites']}",
         f"分享：{item['shares']}",

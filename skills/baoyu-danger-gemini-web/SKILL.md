@@ -1,6 +1,6 @@
 ---
 name: baoyu-danger-gemini-web
-description: Generates images and text via reverse-engineered Gemini Web API. Supports text generation, image generation from prompts, reference images for vision input, and multi-turn conversations. Use when other skills need image generation backend, or when user requests "generate image with Gemini", "Gemini text generation", or needs vision-capable AI generation.
+description: "通过非官方 Gemini Web 接口生成文字和图片。用于 Gemini 生图、视觉理解和多轮生成。"
 version: 1.56.2
 metadata:
   openclaw:

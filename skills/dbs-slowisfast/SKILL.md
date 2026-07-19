@@ -1,10 +1,7 @@
 ---
 name: dbs-slowisfast
-description: |
-  dontbesilent 慢就是快。帮创业者找到看起来更慢但长期更快的方法，用摩擦建造资产。
-  触发方式：/dbs-slowisfast、/慢就是快、「有没有更慢的方法」「我是不是太快了」
-  Slow-is-fast diagnosis. Help entrepreneurs find seemingly slower methods that build assets through friction.
-  Trigger: /dbs-slowisfast, "is there a slower way", "am I going too fast"
+description: "帮助创业者寻找短期更慢、长期更快的资产化路径。用于节奏和执行策略诊断。"
+
 ---
 
 # dbs-slowisfast：慢就是快

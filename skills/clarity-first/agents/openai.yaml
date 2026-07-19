@@ -1,6 +1,6 @@
 interface:
   display_name: "Clarity First"
-  short_description: "Check assumptions before answering or executing."
+  short_description: "执行前检查目标、前提和缺失信息"
   default_prompt: "Use $clarity-first to clarify the real goal, challenge weak assumptions, and proceed only when the task is clear."
 policy:
   allow_implicit_invocation: true

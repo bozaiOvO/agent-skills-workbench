@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import math
+import os
 import re
 import sys
 from dataclasses import dataclass
@@ -10,12 +11,55 @@ from pathlib import Path
 from typing import Iterable, List
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_CORPUS_DIRS = [
-    ROOT / 'assets' / 'corpus',
-    ROOT / 'assets' / 'paopaoshuo',
-    Path.home() / 'Desktop' / 'TikTokDownloader-master' / 'Volume' / '整理输出_按年份热度' / '水球泡',
-    Path.home() / 'Desktop' / 'TikTokDownloader-master' / 'Volume' / '整理输出_按年份热度' / '泡泡说',
-]
+
+
+def delegate_to_shared_index() -> None:
+    if os.environ.get('PERSONA_CORPUS_BACKEND', '').lower() == 'files':
+        return
+    if '--corpus-dir' in sys.argv[1:]:
+        return
+    automation_root = Path(
+        os.environ.get('AUTOMATION_CENTER_ROOT', '/Users/jinbo/AutomationCenter')
+    ).expanduser()
+    search_script = automation_root / 'scripts' / 'search_persona_corpus.py'
+    sqlite_index = automation_root / 'outputs' / '脚本库索引' / '水球泡' / 'corpus.sqlite3'
+    if search_script.is_file() and sqlite_index.is_file():
+        os.execv(
+            sys.executable,
+            [sys.executable, str(search_script), *sys.argv[1:], '--persona', 'shuiqiupao'],
+        )
+
+
+def automation_ranked_root() -> Path | None:
+    automation_root = Path(
+        os.environ.get('AUTOMATION_CENTER_ROOT', '/Users/jinbo/AutomationCenter')
+    ).expanduser()
+    scripts_root = automation_root / 'scripts'
+    if not (scripts_root / 'storage_paths.py').is_file():
+        return None
+    sys.path.insert(0, str(scripts_root))
+    try:
+        from storage_paths import load_storage_paths
+
+        return load_storage_paths().douyin_ranked_root
+    except (ImportError, OSError, RuntimeError, ValueError):
+        return None
+    finally:
+        try:
+            sys.path.remove(str(scripts_root))
+        except ValueError:
+            pass
+
+
+def default_corpus_dirs() -> List[Path]:
+    directories = [
+        ROOT / 'assets' / 'corpus',
+        ROOT / 'assets' / 'paopaoshuo',
+    ]
+    ranked_root = automation_ranked_root()
+    if ranked_root:
+        directories.extend([ranked_root / '水球泡', ranked_root / '泡泡说'])
+    return directories
 STOPWORDS = {
     '什么', '怎么', '是不是', '可以', '一下', '这个', '那个', '我们', '你们', '他们', '自己', '一个', '一种',
     '为什么', '如何', '哪些', '怎么做', '一下子', '就是', '还是', '还有', '以及', '如果', '但是', '然后',
@@ -72,9 +116,12 @@ def resolve_corpus_dirs(explicit: str | None) -> List[Path]:
             return [p]
         raise SystemExit(f'Corpus dir not found: {p}')
 
+    configured = os.environ.get('SHUIQIUPAO_CORPUS_DIRS') or os.environ.get('SHUIQIUPAO_CORPUS_DIR') or ''
+    candidates = [Path(value) for value in configured.split(os.pathsep) if value]
+    candidates.extend(default_corpus_dirs())
     found = []
     seen = set()
-    for p in DEFAULT_CORPUS_DIRS:
+    for p in candidates:
         rp = p.expanduser().resolve()
         if rp.is_dir() and rp not in seen:
             found.append(rp)
@@ -312,4 +359,5 @@ def main() -> int:
 
 
 if __name__ == '__main__':
+    delegate_to_shared_index()
     sys.exit(main())

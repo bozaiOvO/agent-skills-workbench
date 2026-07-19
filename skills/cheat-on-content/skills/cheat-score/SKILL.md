@@ -1,6 +1,6 @@
 ---
 name: cheat-score
-description: 给单篇稿子打 rubric 分。**只在控制台输出，不写文件，不预测**。触发词："打分这篇 [path]"/"score this [path]"/"给这稿子打分"/"先打分看看"。是 cheat-predict 之前的轻量探索动作。
+description: "按当前 rubric 给单篇稿件打分。只输出评分，不写文件也不生成预测。"
 argument-hint: <draft-path>
 allowed-tools: Read, Glob, Grep
 ---

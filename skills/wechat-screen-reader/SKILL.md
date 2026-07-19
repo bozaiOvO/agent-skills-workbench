@@ -1,6 +1,7 @@
 ---
 name: wechat-screen-reader
-description: Safely read and summarize WeChat chat history through controlled screen screenshots and OCR, without decrypting local WeChat databases. Use when the user asks to read, capture, OCR, analyze, summarize, or package WeChat chat records from a visible Mac WeChat window, especially when chat images/screenshots and file attachments must be opened, extracted, and analyzed too.
+description: "通过屏幕截图和 OCR 安全读取微信聊天，不解密数据库。用于整理文字、图片和附件。"
+
 ---
 
 # WeChat Screen Reader
